@@ -1,52 +1,65 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Create New Role</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back </a>
-        </div>
-    </div>
-</div>
 
+@section('title-section', 'Crear nuevo grupo')
+
+@section('btn')
+    <a href="{{ route('roles.index') }}" class="btn btn-dark btn-icon-split">
+        <span class="icon text-white-50">
+        <i class="fas fa-chevron-circle-left"></i>
+        </span>
+        <span class="text">Atras</span>
+    </a>
+@endsection
+
+@section('content')
 
 @if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> Something went wrong.<br><br>
-        <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
-    </div>
+<div class="row mb-3">
+    <x-cards size="12">
+        <div class="alert alert-danger mb-0">
+            <strong>Whoops!</strong> a ocurrido un error.<br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </x-cards>
+</div>
 @endif
 
 {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+<div class="row mb-3">
+    <x-cards size="4">
+        <strong>Nombre del grupo:</strong>
+        {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+    </x-cards>
+    <x-cards size="8">
+        <label for="name" class="form-label">Permisología:</label>
+        <div class="d-flex justify-content-start flex-wrap">
+            @foreach($permission as $k => $value)
+                <div class="form-check w-25">
+                    {{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
+                    <label class="form-check-label">{{ $value->name }}</label>
+                </div>
+            @endforeach  
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Permission:</strong>
-            <br/>
-            @foreach($permission as $value)
-                <label>{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name')) }}
-                {{ $value->name }}</label>
-            <br/>
-            @endforeach
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    </x-cards>
 </div>
+    
+
+<div class="row text-center">
+    <x-cards size="12">
+        <button type="submit" class="btn btn-success">Guardar</button>
+        <input class="btn btn-danger" type="reset" value="Deshacer">
+    </x-cards> 
+</div>
+
+
+
 {!! Form::close() !!}
+
+
 
 @endsection

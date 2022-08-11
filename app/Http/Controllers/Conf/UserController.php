@@ -14,16 +14,27 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:user-list|adm-list', ['only' => ['index']]);
+         $this->middleware('permission:adm-create|user-create', ['only' => ['create','store']]);
+         $this->middleware('permission:adm-edit|user-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:adm-delete|user-delete', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        $data = User::where('name', '<>', 'Admin')->orderBy('id','ASC')->paginate(5);
+
         return view('conf.users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('name', '<>', 'Super-Admin')->pluck('name','name')->all();
+
+
         return view('conf.users.create',compact('roles'));
     }
 
@@ -44,6 +55,12 @@ class UserController extends Controller
     
         return redirect()->route('users.index')
                         ->with('success','User created successfully');
+    }
+
+    public function profile($id){
+
+        $user = User::find($id);
+        return view('conf.users.profile',compact('user'));
     }
 
     public function show($id)
@@ -91,7 +108,7 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                         ->with('message','Data added Successfully');
+                    ->with('message','Data added Successfully');
     }
 
 

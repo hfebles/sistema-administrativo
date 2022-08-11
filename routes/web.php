@@ -13,14 +13,17 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
-    //Home 
+
 
     
 
     
-    Route::resource('roles', RoleController::class);
-    Route::resource('users', UserController::class);
+    Route::resource('/mantenice/roles', RoleController::class);
+    
+    // Users
+    Route::resource('/mantenice/users', UserController::class);
+    Route::get('/mantenice/users/profile/{id}', [UserController::class, 'profile'])->name('users.profile');
 });

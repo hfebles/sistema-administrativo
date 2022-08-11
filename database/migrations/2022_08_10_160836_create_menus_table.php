@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('slug', 150);
             $table->string('grupo', 150)->nullable();
+            $table->string('icono', 150)->nullable();
             $table->unsignedInteger('parent')->default(0);
             $table->smallInteger('order')->default(0);
             $table->boolean('href')->default(0);

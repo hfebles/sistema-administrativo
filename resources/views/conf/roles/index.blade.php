@@ -1,52 +1,23 @@
 @extends('layouts.app')
+@section('title-section', 'Grupos')
+
+@if(Gate::check('adm-create') || Gate::check('role-create'))
+    @section('btn')
+    <a href="{{ route('roles.create') }}" class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-plus-circle"></i>
+        </span>
+        <span class="text">Nuevo grupo</span>
+    </a>
+    @endsection
+@endcan
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Role Management</h2>
-        </div>
-        <div class="pull-right">
-        @can('role-create')
-            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role </a>
-            @endcan
-        </div>
-    </div>
+<div class="row mb-3">
+    @if ($message = Session::get('success'))
+        <x-cards size="12" :table="$table" :message="$message" />
+    @else
+        <x-cards size="12" :table="$table" />
+    @endif
 </div>
-
-
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-
-
-<table class="table table-bordered">
-  <tr>
-     <th>No</th>
-     <th>Name</th>
-     <th width="280px">Action</th>
-  </tr>
-    @foreach ($roles as $key => $role)
-    <tr>
-        <td>{{ ++$i }}</td>
-        <td>{{ $role->name }}</td>
-        <td>
-            <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-            @can('role-edit')
-                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-            @endcan
-            @can('role-delete')
-                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                {!! Form::close() !!}
-            @endcan
-        </td>
-    </tr>
-    @endforeach
-</table>
-
-{!! $roles->render() !!}
-
 @endsection

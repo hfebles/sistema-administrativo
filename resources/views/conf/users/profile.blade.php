@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title-section', 'Perfil del usuario')
+@section('title-section', 'Perfil del asd')
 
 @section('btn')
     <a href="{{ route('users.index') }}" class="btn btn-dark btn-icon-split ml-auto">

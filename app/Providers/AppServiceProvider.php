@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap();
 
-        view()->composer('home', function($view) {
+        view()->composer('layouts.app', function($view) {
             $view->with('menus', Menu::menus());
         });
     }

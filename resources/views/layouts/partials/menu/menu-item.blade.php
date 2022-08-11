@@ -3,19 +3,18 @@
 <hr class="sidebar-divider">
     <li class="nav-item">
         @if ($item['href'] == 1)
-            
-            <a class="nav-link"  href="{{$item['slug']}}"><i class="fas fa-fw fa-cog"></i><span>{{ $item['name'] }}</span> </a>
-            
-            
+            @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
+                <a class="nav-link"  href="{{$item['slug']}}"><i class="fas fa-fw fa-cog"></i><span>{{ $item['name'] }}</span> </a>
+            @endif
+    
         @else
-            
-                <a class="nav-link" href="{{ route($item['slug']) }}"><i class="fas fa-fw fa-cog"></i><span>{{ $item['name'] }}</span> </a>
+            <a class="nav-link" href="{{ route($item['slug']) }}"><i class="fas fa-fw fa-cog"></i><span>{{ $item['name'] }}</span> </a>
             
         @endif
     </li>
     <hr class="sidebar-divider">
 @else
-
+    @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
     <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse_{{$item['id']}}"
                     aria-expanded="true" aria-controls="collapse_{{$item['id']}}"><i class="fas fa-fw fa-cog"></i><span>{{ $item['name'] }}</span> </a>
@@ -25,16 +24,17 @@
                 @if ($submenu['submenu'] == [])
                     @if ($submenu['href'] == 1)
                     
-                        
+                    @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
                             <a class="collapse-item" href="{{$submenu['slug']}}">{{ $submenu['name'] }} </a>
+                            @endif
 
                         
                     @else
 
-                       
+                    @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
                             <a class="collapse-item" href="{{ route($submenu['slug']) }}">{{ $submenu['name'] }} </a>
                             
-                        
+                            @endif
                     @endif
                 @else
                     @if(Gate::check('adm-list') || Gate::check('$item["grupo"]-list'))
@@ -45,7 +45,7 @@
             </div>
         </div>
     </li>
-    
+    @endif
 @endif
 
 
