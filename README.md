@@ -16,6 +16,10 @@
 |    | user-create        |
 |    | user-edit        |
 |    | user-delete        |
+| Menus      | menu-list       |
+|    | menu-create        |
+|    | menu-edit        |
+|    | menu-delete        |
 
 
 
@@ -35,6 +39,11 @@ $permissions = [
             'user-create',
             'user-edit',
             'user-delete',
+            'menu-list',
+            'menu-create',
+            'menu-edit',
+            'menu-delete',
+            
         ];
 
 ```

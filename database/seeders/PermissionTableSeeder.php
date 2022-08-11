@@ -15,10 +15,10 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
+            'menu-list',
+            'menu-create',
+            'menu-edit',
+            'menu-delete',
         ];
      
         foreach ($permissions as $permission) {

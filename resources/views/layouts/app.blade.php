@@ -68,7 +68,25 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <div class="container">
+    <!-- Sidebar -->
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" data-bs-backdrop="false" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header">
+                    <h4 class="offcanvas-title" id="offcanvasExampleLabel">@yield('side-title')</h4>
+                    
+                    <button data-bs-dismiss="offcanvas" aria-label="Close" class="btn btn-danger align-self-start ml-1">
 
+                        <i class="fas fa-times-circle"></i>
+
+    
+                    </button>
+                </div>
+                <div class="offcanvas-body">
+                    @yield('side-body')
+                </div>
+            </div>
+            <!-- end sidebar -->
+            </div>
 
 
     @yield('js')
