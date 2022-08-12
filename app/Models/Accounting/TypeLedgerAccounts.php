@@ -5,11 +5,7 @@ namespace App\Models\Accounting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class TypeLedgerAccounts extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'id_group', 'code_group', 'name_group'
-    ];
 }
