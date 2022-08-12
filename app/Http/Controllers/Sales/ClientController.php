@@ -53,7 +53,13 @@ class ClientController extends Controller
         return view('sales.clients.index', compact('conf', 'table'));
     }
 
-    public function create(){}
+    public function create(){
+
+
+
+        return view('sales.clients.create', compact());
+    }
+
     public function store(Request $request){}
 
     public function show($id){}

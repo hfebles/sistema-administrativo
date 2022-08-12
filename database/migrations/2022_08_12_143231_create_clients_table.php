@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('email_client')->nullable();
             $table->integer('zip_client')->nullable();
             $table->integer('id_company')->nullable();
+            $table->boolean('id_state');
             $table->boolean('taxpayer_client')->default(0);
             $table->boolean('enabled_client')->default(1);
             $table->timestamps();
