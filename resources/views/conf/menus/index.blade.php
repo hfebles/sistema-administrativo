@@ -4,7 +4,7 @@
 
 @if(Gate::check('adm-create') || Gate::check('menu-create'))
     @section('btn')
-    <a href="{{ route('roles.create') }}" class="btn btn-success btn-icon-split">
+    <a href="{!! route($conf['agregar']['url'].'.create') !!}" class="btn btn-success btn-icon-split">
         <span class="icon text-white-50">
             <i class="fas fa-plus-circle"></i>
         </span>

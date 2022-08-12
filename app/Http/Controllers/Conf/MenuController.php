@@ -21,9 +21,7 @@ class MenuController extends Controller
 
     public function index(Request $request){
         $conf = [
-            'agregar' => [ 'url' => '/clients/create' ],
-            'primernivel' => [ 'name'=> 'Menu', 'url' => '' ],
-            'back' => [ 'url' => '/mantenice/bank/create' ],        
+            'agregar' => [ 'url' => 'menu' ],
         ];
 
         $table = [

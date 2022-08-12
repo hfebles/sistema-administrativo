@@ -20,6 +20,10 @@
 |    | menu-create        |
 |    | menu-edit        |
 |    | menu-delete        |
+| Contabilidad      | accounting-list       |
+|    | accounting-create        |
+|    | accounting-edit        |
+|    | accounting-delete        |
 
 
 
@@ -43,6 +47,10 @@ $permissions = [
             'menu-create',
             'menu-edit',
             'menu-delete',
+            'accounting-list',
+            'accounting-create',
+            'accounting-edit',
+            'accounting-delete',
             
         ];
 
