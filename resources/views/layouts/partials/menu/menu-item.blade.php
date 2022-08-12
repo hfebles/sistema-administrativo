@@ -21,18 +21,20 @@
         <div id="collapse_{{$item['id']}}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             @foreach ($item['submenu'] as $submenu)
+            
                 @if ($submenu['submenu'] == [])
                     @if ($submenu['href'] == 1)
                     
                     @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
-                            <a class="collapse-item" href="{{$submenu['slug']}}">{{ $submenu['name'] }} </a>
+                    
+                            <a class="collapse-item" href="{{$submenu['slug']}}"><i class="{{$submenu['icono']}}"></i> {{ $submenu['name'] }} </a>
                             @endif
 
                         
                     @else
 
                     @if(Gate::check('adm-list') || Gate::check($item['grupo'].'-list'))
-                            <a class="collapse-item" href="{{ route($submenu['slug']) }}">{{ $submenu['name'] }} </a>
+                            <a class="collapse-item" href="{{ route($submenu['slug']) }}"><i class="{{$submenu['icono']}}"></i>{{ $submenu['name'] }} </a>
                             
                             @endif
                     @endif
@@ -47,6 +49,7 @@
     </li>
     @endif
 @endif
+
 
 
 

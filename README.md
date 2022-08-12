@@ -20,10 +20,14 @@
 |    | menu-create        |
 |    | menu-edit        |
 |    | menu-delete        |
-| Contabilidad      | accounting-list       |
-|    | accounting-create        |
-|    | accounting-edit        |
-|    | accounting-delete        |
+| Contabilidad (Plan contable)      | accounting-ledger-list       |
+|    | accounting-ledger-create        |
+|    | accounting-ledger-edit        |
+|    | accounting-ledger-delete        |
+| Contabilidad (asientos contable)      | accounting-records-list       |
+|    | accounting-records-create        |
+|    | accounting-records-edit        |
+|    | accounting-records-delete        |
 
 
 
@@ -47,10 +51,14 @@ $permissions = [
             'menu-create',
             'menu-edit',
             'menu-delete',
-            'accounting-list',
-            'accounting-create',
-            'accounting-edit',
-            'accounting-delete',
+            'accounting-ledger-list',
+            'accounting-ledger-create',
+            'accounting-ledger-edit',
+            'accounting-ledger-delete',
+            'accounting-records-list',
+            'accounting-records-create',
+            'accountingrecords-edit',
+            'accounting-records-delete',
             
         ];
 

@@ -78,10 +78,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-row justify-content-between align-items-center mb-3">
-                    <h5 class="card-title">Subelementos</h5>
-                    @if(Gate::check('adm-create') || Gate::check('menu-create'))
-                    <div ><a class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa fa-plus fa-lg"></i></a></div>
-                    @endif
+                        <h5 class="card-title">Subelementos</h5>
+                        @if(Gate::check('adm-create') || Gate::check('menu-create'))
+                            <div ><a class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa fa-plus fa-lg"></i></a></div>
+                        @endif
                     </div>
                     <table class="table table-bordered table-hover">
                         <thead class="bg-dark text-white">
@@ -114,13 +114,11 @@
                             </tr>
                             @endforeach
                         </tbody>
-                    </table>
-                                           
+                    </table>                    
                     </div>
                 </div> 
             </div>
         </div> 
-
     </div>
 
 

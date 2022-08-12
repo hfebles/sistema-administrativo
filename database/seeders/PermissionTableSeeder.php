@@ -19,6 +19,7 @@ class PermissionTableSeeder extends Seeder
             'adm-create',
             'adm-edit',
             'adm-delete',
+            
         ];
      
         foreach ($permissions as $permission) {
