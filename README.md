@@ -55,3 +55,8 @@ $permissions = [
         ];
 
 ```
+
+
+
+seeder plan de cuentas
+http://127.0.0.1:8000/accounting/group-accounting

@@ -20,12 +20,14 @@ class GroupController extends Controller
         $csvFile = fopen(base_path("database/data/grupo.csv"), "r");
         $firstline = true;
         while (($data = fgetcsv($csvFile, 2000, ",")) !== FALSE) {
+            var_dump($data[0]);
             if (!$firstline) {
                 Group::create([
                     "id_group" => $data[0],
                     "code_group" => $data[1],
-                    "name_group" => $data[2]
-                ]);                
+                    "name_group" => $data[2],
+                    "id_type_ledger_account" => $data[3],
+                ]);            
             }
             $firstline = false;
         }

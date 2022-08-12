@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('id_group');
             $table->string('code_group');
             $table->string('name_group');
+            $table->integer('id_type_ledger_account');
             $table->boolean('enabled_group')->default(1);
             $table->timestamps();
         });

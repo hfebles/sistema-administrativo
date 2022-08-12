@@ -10,6 +10,6 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_group', 'code_group', 'name_group'
+        'id_group', 'code_group', 'name_group','id_type_ledger_account'
     ];
 }
