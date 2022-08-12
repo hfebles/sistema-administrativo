@@ -2,7 +2,7 @@
 
 @section('title-section', 'Plan contable')
 
-@if(Gate::check('adm-create') || Gate::check('accounting-create'))
+@if(Gate::check('adm-create') || Gate::check('accounting-ledger-create'))
     @section('btn')
     <a href="{!! route($conf['agregar']['url'].'.create') !!}" class="btn btn-success btn-icon-split">
         <span class="icon text-white-50">

@@ -15,6 +15,11 @@ use App\Http\Controllers\Accounting\GroupController;
 use App\Http\Controllers\Accounting\AccountingEntriesController;
 use App\Http\Controllers\Accounting\RecordAccoutingController;
 
+
+
+use App\Http\Controllers\Sales\ClientController;
+
+
 Auth::routes();
 
 Route::get('/', function () {
@@ -27,7 +32,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth']], function() {
 
 
-    
+    /**
+     * 
+     * CONFIGURACIONES
+     * 
+     */
 
     
     Route::resource('/mantenice/roles', RoleController::class);
@@ -43,6 +52,12 @@ Route::group(['middleware' => ['auth']], function() {
     // menus
     Route::resource('/mantenice/menu', MenuController::class);
 
+    /**
+     * 
+     * FIN CONFIGURACIONES
+     * 
+     */
+
 
     /**
      * 
@@ -50,14 +65,39 @@ Route::group(['middleware' => ['auth']], function() {
      * 
      */
 
+    // PLAN CONTABLE
     Route::resource('/accounting/ledger-account', LedgerAccountController::class);
     Route::resource('/accounting/sub-ledger-account', SubLedgerAccountController::class);
     Route::resource('/accounting/sub-group-accounting', SubGroupController::class);
     Route::resource('/accounting/group-accounting', GroupController::class);
 
+
+    // ASIENTOS CONTABLES
     Route::resource('/accounting/accounting-entries', AccountingEntriesController::class);
     Route::resource('/accounting/accounting-records', RecordAccoutingController::class);
 
+    /**
+     * 
+     * FIN CONTABILIDAD
+     * 
+     */
+
+
+    /**
+     * 
+     * VENTAS
+     * 
+     */
+    
+    // CLIENTES
+
+    Route::resource('/sales/clients', ClientController::class);
+
+     /**
+     * 
+     * FIN VENTAS
+     * 
+     */
      
 
 });

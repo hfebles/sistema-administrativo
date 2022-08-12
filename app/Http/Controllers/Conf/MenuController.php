@@ -21,7 +21,10 @@ class MenuController extends Controller
 
     public function index(Request $request){
         $conf = [
-            'agregar' => [ 'url' => 'menu' ],
+            'title-section' => 'Gestion de clientes',
+            'group' => 'menu',
+            'create' => ['route' =>'menu.create', 'name' => 'Nuevo menú'],
+            'url' => '/mantenice/menu',
         ];
 
         $table = [
@@ -38,7 +41,7 @@ class MenuController extends Controller
                 'text-center align-middle'],
                 
             'tds' => ['name', 'slug', 'order', 'enabled'],
-            'switch' => true,
+            'switch' => false,
             'edit' => false,
             'show' => true,
             'url' => "/mantenice/menu",

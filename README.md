@@ -20,6 +20,14 @@
 |    | menu-create        |
 |    | menu-edit        |
 |    | menu-delete        |
+| Ventas (permiso para ver el dropdown)      | sales-list       |
+|    | sales-create        |
+|    | sales-edit        |
+|    | sales-delete        |
+| Contabilidad (ver el dropdown)      | accounting-list       |
+|    | accounting-create        |
+|    | accounting-edit        |
+|    | accounting-delete        |
 | Contabilidad (Plan contable)      | accounting-ledger-list       |
 |    | accounting-ledger-create        |
 |    | accounting-ledger-edit        |
@@ -28,6 +36,13 @@
 |    | accounting-records-create        |
 |    | accounting-records-edit        |
 |    | accounting-records-delete        |
+| Ventas (clientes)      | clients-list       |
+|    | clients-create        |
+|    | clients-edit        |
+|    | clients-delete        |
+
+
+
 
 
 
@@ -51,14 +66,26 @@ $permissions = [
             'menu-create',
             'menu-edit',
             'menu-delete',
+            'sales-list',
+            'sales-create',
+            'sales-edit',
+            'sales-delete',
+            'accounting-list',
+            'accounting-create',
+            'accounting-edit',
+            'accounting-delete',
             'accounting-ledger-list',
             'accounting-ledger-create',
             'accounting-ledger-edit',
             'accounting-ledger-delete',
             'accounting-records-list',
             'accounting-records-create',
-            'accountingrecords-edit',
+            'accounting-records-edit',
             'accounting-records-delete',
+            'sales-clients-list',
+            'sales-clients-create',
+            'sales-clients-edit',
+            'sales-clients-delete',
             
         ];
 

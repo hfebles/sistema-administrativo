@@ -18,10 +18,10 @@ class LedgerAccountController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:accounting-list|adm-list', ['only' => ['index']]);
-         $this->middleware('permission:adm-create|accounting-create', ['only' => ['create','store']]);
-         $this->middleware('permission:adm-edit|accounting-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:adm-delete|accounting-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:accounting-ledger-list|adm-list', ['only' => ['index']]);
+         $this->middleware('permission:adm-create|accounting-ledger-create', ['only' => ['create','store']]);
+         $this->middleware('permission:adm-edit|accounting-ledger-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:adm-delete|accounting-ledger-delete', ['only' => ['destroy']]);
     }
 
     public function index(Request $request){
