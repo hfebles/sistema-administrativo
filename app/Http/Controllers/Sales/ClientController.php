@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Sales\Client;
+use App\Models\Conf\Country\Estados;
 
 class ClientController extends Controller
 {
@@ -15,8 +16,6 @@ class ClientController extends Controller
          $this->middleware('permission:adm-create|sales-clientscreate', ['only' => ['create','store']]);
          $this->middleware('permission:adm-edit|sales-clientsedit', ['only' => ['edit','update']]);
          $this->middleware('permission:adm-delete|sales-clientsdelete', ['only' => ['destroy']]);
-
-         
     }
 
     public function index(Request $request){
@@ -54,18 +53,121 @@ class ClientController extends Controller
     }
 
     public function create(){
+        $conf = [
+            'title-section' => 'Crear un nuevo cliente',
+            'group' => 'sales-clients',
+            'back' => 'clients.index',
+            'url' => '/sales/clients'
+        ];
 
-
-
-        return view('sales.clients.create', compact());
+        $estados = Estados::pluck('estado', 'id_estado');
+        return view('sales.clients.create', compact('conf', 'estados'));
     }
 
-    public function store(Request $request){}
+    public function store(Request $request){
 
-    public function show($id){}
+        $data = $request->except('_token');
 
-    public function edit($id){}
-    public function update(Request $request, $id){}
+        $save = new Client();
+        $save->name_client = strtoupper($data['name_client']);
+        $save->idcard_client = strtoupper($data['letra']).$data['idcard_client'];
+        $save->address_client = strtoupper($data['address_client']);
+        $save->id_state = $data['id_state'];
+
+        if(isset($data['phone_client'])){
+            $save->phone_client = $data['phone_client'];
+        }
+        if(isset($data['email_client'])){
+            $save->email_client = strtoupper($data['email_client']);
+        }
+        if(isset($data['zip_client'])){
+            $save->zip_client = $data['zip_client'];
+        }
+        if(isset($data['taxpayer_client'])){
+            $save->taxpayer_client = $data['taxpayer_client'];
+        }
+
+        $save->save();
+
+        return redirect()->route('clients.index')->with('success','Usuario registrado con exito');
+    }
+
+    public function show($id){
+
+        $getClient = Client::whereIdClient($id)->whereEnabledClient(1)->get()[0];
+        $getState = Estados::whereIdEstado($getClient->id_state)->get()[0]->estado;
+
+        $conf = [
+            'title-section' => 'Datos del cliente: '.$getClient->name_client,
+            'group' => 'sales-clients',
+            'back' => 'clients.index',
+            'edit' => ['route' => 'clients.edit', 'id' => $getClient->id_client],
+            'url' => '/sales/clients'
+        ];
+
+        return view('sales.clients.show', compact('conf', 'getClient', 'getState'));
+    }
+
+    public function edit($id){
+        $client = Client::whereIdClient($id)->whereEnabledClient(1)->get()[0];
+        $estados = Estados::pluck('estado', 'id_estado');
+        $letra = substr($client->idcard_client, 0, 1);
+        $numero = substr($client->idcard_client, 1);
+        $client->idcard_client = $numero;
+
+        $conf = [
+            'title-section' => 'Editar cliente: '.$client->name_client,
+            'group' => 'sales-clients',
+            'back' => 'clients.index',
+            'url' => '/sales/clients'
+        ];
+
+        return view('sales.clients.edit', compact('conf', 'letra', 'client', 'estados'));
+    }
+
+    public function update(Request $request, $id){
+
+        $data = $request->except('_token', '_method', 'letra');
+        $data['name_client'] = strtoupper($data['name_client']);
+        $data['idcard_client'] = strtoupper($request->letra).$data['idcard_client'];
+        $data['address_client'] = strtoupper($data['address_client']);
+        $data['id_state'] = $data['id_state'];
+
+        if(isset($data['phone_client'])){
+            $data['phone_client'] = $data['phone_client'];
+        }
+        if(isset($data['email_client'])){
+            $data['email_client'] = strtoupper($data['email_client']);
+        }
+        if(isset($data['zip_client'])){
+            $data['zip_client'] = $data['zip_client'];
+        }
+        if(isset($data['taxpayer_client'])){
+            $data['taxpayer_client'] = $data['taxpayer_client'];
+        }
+        if(isset($data['porcentual_amount_tax_client'])){
+            $data['porcentual_amount_tax_client'] = $data['porcentual_amount_tax_client'];
+        }
+
+        Client::whereIdClient($id)->update($data);
+
+        return redirect()->route('clients.index')->with('success','Usuario editado con exito');
+    }
     
     public function destroy($id){}
+
+
+
+
+
+
+    function searchCliente(Request $request){
+        $data = Client::whereIdcardClient($request->text)->get();
+        if(count($data) > 0 ){
+            return response()->json(['res' => false, 'msg' => 'El DNI ó RIF ya fueregistrado']);
+        }else{
+            return response()->json(['res' => true, 'msg' => 'El DNI ó RIF es valido']);
+        }
+        return $data;
+    }
 }

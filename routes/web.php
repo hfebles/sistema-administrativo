@@ -92,6 +92,10 @@ Route::group(['middleware' => ['auth']], function() {
     // CLIENTES
 
     Route::resource('/sales/clients', ClientController::class);
+    Route::post('/sales/clients/search', [ClientController::class, 'searchCliente'])->name('clients.search-client');
+
+
+
 
      /**
      * 

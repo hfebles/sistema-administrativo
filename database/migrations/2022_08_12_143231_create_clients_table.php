@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('id_company')->nullable();
             $table->boolean('id_state');
             $table->boolean('taxpayer_client')->default(0);
+            $table->integer('porcentual_amount_tax_client')->nullable();
             $table->boolean('enabled_client')->default(1);
             $table->timestamps();
         });
