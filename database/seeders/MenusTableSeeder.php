@@ -22,8 +22,11 @@ class MenusTableSeeder extends Seeder
         Menu::truncate();
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (1, 'Ventas', '', '0','0','1', 'sales')");
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`,`grupo`) VALUES (2, 'Contabilidad', '', '0','1','1', 'accounting')");
-
-        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`) VALUES (3, 'Almacen', '/almacen', '0','2','1')");
+        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (3, 'Almacen', '/warehouse/warehouse', '0','2','1', 'warehouse')");
+        
+        
+        
+        
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES (4, 'Nomina', '/', '0','3','3', '0')");
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES (5, 'Empleados', '/', '0','4','4', '0')");
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`) VALUES (6, 'Mantenimientos', '/manetenice', '0','5','1')");
@@ -42,5 +45,6 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Roles', '/mantenice/roles', '6','0','1', 'roles')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Usuarios', '/mantenice/users', '6','0','1', 'user')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Menús', '/mantenice/menu', '6','0','1', 'menu')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Categoria de productos', '/mantenice/product/category', '6','0','1', 'menu')");
     }
 }

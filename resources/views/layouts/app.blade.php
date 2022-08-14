@@ -91,6 +91,10 @@
 
     @yield('js')
 
+    <script>
+       @yield('js2') 
+    </script>
+
     <script src="/themes/vendor/jquery/jquery.min.js"></script>
     <script src="/themes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

@@ -13,7 +13,6 @@
 
             <tbody id="body-table">
             @for ($o = 0; $o < count($conf['data']); $o++)
-
             @if ($conf['edit'] == true)
                 <tr onclick="window.location='{{$conf['url']}}/{{$conf['data'][$o][$conf['id']]}}/edit';">
             @elseif ($conf['show'] == true)
@@ -33,4 +32,3 @@
 <div id="paginacion" class="d-flex justify-content-center">
     {!! $conf['data']->render() !!}      
 </div>
-

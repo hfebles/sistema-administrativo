@@ -41,8 +41,7 @@ class CreateAdminUserSeeder extends Seeder
         $permissionsSuperAdmin = Permission::pluck('id','id')->all();
         $permissionsAdmin = Permission::where('name', 'not like', '%adm%')->pluck('id','id');
         
-        $permissionsBase = Permission::whereIn('name', ['sales-list', 'sales-clients-list'])
-
+        $permissionsBase = Permission::whereIn('name', ['sales-list', 'sales-clients-list', 'warehouse-list', 'warehouse-warehouse-list'])
                                         ->pluck('id','id');
    
         $role->syncPermissions($permissionsSuperAdmin);

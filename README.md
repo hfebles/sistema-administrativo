@@ -37,9 +37,29 @@
 |    | accounting-records-edit        |
 |    | accounting-records-delete        |
 | Ventas (clientes)      | clients-list       |
-|    | clients-create        |
-|    | clients-edit        |
-|    | clients-delete        |
+|    | sales-clients-create        |
+|    | sales-clients-edit        |
+|    | sales-clients-delete        |
+| Almacen (ver el dropdown)      | warehouse-list       |
+|    | warehouse-create        |
+|    | warehouse-edit        |
+|    | warehouse-delete        |
+| Almacen      | warehouse-warehouse-list       |
+|    | warehouse-warehouse-create        |
+|    | warehouse-warehouse-edit        |
+|    | warehouse-warehouse-delete        |
+| Categoria de prouctos (conf) | product-category-list       |
+|    | product-category-create        |
+|    | product-category-edit        |
+|    | product-category-delete        |
+| Presentacion de prouctos (conf) | product-category-list       |
+|    | product-presentation-create        |
+|    | product-presentation-edit        |
+|    | product-presentation-delete        |
+| Unidad de prouctos (conf) | product-category-list       |
+|    | product-unit-create        |
+|    | product-unit-edit        |
+|    | product-unit-delete        |
 
 
 
@@ -74,6 +94,10 @@ $permissions = [
             'accounting-create',
             'accounting-edit',
             'accounting-delete',
+            'warehouse-list',
+            'warehouse-create',
+            'warehouse-edit',
+            'warehouse-delete',
             'accounting-ledger-list',
             'accounting-ledger-create',
             'accounting-ledger-edit',
@@ -86,6 +110,23 @@ $permissions = [
             'sales-clients-create',
             'sales-clients-edit',
             'sales-clients-delete',
+            'warehouse-warehouse-list',
+            'warehouse-warehouse-create',
+            'warehouse-warehouse-edit',
+            'warehouse-warehouse-delete',
+            'product-category-list',
+            'product-category-create',
+            'product-category-edit',
+            'product-category-delete',
+            'product-unit-list',
+            'product-unit-create',
+            'product-unit-edit',
+            'product-unit-delete',
+            'product-presentation-list',
+            'product-presentation-create',
+            'product-presentation-edit',
+            'product-presentation-delete',
+            
             
         ];
 

@@ -9,12 +9,23 @@
 
 @if(isset($create))
     @if(Gate::check('adm-create') || Gate::check($group.'-create'))
+        @if (isset($create['btn_type']))
+        <button class="btn btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions">
+            <span class="icon text-white-50">
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            <span class="text">{{$create['name']}}</span>
+        </button> 
+        @else
         <a href="{!! route($create['route']) !!}" class="btn btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif">
             <span class="icon text-white-50">
                 <i class="fas fa-plus-circle"></i>
             </span>
             <span class="text">{{$create['name']}}</span>
-            
+        @endif
+        
         </a>
     @endcan
 @endif

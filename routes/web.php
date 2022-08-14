@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
+
 use App\Http\Controllers\Conf\RoleController;
 use App\Http\Controllers\Conf\UserController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Conf\CompaniaController;
 use App\Http\Controllers\Conf\MenuController;
+use App\Http\Controllers\Conf\Warehouse\ProductCategoryController;
+use App\Http\Controllers\Conf\Warehouse\PresentationProductController;
+use App\Http\Controllers\Conf\Warehouse\UnitProductController;
 
 use App\Http\Controllers\Accounting\LedgerAccountController;
 use App\Http\Controllers\Accounting\SubLedgerAccountController;
@@ -15,9 +19,13 @@ use App\Http\Controllers\Accounting\GroupController;
 use App\Http\Controllers\Accounting\AccountingEntriesController;
 use App\Http\Controllers\Accounting\RecordAccoutingController;
 
+use App\Http\Controllers\Warehouse\WarehouseController;
+
 
 
 use App\Http\Controllers\Sales\ClientController;
+
+
 
 
 Auth::routes();
@@ -51,6 +59,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     // menus
     Route::resource('/mantenice/menu', MenuController::class);
+
+    // PRODUCTOS
+    Route::resource('/mantenice/product/category', ProductCategoryController::class);
+    Route::resource('/mantenice/product/unit', UnitProductController::class);
+    Route::resource('/mantenice/product/presentation', PresentationProductController::class);
 
     /**
      * 
@@ -102,6 +115,41 @@ Route::group(['middleware' => ['auth']], function() {
      * FIN VENTAS
      * 
      */
+
+
+    /**
+     * 
+     * ALMACEN
+     * 
+     */
+    
+    // ALMACEN
+
+    Route::resource('/warehouse/warehouse', WarehouseController::class);
+    
+     /**
+     * 
+     * FIN ALMACEN
+     * 
+     */
+
+
+     /**
+     * 
+     * PRODUCTOS
+     * 
+     */
+    
+    // PRODUCTOS
+
+    
+    
+    /**
+    * 
+    * FIN PRODUCTOS
+    * 
+    */
+     
      
 
 });
