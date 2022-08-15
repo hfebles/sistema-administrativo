@@ -21,7 +21,7 @@ use App\Http\Controllers\Accounting\RecordAccoutingController;
 
 use App\Http\Controllers\Warehouse\WarehouseController;
 
-
+use App\Http\Controllers\Products\ProductController;
 
 use App\Http\Controllers\Sales\ClientController;
 
@@ -142,6 +142,9 @@ Route::group(['middleware' => ['auth']], function() {
     
     // PRODUCTOS
 
+    Route::get('/products/product/salable', [ProductController::class, 'indexSalable'])->name('product.salable');
+    Route::resource('/products/product', ProductController::class);
+    Route::post('/products/product/search-code', [ProductController::class, 'searchCode'])->name('product.search-code');
     
     
     /**

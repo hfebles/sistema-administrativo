@@ -2,7 +2,7 @@
 <div class="col-md-{{$size}} mb-3">
     <div class="card">
         <div class="card-body">
-            <div class="col-md-{{$size}}">
+            <div class="col-md-{{$size ?? 12}}">
                 <div class="alert alert-success alert-dismissible fade show mb-0 p-3" role="alert">
                     {{ $message }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -13,7 +13,7 @@
 </div>
 @endif
 
-<div class="col-md-{{$size}}">
+<div class="col-md-{{$size ?? 12}}">
     <div class="card card-frame">
         @if (isset($head))
             <div class="card-header">

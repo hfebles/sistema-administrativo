@@ -6,7 +6,7 @@
             <thead class="{{$conf['c_thead']}}">
                 <tr>
                     @foreach ($conf['ths'] as $k => $th)
-                    <th class="text-uppercase font-weight-bolder"  width="{{$conf['w_ts'][$k]}}%">{{$th}}</th>
+                    <th class="text-uppercase font-weight-bolder {{$conf['c_ths'][$k]}}"  width="{{$conf['w_ts'][$k]}}%">{{$th}}</th>
                     @endforeach
                 </tr>
             </thead>

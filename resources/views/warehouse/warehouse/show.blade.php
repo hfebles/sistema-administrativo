@@ -49,6 +49,11 @@
                 </div>
             </div>
         </div>
+        <div class="col-9">
+
+        <x-cards :table="$table" />
+
+        </div>
         </div>
         </div>
 

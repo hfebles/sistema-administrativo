@@ -32,17 +32,17 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`) VALUES (6, 'Mantenimientos', '/manetenice', '0','5','1')");
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Clientes', 'clients.index', '1','0','0', 'sales-clients')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Presupuestos', '/presupuestos', '1','1','1')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Facturas', '/facturas', '1','2','1')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Productos', '/inventario', '1','2','1')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Presupuestos', '/presupuestos', '1','1','1', '0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Facturas', '/facturas', '1','2','1', '0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `grupo`) VALUES ('Productos', 'product.salable', '1','2', 'product-product')");
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Plan Contable', '/accounting/ledger-account', '2','0','1', 'accounting-ledger')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Asientos contables', '/accounting/accounting-records', '2','1','1', 'accounting-records')");
 
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Tasa BCV', '/mantenice/bcv', '6','0','1')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`) VALUES ('Bancos', '/mantenice/bank', '6','0','1')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Roles', '/mantenice/roles', '6','0','1', 'roles')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Tasa BCV', '/mantenice/bcv', '6','0','1','0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Bancos', '/mantenice/bank', '6','0','1','0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos', '/mantenice/roles', '6','0','1', 'roles')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Usuarios', '/mantenice/users', '6','0','1', 'user')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Menús', '/mantenice/menu', '6','0','1', 'menu')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Categoria de productos', '/mantenice/product/category', '6','0','1', 'menu')");

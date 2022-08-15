@@ -56,10 +56,14 @@
 |    | product-presentation-create        |
 |    | product-presentation-edit        |
 |    | product-presentation-delete        |
-| Unidad de prouctos (conf) | product-category-list       |
+| Unidad de prouctos (conf) | product-unit-list       |
 |    | product-unit-create        |
 |    | product-unit-edit        |
 |    | product-unit-delete        |
+| Prouctos | product-product-list       |
+|    | product-product-create        |
+|    | product-product-edit        |
+|    | product-product-delete        |
 
 
 
@@ -126,6 +130,10 @@ $permissions = [
             'product-presentation-create',
             'product-presentation-edit',
             'product-presentation-delete',
+            'product-product-list',
+            'product-product-create',
+            'product-product-edit',
+            'product-product-delete',
             
             
         ];

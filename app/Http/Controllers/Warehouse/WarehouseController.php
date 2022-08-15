@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Warehouse\Warehouse;
+use App\Models\Products\Product;
 
 class WarehouseController extends Controller
 {
@@ -63,7 +64,7 @@ class WarehouseController extends Controller
         return redirect()->route('warehouse.index')->with('success', 'El almacen '.$save->name_warehouse.' se registro con exito');
     }
 
-    public function show($id){
+    public function show(Request $request, $id){
 
         $getDataWarehouse = Warehouse::whereEnabledWarehouse(1)->whereIdWarehouse($id)->get()[0];
 
@@ -76,8 +77,31 @@ class WarehouseController extends Controller
             'url' => '/warehouse/warehouse/create'
         ];
 
+        $table = [
+            'c_table' => 'table table-bordered table-hover mb-0 text-uppercase',
+            'c_thead' => 'bg-dark text-white',
+            'ths' => ['#', 'Código', 'Producto', 'Disponible', 'Precio'],
+            'w_ts' => ['3','8', '60', '8', '8'],
+            'c_ths' => 
+                [
+                'text-center align-middle',
+                'text-center align-middle', 
+                'align-middle',
+                'text-center align-middle', 
+                'text-center align-middle', ],
+                
+            'tds' => ['code_product', 'name_product', 'qty_product', 'price_product'],
+            'switch' => false,
+            'edit' => false,
+            'show' => true,
+            'url' => "/products/product",
+            'id' => 'id_product',
+            'data' => Product::whereIdWarehouse($id)->whereEnabledProduct(1)->paginate(15),
+            'i' => (($request->input('page', 1) - 1) * 5),
+        ];
 
-        return view('warehouse.warehouse.show', compact('conf', 'getDataWarehouse'));
+
+        return view('warehouse.warehouse.show', compact('conf', 'getDataWarehouse', 'table'));
 
 
 
