@@ -27,7 +27,7 @@
             @endif    
                     <td class="{{$conf['c_ths'][0]}}" >{{++$conf['i']}}</td>
                     @for ($oa = 0; $oa < count($conf['tds']); $oa++)
-                        <td class="{{$conf['c_ths'][$oa+1]}}" >{{$conf['data'][$o][$conf['tds'][$oa]]}}</td>
+                        <td class="{{$conf['c_ths'][$oa+1]}}" >{{$conf['data'][$o][$conf['tds'][$oa]] ?? 'N/A'}}</td>
                     @endfor
                 </tr>
             @endfor

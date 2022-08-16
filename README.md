@@ -64,6 +64,18 @@
 |    | product-product-create        |
 |    | product-product-edit        |
 |    | product-product-delete        |
+| RRHH (menu) | rrhh-list       |
+|    | rrhh-create        |
+|    | rrhh-edit        |
+|    | rrhh-delete        |
+| RRHH Trabajadores | rrhh-worker-list       |
+|    | rrhh-worker-create        |
+|    | rrhh-worker-edit        |
+|    | rrhh-worker-delete        |
+| RRHH Grupos de trabajo | rrhh-group-worker-list       |
+|    | rrhh-group-worker-create        |
+|    | rrhh-group-worker-edit        |
+|    | rrhh-group-worker-delete        |
 
 
 
@@ -73,69 +85,40 @@
 
 ```php
 
-$permissions = [
-            'adm-list',
-            'adm-create',
-            'adm-edit',
-            'adm-delete',
-            'role-list',
-            'role-create',
-            'role-edit',
-            'role-delete',
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete',
-            'menu-list',
-            'menu-create',
-            'menu-edit',
-            'menu-delete',
-            'sales-list',
-            'sales-create',
-            'sales-edit',
-            'sales-delete',
-            'accounting-list',
-            'accounting-create',
-            'accounting-edit',
-            'accounting-delete',
-            'warehouse-list',
-            'warehouse-create',
-            'warehouse-edit',
-            'warehouse-delete',
-            'accounting-ledger-list',
-            'accounting-ledger-create',
-            'accounting-ledger-edit',
-            'accounting-ledger-delete',
-            'accounting-records-list',
-            'accounting-records-create',
-            'accounting-records-edit',
-            'accounting-records-delete',
-            'sales-clients-list',
-            'sales-clients-create',
-            'sales-clients-edit',
-            'sales-clients-delete',
-            'warehouse-warehouse-list',
-            'warehouse-warehouse-create',
-            'warehouse-warehouse-edit',
-            'warehouse-warehouse-delete',
-            'product-category-list',
-            'product-category-create',
-            'product-category-edit',
-            'product-category-delete',
-            'product-unit-list',
-            'product-unit-create',
-            'product-unit-edit',
-            'product-unit-delete',
-            'product-presentation-list',
-            'product-presentation-create',
-            'product-presentation-edit',
-            'product-presentation-delete',
-            'product-product-list',
-            'product-product-create',
-            'product-product-edit',
-            'product-product-delete',
+        $permissions = [ 
+            //root
+            'adm-list', 'adm-create', 'adm-edit', 'adm-delete',
+
+            //menu
+            'role-list', 'role-create', 'role-edit', 'role-delete',
+            'user-list', 'user-create', 'user-edit', 'user-delete',
+            'menu-list', 'menu-create', 'menu-edit', 'menu-delete',
+            'sales-list', 'sales-create', 'sales-edit', 'sales-delete',
+            'accounting-list', 'accounting-create', 'accounting-edit', 'accounting-delete',
+            'warehouse-list', 'warehouse-create', 'warehouse-edit', 'warehouse-delete',
+            'rrhh-list', 'rrhh-create', 'rrhh-edit', 'rrhh-delete',
+            'product-unit-list', 'product-unit-create', 'product-unit-edit', 'product-unit-delete',
+            'product-presentation-list', 'product-presentation-create', 'product-presentation-edit', 'product-presentation-delete',
+            'product-category-list', 'product-category-create', 'product-category-edit', 'product-category-delete',
             
-            
+
+            //accounting
+            'accounting-ledger-list', 'accounting-ledger-create', 'accounting-ledger-edit', 'accounting-ledger-delete',
+            'accounting-records-list', 'accounting-records-create', 'accounting-records-edit', 'accounting-records-delete',
+
+            //clients
+            'sales-clients-list', 'sales-clients-create', 'sales-clients-edit', 'sales-clients-delete',
+
+            // Warehouse
+            'warehouse-warehouse-list', 'warehouse-warehouse-create', 'warehouse-warehouse-edit', 'warehouse-warehouse-delete',
+
+            //products
+            'product-product-list', 'product-product-create', 'product-product-edit', 'product-product-delete',
+
+
+            //RRHH
+            'rrhh-worker-list', 'rrhh-worker-create', 'rrhh-worker-edit', 'rrhh-worker-delete',
+            'rrhh-group-worker-list', 'rrhh-group-worker-create', 'rrhh-group-worker-edit', 'rrhh-group-worker-delete',
         ];
 
 ```

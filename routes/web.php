@@ -27,6 +27,13 @@ use App\Http\Controllers\Sales\ClientController;
 
 
 
+use App\Http\Controllers\HumanResources\WorkersController;
+use App\Http\Controllers\HumanResources\GroupWorkersController;
+
+
+
+
+
 
 Auth::routes();
 
@@ -145,6 +152,29 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/products/product/salable', [ProductController::class, 'indexSalable'])->name('product.salable');
     Route::resource('/products/product', ProductController::class);
     Route::post('/products/product/search-code', [ProductController::class, 'searchCode'])->name('product.search-code');
+    
+    
+    /**
+    * 
+    * FIN PRODUCTOS
+    * 
+    */
+
+
+
+         /**
+     * 
+     * RECURSOS HUMANOS
+     * 
+     */
+    
+    // TRABAJADORES
+    Route::resource('/hhrr/workers', WorkersController::class);
+    Route::post('/hhrr/workers/search-dni', [WorkersController::class, 'searchCedula'])->name('workers.search-dni');
+    
+    // GRUPOS DE TRABAJO
+    Route::resource('/hhrr/group-workers', GroupWorkersController::class);
+
     
     
     /**
