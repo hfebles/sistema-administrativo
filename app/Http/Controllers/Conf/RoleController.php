@@ -31,15 +31,21 @@ class RoleController extends Controller
             'c_ths' => ['align-middle text-center', 'align-middle'],
             'tds' => ['name'],
             'edit' => true,
+            'show' => false,
             'url' => "/mantenice/roles",
             'id' => 'id',
             'data' => $roles,
             'i' => (($request->input('page', 1) - 1) * 5),
+            'group' => 'roles',
+        ];
+
+        $conf = [
+            'group' => 'roles',
         ];
 
 
         
-        return view('conf.roles.index',compact('table'))
+        return view('conf.roles.index',compact('table', 'conf'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 

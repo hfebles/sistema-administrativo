@@ -44,6 +44,7 @@ class ProductCategoryController extends Controller
             'id' => 'id_product_category',
             'data' => ProductCategory::where('enabled_product_category', '=', '1')->paginate(10),
             'i' => (($request->input('page', 1) - 1) * 5),
+            'group' => 'product-category',
         ];
 
 

@@ -107,12 +107,7 @@
     </x-cards>
 
 
-    <x-cards>    
-        <div class="text-center">
-            <button type="submit" id="btnGuardar" class="btn btn-success">Guardar</button>
-            <input class="btn btn-danger" type="reset" value="Deshacer">
-        </div>
-    </x-cards>
+<x-btns-save />
 </div>
 {!! Form::close() !!}
 

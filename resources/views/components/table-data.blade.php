@@ -1,8 +1,10 @@
 
 
-
-
-        <table class="{{$conf['c_table']}}">
+        @if (isset($conf['caption']))
+            <p class="text-muted fs-4 p-2 mb-2">{{$conf['caption']}}</p>
+        @endif
+        
+        <table class="{{$conf['c_table']}}   table-sm ">        
             <thead class="{{$conf['c_thead']}}">
                 <tr>
                     @foreach ($conf['ths'] as $k => $th)
@@ -13,10 +15,13 @@
 
             <tbody id="body-table">
             @for ($o = 0; $o < count($conf['data']); $o++)
-            @if ($conf['edit'] == true)
-                <tr onclick="window.location='{{$conf['url']}}/{{$conf['data'][$o][$conf['id']]}}/edit';">
-            @elseif ($conf['show'] == true)
+            @if ($conf['show'] == true)
                 <tr onclick="window.location='{{$conf['url']}}/{{$conf['data'][$o][$conf['id']]}}';">
+            
+            @elseif ($conf['edit'] == true)
+                @if (Gate::check($conf['group'].'-edit') || Gate::check('adm-edit'))
+                    <tr onclick="window.location='{{$conf['url']}}/{{$conf['data'][$o][$conf['id']]}}/edit';">
+                @endif
             @else
                 <tr>
             @endif    
@@ -28,7 +33,6 @@
             @endfor
             </tbody>
         </table>
-
 <div id="paginacion" class="d-flex justify-content-center">
     {!! $conf['data']->render() !!}      
 </div>

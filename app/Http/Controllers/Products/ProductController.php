@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Products\Product;
 use App\Models\Warehouse\Warehouse;
+use App\Models\Warehouse\ProductHistory;
 
 use App\Models\Conf\Warehouse\PresentationProduct;
 use App\Models\Conf\Warehouse\UnitProduct;
@@ -47,15 +48,16 @@ class ProductController extends Controller
         $table = [
             'c_table' => 'table table-bordered table-hover mb-0 text-uppercase',
             'c_thead' => 'bg-dark text-white',
-            'ths' => ['#', 'Almacen', 'Código', 'Producto'],
-            'w_ts' => ['3','7','7','70',],
+            'ths' => ['#', 'Almacen', 'Código', 'Producto', 'Disponible'],
+            'w_ts' => ['3','15','7','68','7',],
             'c_ths' => 
                 [
                 'text-center align-middle',
                 'text-center align-middle',
                 'text-center align-middle',
-                'align-middle',],
-            'tds' => ['name_warehouse', 'code_product', 'name_product',],
+                'align-middle',
+                'text-center align-middle',],
+            'tds' => ['name_warehouse', 'code_product', 'name_product','qty_product'],
             'switch' => false,
             'edit' => false, 
             'show' => true,
@@ -127,7 +129,7 @@ class ProductController extends Controller
 
     }
     
-    public function show($id){
+    public function show(Request $request, $id){
 
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
         ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
@@ -135,6 +137,36 @@ class ProductController extends Controller
         ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category')
         ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
         ->whereIdProduct($id)->get()[0];
+
+        $tableData = ProductHistory::select('p.code_product', 'p.name_product', 'product_histories.date_product_history', 'product_histories.price_product_history', 'product_histories.qty_product_history')
+        ->join('products as p', 'p.id_product', '=', 'product_histories.id_product')
+        ->where('product_histories.id_product', '=', $id)->paginate(5);
+
+        //return $getHistory;
+
+        $table = [
+            'c_table' => 'table table-bordered table-hover mb-0 text-uppercase',
+            'c_thead' => 'bg-dark text-white',
+            'ths' => ['#', 'Fecha', 'Código', 'Producto', 'Cantidad', 'Precio'],
+            'w_ts' => ['3','10','7','60','7', '7',],
+            'c_ths' => 
+                [
+                'text-center align-middle',
+                'text-center align-middle',
+                'text-center align-middle',
+                'align-middle',
+                'text-center align-middle',
+                'text-center align-middle',],
+            'tds' => ['date_product_history', 'code_product', 'name_product', 'qty_product_history', 'price_product_history', ],
+            'switch' => false,
+            'edit' => false, 
+            'show' => false,
+            'url' => "/products/product",
+            'id' => 'id_product_history',
+            'data' => $tableData,
+            'i' => (($request->input('page', 1) - 1) * 5),
+            'caption' => 'Histórico de cambios',
+        ];
 
 
         //return $data;
@@ -150,8 +182,105 @@ class ProductController extends Controller
 
 
 
-        return view('products.product.show', compact('conf', 'data'));
+        return view('products.product.show', compact('conf', 'data', 'table'));
     }
+
+    public function edit($id){
+
+        $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
+        ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
+        ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
+        ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category')
+        ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
+        ->whereIdProduct($id)->get()[0];
+        
+        $conf = [
+            'title-section' => 'Producto: '.$data->code_product.' - '.$data->name_product,
+            'group' => 'product-product',
+            'back' => 'product.salable',
+            'url' => '/products/product/salable'
+        ];
+
+        $getCategories = ProductCategory::whereEnabledProductCategory(1)->pluck('name_product_category', 'id_product_category');
+        $getUnits = UnitProduct::select(
+            DB::raw("CONCAT(short_unit_product,' - ',name_unit_product) AS name_unit_product"),'id_unit_product')
+            ->whereEnabledUnitProduct(1)
+            ->pluck('name_unit_product', 'id_unit_product');
+
+        $getPresentations = PresentationProduct::whereEnabledPresentationProduct(1)->pluck('name_presentation_product', 'id_presentation_product');
+        $getWarehouses = Warehouse::select(
+            DB::raw("CONCAT(code_warehouse,' - ',name_warehouse) AS name_warehouse"),'id_warehouse')
+            ->whereEnabledWarehouse(1)
+            ->pluck('name_warehouse', 'id_warehouse');
+
+
+
+
+        return view('products.product.edit', compact('conf', 'data', 'getCategories', 'getUnits', 'getPresentations', 'getWarehouses'));
+
+    }
+
+    public function update(Request $request, $id){
+        
+        $data = $request->except('_token', '_method');
+        $dataSave = Product::select('price_product', 'qty_product')->whereIdProduct($id)->get()[0];
+        //return $dataSave;
+        
+
+
+        $data['name_product'] = strtoupper($data['name_product']);
+        $data['description_product'] = strtoupper($data['description_product']);
+        $data['code_product'] = strtoupper($data['code_product']);
+        $data['price_product'] = $data['price_product'];
+        $data['qty_product'] = $data['qty_product'];
+
+        if(isset($data['salable_product']) && $data['salable_product'] != null ){ 
+            $data['salable_product'] = $data['salable_product'];
+        }else{
+            $data['salable_product'] = 0;
+        }
+
+        if(isset($data['product_usd_product']) && $data['product_usd_product'] != null){
+            $data['product_usd_product'] = $data['product_usd_product'];
+        }else{
+            $data['product_usd_product'] = 0; 
+        }
+        
+        if(isset($data['tax_exempt_product']) && $data['tax_exempt_product'] != null ){
+            $data['tax_exempt_product'] = $data['tax_exempt_product'];
+        }else{
+            $data['tax_exempt_product'] = 0;
+        }
+
+        $data['id_warehouse'] = $data['id_warehouse'];
+        $data['id_product_category'] = $data['id_product_category'];
+        $data['id_unit_product'] = $data['id_unit_product'];
+        $data['id_presentation_product'] = $data['id_presentation_product'];
+
+
+        Product::whereIdProduct($id)->update($data);  
+        
+        
+        $save = new ProductHistory();
+        $save->id_product = $id;
+        $save->date_product_history = date('Y-m-d');
+        $save->price_product_history = $dataSave->price_product;
+        $save->qty_product_history = $dataSave->qty_product;
+       
+
+        DB::transaction(function() use ($data, $save){
+
+            Product::whereIdProduct($save->id_product)->update($data);  
+            $save->save();
+
+
+        });
+
+
+        return redirect()->route('product.show', $id);
+    }
+
+    /*========================================*/
 
     function searchCode(Request $request){
         $data = Product::where('code_product', '=', $request->text)->get();

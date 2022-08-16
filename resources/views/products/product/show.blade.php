@@ -7,121 +7,118 @@
 @endsection
 
 @section('content')
-<div class="row">
-    <x-cards>
-        <div class="row g-3">
-            <div class="col-md-3">
-                <label class="form-label fs-4">Código: {{$data->code_product}}</label>
-                
-            </div>
-            <div class="col-md-6">
-                <label class="form-label fs-4">Nombre del producto: {{$data->name_product}}</label>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label fs-4">Numero de parte</label>
-                {{$data->part_number_product ?? ''}}
-            </div>
-            <div class="col-md-12">
-                <label class="form-label fs-4">Descripción del producto</label>
-                <br>
-                <label class="form-label fs-4">{{$data->description_product}}</label>
-            </div>
-            
-            <div class="col-md-3">
-                <label class="form-label fs-4">Precio del producto:
-                    @switch($data->product_usd_product)
-                        @case(1)
-                            $ {{number_format($data->price_product, '2', ',', '.')}}
-                            @break
-                    
-                        @default
-                            {{number_format($data->price_product, '2', ',', '.')}} Bs
-                    @endswitch
-                    
-                </label>
-                
-            </div>
-            <div class="col-md-3">
-                <label class="form-label fs-4">Disponible: {{number_format($data->qty_product, '2', ',', '.')}} {{$data->short_unit_product}}</label>
-                
-            </div>
-            <div class="clearfix"></div>
 
-            <div class="col-3 d-flex align-items-center justify-content-start">
-                @switch($data->salable_product)
-                    @case(1)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled checked>
-                            <label class="form-check-label fs-4">
-                                ¿Producto Vendible?
-                            </label>
-                        </div>
-                        @break
-                    @default
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled>
-                            <label class="form-check-label fs-4">
-                                ¿Producto Vendible?
-                            </label>
-                        </div>
-                @endswitch
-            </div>
-            <div class="col-3 d-flex align-items-center justify-content-start">
-                @switch($data->tax_exempt_product)
-                    @case(1)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled checked>
-                            <label class="form-check-label fs-4">
-                                ¿Producto exento de IVA?
-                            </label>
-                        </div>
-                        @break
-                    @default
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled>
-                            <label class="form-check-label fs-4">
-                                ¿Producto exento de IVA?
-                            </label>
-                        </div>
-                @endswitch
-            </div>
-            <div class="col-3 d-flex align-items-center justify-content-start">
-                @switch($data->product_usd_product)
-                    @case(1)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled checked>
-                            <label class="form-check-label fs-4">
-                                ¿Producto en dolares?
-                            </label>
-                        </div>
-                        @break
-                    @default
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled>
-                            <label class="form-check-label fs-4">
-                                ¿Producto en dolares?
-                            </label>
-                        </div>
-                @endswitch
-            </div>
-            <div class="clearfix"></div>
-            <div class="col-md-12">
-                <label class="form-label fs-4">Inventario: {{$data->code_warehouse}} - {{$data->name_warehouse}} </label>
-            </div>
-            <div class="col-md-12">
-                <label class="form-label fs-4">Cateoría del producto: {{$data->name_product_category}}</label>
-                
-            </div>
-            <div class="col-md-12">
-                <label class="form-label fs-4">Unidad de medida: {{$data->short_unit_product}} - {{$data->name_unit_product}}</label>
-                
-            </div>
-            <div class="col-md-12">
-                <label class="form-label fs-4">Presentacion del producto: {{$data->name_presentation_product}}</label>
-                
-            </div>
+<div class="row mb-5">
+    <x-cards>
+        <div class="table-responsive-lg">
+            <table class="table table-bordered table-hover table-sm mb-0">
+                <tr class="align-middle">
+                    <td width="15%">Código:</td>
+                    <td width="25%">{{$data->code_product}}</td>
+                    <td width="20%">Nombre del producto:</td>
+                    <td width="40%">{{$data->name_product}}</td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Numero de parte:</td>
+                    <td>{{$data->part_number_product ?? ''}}</td>
+                    <td>Descripción del producto:</td>
+                    <td>{{$data->description_product}}</td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Precio del producto:</td>
+                    <td>
+                        @switch($data->product_usd_product)
+                            @case(1)
+                                $ {{number_format($data->price_product, '2', ',', '.')}}
+                                @break
+                        
+                            @default
+                                {{number_format($data->price_product, '2', ',', '.')}} Bs
+                        @endswitch
+                    </td>
+                    <td>Disponible:</td>
+                    <td>{{number_format($data->qty_product, '2', ',', '.')}} {{$data->short_unit_product}}</td>
+                </tr>
+                <tr class="align-middle">
+                    <td>
+                        @switch($data->salable_product)
+                            @case(1)
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled checked>
+                                    <label class="form-check-label">
+                                        ¿Producto Vendible?
+                                    </label>
+                                </div>
+                                @break
+                            @default
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled>
+                                    <label class="form-check-label">
+                                        ¿Producto Vendible?
+                                    </label>
+                                </div>
+                        @endswitch
+                    </td>
+                    <td>
+                        @switch($data->tax_exempt_product)
+                            @case(1)
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled checked>
+                                    <label class="form-check-label">
+                                        ¿Producto exento de IVA?
+                                    </label>
+                                </div>
+                                @break
+                            @default
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled>
+                                    <label class="form-check-label">
+                                        ¿Producto exento de IVA?
+                                    </label>
+                                </div>
+                        @endswitch
+                    </td>
+                    <td>
+                        @switch($data->product_usd_product)
+                            @case(1)
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled checked>
+                                    <label class="form-check-label">
+                                        ¿Producto en dolares?
+                                    </label>
+                                </div>
+                                @break
+                            @default
+                                <div class="form-check ml-1">
+                                    <input class="form-check-input" type="checkbox" disabled>
+                                    <label class="form-check-label">
+                                        ¿Producto en dolares?
+                                    </label>
+                                </div>
+                        @endswitch
+                    </td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Inventario:</td>
+                    <td>{{$data->code_warehouse}} - {{$data->name_warehouse}}</td>
+                    <td>Cateoría del producto:</td>
+                    <td>{{$data->name_product_category}}</td>
+                </tr>
+                <tr class="align-middle">
+                    <td>Unidad de medida:</td>
+                    <td>{{$data->short_unit_product}} - {{$data->name_unit_product}}</td>
+                    <td>Presentacion del productoo:</td>
+                    <td>{{$data->name_presentation_product}}</td>
+                </tr>
+            </table>
         </div>
     </x-cards>
+</div>
+
+
+
+<div class="row mt-3">
+    <x-cards :table="$table" />
 </div>
 
 @endsection

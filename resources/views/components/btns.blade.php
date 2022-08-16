@@ -1,5 +1,5 @@
 @if(isset($back))
-    <a href="{{ route($back) }}" class="btn btn-dark btn-icon-split ml-auto">
+    <a href="{{ route($back) }}" class="btn btn-sm btn-dark btn-icon-split ml-auto">
         <span class="icon text-white-50">
             <i class="fas fa-chevron-circle-left"></i>
         </span>
@@ -10,7 +10,7 @@
 @if(isset($create))
     @if(Gate::check('adm-create') || Gate::check($group.'-create'))
         @if (isset($create['btn_type']))
-        <button class="btn btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif" data-bs-toggle="offcanvas"
+        <button class="btn btn-sm btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"
             aria-controls="offcanvasWithBothOptions">
             <span class="icon text-white-50">
@@ -19,7 +19,7 @@
             <span class="text">{{$create['name']}}</span>
         </button> 
         @else
-        <a href="{!! route($create['route']) !!}" class="btn btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif">
+        <a href="{!! route($create['route']) !!}" class="btn btn-sm btn-success btn-icon-split @if(isset($back) || isset($edit)) ml-3 @else ml-auto @endif">
             <span class="icon text-white-50">
                 <i class="fas fa-plus-circle"></i>
             </span>
@@ -32,7 +32,7 @@
 
 @if(isset($edit))
     @if(Gate::check('adm-create') || Gate::check($group.'-edit'))
-    <a href="{{ route($edit['route'], $edit['id']) }}" class="btn btn-warning btn-icon-split @if(isset($back) || isset($create)) ml-3 @else ml-auto @endif">
+    <a href="{{ route($edit['route'], $edit['id']) }}" class="btn btn-sm btn-warning btn-icon-split @if(isset($back) || isset($create)) ml-3 @else ml-auto @endif">
             <span class="icon text-white-50">
                 <i class="fas fa-user-edit"></i>
             </span>

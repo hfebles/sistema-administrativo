@@ -26,16 +26,17 @@ class LedgerAccountController extends Controller
 
     public function index(Request $request){
         $conf = [
-            'agregar' => [ 'url' => "ledger-account" ],
+            'create' => ['route' =>'ledger-account.create', 'name' => 'Nuevo producto', 'btn_type' => 2],
+             'group' => 'accounting-ledger',
         ];
 
         $data = DB::table('groups')->paginate(10);
         
         $table = [
-            'c_table' => 'table table-bordered table-hover mb-0 ',
-            'c_thead' => 'bg-gray-900 text-white',
+            'c_table' => 'table table-sm table-bordered table-hover mb-0 ',
+            'c_thead' => 'bg-dark text-white',
             'ths' => ['#', 'Codigo', 'Grupo', ],
-            'w_ts' => ['3','5', '',],
+            'w_ts' => ['3','7', '90',],
             'c_ths' => 
                 [
                 'text-center align-middle p-1',
@@ -65,6 +66,8 @@ class LedgerAccountController extends Controller
 
         $conf = [
             'atras' => [ 'url' => "ledger-account" ],
+            
+            'group' => 'accounting-ledger',
         ];
 
         $data = DB::select('select g.code_group, g.name_group, sg.code_sub_group, sg.name_sub_group, c.code_ledger_account, c.name_ledger_account from ledger_accounts as c
@@ -92,4 +95,7 @@ class LedgerAccountController extends Controller
             //'tds2' => ['code_subgroup', 'name_subgroup',],
             //'tds3' => ['code_ledger_account', 'name_ledger_account',],
     }
+
+
+    public function create(){}
 }

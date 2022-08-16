@@ -18,9 +18,9 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Grupo</h5>
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-sm table-bordered table-hover">
                         <tr>
-                            <td width="50%"  class="bg-dark text-white p-1">Nombre del grupo: </td>
+                            <td width="50%"  class="bg-dark text-white p-1 align-middle">Nombre del grupo: </td>
                             <td class="p-1">{{$dataG->name_group}}</td>
                         </tr>
 
@@ -60,7 +60,7 @@
                         <div ><a class="btn btn-success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"><i class="fa fa-plus fa-lg"></i></a></div>
                     @endif
                 </div>
-                <table class="table table-hover table-bordered ">
+                <table class="table table-sm table-hover table-bordered ">
                     <thead class="bg-dark text-white text-end text-uppercase align-middle">
                         <tr class="">
                             <td>#</td>

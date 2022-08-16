@@ -107,5 +107,9 @@ class WarehouseController extends Controller
 
     }
 
+    public function edit($id){
+        
+    }
+
 
 }
