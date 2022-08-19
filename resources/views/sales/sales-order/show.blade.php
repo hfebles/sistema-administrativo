@@ -10,7 +10,16 @@
 
 <div class="row">
     <x-cards>
+        
+            
+        
         <div class="row g-3">
+            
+            @if ($data->id_order_state == 3)
+           <span class="text-danger text-center fs-3">ORDEN CANCELADA</span>
+           @elseif ($data->id_order_state == 2)
+           <span class="text-info text-center fs-3">FACTURADA</span>
+            @else
             <div class="col-sm-12 d-flex">
                 <a href="" class="btn btn-sm btn-info btn-icon-split ml-auto">
                     <span class="icon text-white-50">
@@ -30,7 +39,9 @@
                     </span>
                     <span class="text">Anular</span>
                 </a>
-            </div>
+                </div>
+         @endif
+         
 
     <div class="col-sm-12">
 

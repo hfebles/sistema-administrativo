@@ -32,6 +32,8 @@ class PermissionTableSeeder extends Seeder
 
             'sales-clients-list', 'sales-clients-create', 'sales-clients-edit', 'sales-clients-delete',
             'sales-order-list', 'sales-order-create', 'sales-order-edit', 'sales-order-delete',
+            'sales-order-conf-list', 'sales-order-conf-create', 'sales-order-conf-edit', 'sales-order-conf-delete',
+            
 
             'warehouse-warehouse-list', 'warehouse-warehouse-create', 'warehouse-warehouse-edit', 'warehouse-warehouse-delete',
 

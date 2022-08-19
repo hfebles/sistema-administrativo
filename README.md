@@ -48,6 +48,10 @@
 |    | sales-order-create        |
 |    | sales-order-edit        |
 |    | sales-order-delete        |
+| Ventas (mant conf)      | sales-order-conf-list       |
+|    | sales-order-conf-create        |
+|    | sales-order-conf-edit        |
+|    | sales-order-conf-delete        |
 | Almacen (ver el dropdown)      | warehouse-list       |
 |    | warehouse-create        |
 |    | warehouse-edit        |
@@ -110,6 +114,7 @@
             'product-presentation-list', 'product-presentation-create', 'product-presentation-edit', 'product-presentation-delete',
             'product-category-list', 'product-category-create', 'product-category-edit', 'product-category-delete',
             
+            
 
             //accounting
             'accounting-ledger-list', 'accounting-ledger-create', 'accounting-ledger-edit', 'accounting-ledger-delete',
@@ -118,6 +123,7 @@
             //VENTAS
             'sales-clients-list', 'sales-clients-create', 'sales-clients-edit', 'sales-clients-delete',
             'sales-order-list', 'sales-order-create', 'sales-order-edit', 'sales-order-delete',
+            'sales-order-conf-list', 'sales-order-conf-create', 'sales-order-conf-edit', 'sales-order-conf-delete',
 
             // Warehouse
             'warehouse-warehouse-list', 'warehouse-warehouse-create', 'warehouse-warehouse-edit', 'warehouse-warehouse-delete',

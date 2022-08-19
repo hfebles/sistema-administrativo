@@ -43,6 +43,7 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Trabajadores', 'workers.index', '7','0','0', 'rrhh-worker')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos de trabajo', 'group-workers.index', '7','1','0', 'rrhh-group-worker')");
 
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Configurar Pedidos de venta', 'order-config.index', '6','0','0', 'sales-order-conf')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Tasa BCV', 'exchange.index', '6','0','0', 'exchange')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','0')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Bancos', '/mantenice/bank', '6','0','1','0')");
@@ -65,16 +66,52 @@ class MenusTableSeeder extends Seeder
 
 
 DB::insert("INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `price_product`, `product_usd_product`, `tax_exempt_product`, `qty_product`, `salable_product`, `code_product`, `part_number_product`, `lot_number_product`, `id_warehouse`, `id_product_category`, `id_unit_product`, `id_presentation_product`, `enabled_product`, `created_at`, `updated_at`) VALUES
-(1, 'PRUEBA1', '1', 10.20, 1, 0, NULL, 1, '001', NULL, NULL, 1, 1, 1, 1, 1, '2022-08-15 20:50:01', '2022-08-15 20:50:01')");
+(1, 'PRUEBA1', '1', 10.20, 1, 0, 50, 1, '001', NULL, NULL, 1, 1, 1, 1, 1, '2022-08-15 20:50:01', '2022-08-15 20:50:01')");
+
+DB::insert("INSERT INTO `products` (`id_product`, `name_product`, `description_product`, `price_product`, `product_usd_product`, `tax_exempt_product`, `qty_product`, `salable_product`, `code_product`, `part_number_product`, `lot_number_product`, `id_warehouse`, `id_product_category`, `id_unit_product`, `id_presentation_product`, `enabled_product`, `created_at`, `updated_at`) VALUES
+(2, 'PRUEBA2 ', '1', 100, 0, 1, 50, 1, '002', NULL, NULL, 1, 1, 1, 1, 1, '2022-08-15 20:50:01', '2022-08-15 20:50:01')");
 
 DB::insert("INSERT INTO `product_categories` (`id_product_category`, `name_product_category`, `enabled_product_category`, `created_at`, `updated_at`) VALUES
 (1, 'SALSA', 1, '2022-08-15 20:48:41', '2022-08-15 20:48:41')");
+
+
+
 DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
 (1, 'KILO', 'KL', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(2, 'MILIGRAMO', 'MG', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(3, 'GRAMO', 'G', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(4, 'METRO CUBICO', 'M3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(5, 'CENTIMERO CUBICO', 'CM3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(6, 'MILIMETRO CUBICO', 'ML3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(7, 'LITRO', 'L', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
+(8, 'MILILITRO', 'ML', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+
+
 DB::insert("INSERT INTO `presentation_products` (`id_presentation_product`, `name_presentation_product`, `enabled_presentation_product`, `created_at`, `updated_at`) VALUES
 (1, 'BOLSON', 1, '2022-08-15 20:48:07', '2022-08-15 20:48:07')");
 
 DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES
 (1, 'PRODUCTO TERMINADO', 'PT', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
+DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES
+(2, 'MATERIA PRIMA', 'MP', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
+
+
+
+DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
+(1, 'Pedido por facturar', '1')");
+DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
+(2, 'Facturado', '1')");
+DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
+(3, 'Cancelado', '1')");
 }
+
 }

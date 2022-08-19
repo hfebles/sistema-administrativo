@@ -10,13 +10,35 @@
 {!! Form::open(array('route' => 'sales-order.store','method'=>'POST', 'novalidate', 'class' => 'needs-validation', 'id' => 'myForm')) !!}
 <div class="row">
     <x-cards>
-    <table class="table table-sm table-bordered mb-4">
+
+    <table class="table table-sm table-bordered mb-0">
         <tr>
-            <td width="15%" class="bg-info text-center"><a onclick="abreModal('clientes')" class="btn btn-sm btn-info btn-block" type="button"><i class="fas fa-search fa-lg"></i></a></td>
+            <td class="text-end align-middle">Pedido número:</td>
+            <td width="15%" class="text-end">
+                <span class="fs-4">{{$dataConfiguration->correlative_sale_order_configuration}}-{{str_pad($config, 6, "0", STR_PAD_LEFT)}}</span>
+                <input type="hidden" value ="{{$config}}" name="ctrl_num" />
+                <input type="hidden" value ="{{$dataConfiguration->correlative_sale_order_configuration}}-{{$config}}" name="ref_name_sales_order" />
+            </td>
             
         </tr>
         <tr>
-            <td width="25%">Razón social:</td>
+            <td class="text-end align-middle">Nro control:</td>
+            <td width="15%" class="text-end">
+                <span class="fs-4">{{str_pad($config, 6, "0", STR_PAD_LEFT)}}</span>
+                <input type="hidden" value ="{{$config}}" name="ctrl_num" />
+                <input type="hidden" value ="{{$dataConfiguration->correlative_sale_order_configuration}}{{$config}}" name="ref_name_sales_order" />
+            </td>
+            
+        </tr>
+    </table>
+        
+    <table class="table table-sm table-bordered mb-4">
+       
+        <tr>
+            <td width="100%" class="d-flex justify-content-between">
+                <span>Razón social: </span>
+                <a onclick="abreModal('clientes')" class="btn btn-sm btn-info btn-circle" type="button"><i class="fas fa-search fa-lg"></i></a>
+            </td>
             <td>
                 <input type="hidden" id="id_client" name="id_client">
                 <span id="razon_social"></span>

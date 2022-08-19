@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\HumanResources\Workers;
 use App\Models\Conf\Exchange;
 
+use App\Models\Conf\Sales\SaleOrderConfiguration;
 
 class SalesOrderController extends Controller
 {
@@ -58,7 +59,7 @@ class SalesOrderController extends Controller
                 'text-center align-middle',
                 'text-center align-middle',
                 'text-center align-middle',],
-            'tds' => ['ref_name_sales_order', 'name_client', 'id_order_state', 'total_amount_sales_order'],
+            'tds' => ['ref_name_sales_order', 'name_client', 'name_order_state', 'total_amount_sales_order'],
             'switch' => false,
             'edit' => false, 
             'show' => true,
@@ -80,8 +81,22 @@ class SalesOrderController extends Controller
         ];
 
         $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get()[0];
+        
 
-       //return $dataExchange;
+        $dataConfiguration = SaleOrderConfiguration::all()[0];
+        $config = $dataConfiguration->control_number_sale_order_configuration;
+
+        $datax = SalesOrder::whereEnabledSalesOrder(1)->orderBy('id_sales_order', 'DESC')->get();
+
+        if(count($datax) > 0){
+            if( $config == $datax[0]->ctrl_num){
+                $config = $datax[0]->ctrl_num+1;
+            }
+        }
+
+        
+
+       //return $config;
 
         $dataWorkers = \DB::select("SELECT workers.id_worker, workers.firts_name_worker, workers.last_name_worker, group_workers.name_group_worker
                                     FROM workers
@@ -90,7 +105,7 @@ class SalesOrderController extends Controller
 
 
 
-        return view('sales.sales-order.create', compact('conf', 'dataWorkers', 'dataExchange'));
+        return view('sales.sales-order.create', compact('conf', 'dataWorkers', 'dataExchange', 'dataConfiguration', 'config'));
     }
 
 
@@ -110,9 +125,11 @@ class SalesOrderController extends Controller
                                         'exempt_product', 
                                         'subtotal_exento',
                                         'id_worker',
-                                        'id_exchange');
+                                        'id_exchange',
+                                        'ref_name_sales_order',
+                                        'ctrl_num');
 
-     // return $dataSalesOrder;
+     //return $dataSalesOrder;
 
         
      //return count($dataSalesOrder['id_product']);
@@ -124,6 +141,9 @@ class SalesOrderController extends Controller
             $saveSalesOrder->type_payment = $dataSalesOrder['type_payment_sales_order'];
             $saveSalesOrder->id_client = $dataSalesOrder['id_client'];
             $saveSalesOrder->id_exchange = $dataSalesOrder['id_exchange'];
+            $saveSalesOrder->ctrl_num = $dataSalesOrder['ctrl_num'];
+            $saveSalesOrder->ref_name_sales_order = $dataSalesOrder['ref_name_sales_order'];
+
             if(isset($dataSalesOrder['id_worker'])){
                 $saveSalesOrder->id_worker = $dataSalesOrder['id_worker'];
             }
@@ -222,14 +242,9 @@ class SalesOrderController extends Controller
             Product::whereIdProduct($obj['id_product'][$i])->update(['qty_product'=>$operacion]);
         }
 
-        SalesOrder::whereIdSalesOrder($id)->update(['id_order_state'=>4]);
+        SalesOrder::whereIdSalesOrder($id)->update(['id_order_state'=>3]);
 
         return redirect()->route('sales-order.show', $id);
-
-
-
-
-
        
     }
 

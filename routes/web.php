@@ -12,6 +12,8 @@ use App\Http\Controllers\Conf\Warehouse\ProductCategoryController;
 use App\Http\Controllers\Conf\Warehouse\PresentationProductController;
 use App\Http\Controllers\Conf\Warehouse\UnitProductController;
 use App\Http\Controllers\Conf\ExchangeController;
+use App\Http\Controllers\Conf\Sales\SaleOrderConfigurationController;
+
 
 
 use App\Http\Controllers\Accounting\LedgerAccountController;
@@ -78,6 +80,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     // TASA BCV
     Route::resource('/mantenice/exchange', ExchangeController::class);
+
+    //conf pedidos
+
+    Route::resource('/mantenice/sales-order/order-config', SaleOrderConfigurationController::class);
 
     /**
      * 
