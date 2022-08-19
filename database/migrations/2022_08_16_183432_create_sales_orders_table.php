@@ -24,7 +24,8 @@ return new class extends Migration
             $table->float('total_amount_tax_sales_order', 8, 2)->nullable();
             $table->float('residual_amount_sales_order', 8, 2)->nullable();
             $table->date('date_sales_order')->nullable();
-            $table->integer('type_payment')->nullable()->nullable();
+            $table->integer('type_payment')->nullable();
+            $table->integer('id_exchange')->nullable();
             $table->integer('id_order_state')->default(1);
             $table->integer('id_company')->nullable();
             $table->integer('id_client')->nullable();

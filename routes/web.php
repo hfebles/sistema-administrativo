@@ -11,6 +11,8 @@ use App\Http\Controllers\Conf\MenuController;
 use App\Http\Controllers\Conf\Warehouse\ProductCategoryController;
 use App\Http\Controllers\Conf\Warehouse\PresentationProductController;
 use App\Http\Controllers\Conf\Warehouse\UnitProductController;
+use App\Http\Controllers\Conf\ExchangeController;
+
 
 use App\Http\Controllers\Accounting\LedgerAccountController;
 use App\Http\Controllers\Accounting\SubLedgerAccountController;
@@ -74,6 +76,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/mantenice/product/unit', UnitProductController::class);
     Route::resource('/mantenice/product/presentation', PresentationProductController::class);
 
+    // TASA BCV
+    Route::resource('/mantenice/exchange', ExchangeController::class);
+
     /**
      * 
      * FIN CONFIGURACIONES
@@ -122,6 +127,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/sales/sales-order', SalesOrderController::class);
     Route::post('/sales/search', [SalesOrderController::class, 'listar'])->name('sales.search');
     Route::post('/sales/availability', [SalesOrderController::class, 'disponible'])->name('sales.check-aviavility');
+    Route::get('/sales/cancel/{id}', [SalesOrderController::class, 'anular'])->name('sales.cancel');
 
 
 

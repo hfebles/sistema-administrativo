@@ -97,6 +97,8 @@
     </x-cards>
  
 </div>
+<input type="hidden" id="tasa" value="{{$dataExchange->amount_exchange}}" />
+<input type="hidden" id="id_tasa" name="id_exchange" value="{{$dataExchange->id_exchange}}" />
 <x-btns-save />       
 {!! Form::close() !!}
 
@@ -208,7 +210,7 @@ function calculate(x, y, xx=""){
 
                 let precio_unitario = document.getElementById('price_product_'+x).value
                 let cantidad = document.getElementById('cant_'+x).value 
-                let subtotal = precio_unitario*cantidad
+                let subtotal = (precio_unitario*cantidad).toFixed(2)
 
                 
                 document.getElementById('subtotals_'+x).innerHTML = subtotal
@@ -229,17 +231,17 @@ function calculate(x, y, xx=""){
                     valor = noExe[e].value || 0
                     sumaNo += parseFloat(valor)
                 }
-                sumado = Math.round(sumaNo * 100) / 100
+               // sumado = Math.round(sumaNo * 100) / 100
                 
-                IvaCalculado = (16/100)*sumado
-                document.getElementById('subFacs').innerHTML = sumaNo
-                document.getElementById('exentos').innerHTML = suma
-                document.getElementById('totalIVaas').innerHTML =  Math.round10(IvaCalculado* 100) / 100
-                document.getElementById('totalTotals').innerHTML = Math.round10(((sumado+IvaCalculado)+suma), -2); 
-                document.getElementById('subFac').value = sumado
-                document.getElementById('exento').value = suma
-                document.getElementById('totalIVa').value = Math.round(IvaCalculado* 100) / 100
-                document.getElementById('totalTotal').value = Math.round10(((sumado+IvaCalculado)+suma), -2); 
+                IvaCalculado = (16/100)*sumaNo
+                document.getElementById('subFacs').innerHTML = sumaNo.toFixed(2)
+                document.getElementById('exentos').innerHTML = suma.toFixed(2)
+                document.getElementById('totalIVaas').innerHTML =  IvaCalculado.toFixed(2); 
+                document.getElementById('totalTotals').innerHTML = ((sumaNo+IvaCalculado)+suma).toFixed(2); 
+                document.getElementById('subFac').value = sumaNo.toFixed(2)
+                document.getElementById('exento').value = suma.toFixed(2)
+                document.getElementById('totalIVa').value = IvaCalculado.toFixed(2); 
+                document.getElementById('totalTotal').value = ((sumaNo+IvaCalculado)+suma).toFixed(2); 
             }else{
                 alert('Intruduce una cantidad valida o mayor a la cantidad actual que es: '+data.cantid)
                 cc.value = ""
@@ -252,6 +254,7 @@ function calculate(x, y, xx=""){
 }
 
 function borrarRow(x){
+ 
     var i = x.parentNode.parentNode.rowIndex;
     document.getElementById("myTable").deleteRow(i);
 }
@@ -288,6 +291,10 @@ function seleccionarProducto(x, y, tasa){
     console.log(y);
     y = y-1
 
+    var exchangeRate =  document.getElementById('tasa').value
+
+    console.log(exchangeRate)
+
 
     var input = document.createElement("input");
     document.getElementById('id_product_'+y).value = x.id_product
@@ -316,8 +323,8 @@ function seleccionarProducto(x, y, tasa){
             document.getElementById('price_product_'+y).value = x.price_product
             
         }else{
-            document.getElementById('precio_productos_'+y).innerHTML = x.price_product*5+' Bs'
-            document.getElementById('price_product_'+y).value = x.price_product*5
+            document.getElementById('precio_productos_'+y).innerHTML = (x.price_product*exchangeRate).toFixed(2)+' Bs'
+            document.getElementById('price_product_'+y).value = (x.price_product*exchangeRate).toFixed(2)
         }
     }else{
         input2.setAttribute("name", "subtotal[]");
@@ -330,9 +337,9 @@ function seleccionarProducto(x, y, tasa){
             document.getElementById('price_product_'+y).value = x.price_product
             input3.setAttribute("value", x.price_product);
         }else{
-            document.getElementById('precio_productos_'+y).innerHTML = x.price_product*5+' Bs'
-            document.getElementById('price_product_'+y).value = x.price_product*5
-            input3.setAttribute("value", x.price_product*5);
+            document.getElementById('precio_productos_'+y).innerHTML = (x.price_product*exchangeRate).toFixed(2)+' Bs'
+            document.getElementById('price_product_'+y).value = (x.price_product*exchangeRate).toFixed(2)
+            input3.setAttribute("value", (x.price_product*exchangeRate).toFixed(2));
             
         }
     }
@@ -365,6 +372,7 @@ function creaBusqueda(tipo, valorActual=""){
 function seleccionar(x, y=""){
 
     creaBusqueda(x, y);
+    var exchangeRate =  document.getElementById('tasa').value
     
     var linea2 ="";
     const csrfToken = "{{ csrf_token() }}";
@@ -419,7 +427,7 @@ function seleccionar(x, y=""){
                     linea2 += '<td class="text-center">'+c.price_product+'</td>'
                     linea2 += '<td class="text-center">N/A</td>'  
                 }else{
-                    linea2 += '<td class="text-center">'+c.price_product*5+'</td>'
+                    linea2 += '<td class="text-center">'+(c.price_product*exchangeRate).toFixed(2)+'</td>'
                     linea2 += '<td class="text-center">$ '+c.price_product+'</td>'
                 }           
             linea2 += '</tr>' 

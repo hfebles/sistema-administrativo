@@ -24,7 +24,7 @@
                     </span>
                     <span class="text">Registrar pago</span>
                 </a>
-                <a href="" class="btn btn-sm btn-danger btn-icon-split ml-3">
+                <a href="/sales/cancel/{{$data->id_sales_order}}" class="btn btn-sm btn-danger btn-icon-split ml-3">
                     <span class="icon text-white-50">
                         <i class="fas fa-times-circle"></i>
                     </span>
@@ -109,33 +109,34 @@
 
     <table class="table table-sm table-bordered mb-0">
         <tr>
-            <th  scope="col" class="text-end align-middle">TIPO DE TASA DE CAMBIO: </th>
-            <th colspan="3" scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs"></p></th>
+            <th  scope="col" class="text-end align-middle">TIPO DE TASA DE CAMBIO: <span class="text-danger">{{date('d-m-Y', strtotime($data->date_exchange))}}</span></th>
+            <th  scope="col" class="text-end align-middle"><p class='align-middle mb-0'>$ {{number_format($data->amount_exchange, 2, ',', '.')}}</p></th>
+            <th colspan="2" scope="col" class="text-end align-middle"></th>
         </tr>    
         <tr>
             <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
         
             <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">Bs.D. {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">EXENTO: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->exempt_amout_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">EXENTO: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p>Bs.D. {{number_format($data->exempt_amout_sales_order, 2, ',', '.')}}</th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">IVA: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_tax_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
 
             <th scope="col" class="text-end align-middle">IVA:</th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas">Bs.D. {{number_format($data->total_amount_tax_sales_order, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals">Bs.D. {{number_format($data->total_amount_sales_order, 2, ',', '.')}}</p></th>

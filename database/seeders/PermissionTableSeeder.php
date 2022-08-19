@@ -21,6 +21,7 @@ class PermissionTableSeeder extends Seeder
             'role-list', 'role-create', 'role-edit', 'role-delete',
             'user-list', 'user-create', 'user-edit', 'user-delete',
             'menu-list', 'menu-create', 'menu-edit', 'menu-delete',
+            'exchange-list', 'exchange-create', 'exchange-edit', 'exchange-delete',
             'sales-list', 'sales-create', 'sales-edit', 'sales-delete',
             'accounting-list', 'accounting-create', 'accounting-edit', 'accounting-delete',
             'warehouse-list', 'warehouse-create', 'warehouse-edit', 'warehouse-delete',

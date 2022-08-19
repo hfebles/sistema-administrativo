@@ -14,6 +14,7 @@ use App\Models\Sales\Client;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\HumanResources\Workers;
+use App\Models\Conf\Exchange;
 
 
 class SalesOrderController extends Controller
@@ -78,6 +79,10 @@ class SalesOrderController extends Controller
             'back' => 'sales-order.index',
         ];
 
+        $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get()[0];
+
+       //return $dataExchange;
+
         $dataWorkers = \DB::select("SELECT workers.id_worker, workers.firts_name_worker, workers.last_name_worker, group_workers.name_group_worker
                                     FROM workers
                                     INNER JOIN group_workers ON group_workers.id_group_worker = workers.id_group_worker
@@ -85,7 +90,7 @@ class SalesOrderController extends Controller
 
 
 
-        return view('sales.sales-order.create', compact('conf', 'dataWorkers'));
+        return view('sales.sales-order.create', compact('conf', 'dataWorkers', 'dataExchange'));
     }
 
 
@@ -104,31 +109,56 @@ class SalesOrderController extends Controller
                                         'subtotal', 
                                         'exempt_product', 
                                         'subtotal_exento',
-                                        'id_worker');
+                                        'id_worker',
+                                        'id_exchange');
 
-      // return $dataDetails;
+     // return $dataSalesOrder;
 
-        $saveSalesOrder = new SalesOrder();
-
-        $saveSalesOrder->type_payment = $dataSalesOrder['type_payment_sales_order'];
-        $saveSalesOrder->id_client = $dataSalesOrder['id_client'];
-        $saveSalesOrder->id_worker = $dataSalesOrder['id_worker'];
-        $saveSalesOrder->id_user = Auth::id();
-        $saveSalesOrder->total_amount_sales_order = $dataSalesOrder['total_con_tax'];
-        $saveSalesOrder->exempt_amout_sales_order = $dataSalesOrder['exento'];
-        $saveSalesOrder->no_exempt_amout_sales_order = $dataSalesOrder['subFac'];
-        $saveSalesOrder->total_amount_tax_sales_order = $dataSalesOrder['total_taxes'];
-        $saveSalesOrder->date_sales_order = date('Y-m-d');
-        $saveSalesOrder->save();
-
-
-        $saveDetails = new salesOrderDetails();
-
-        $saveDetails->id_sales_order = $saveSalesOrder->id;
-        $saveDetails->details_order_detail = json_encode($dataDetails);
-        $saveDetails->save();
         
-        return redirect()->route('sales-order.index')->with('success', 'Registro con exito');
+     //return count($dataSalesOrder['id_product']);
+
+      
+
+            $saveSalesOrder = new SalesOrder();
+
+            $saveSalesOrder->type_payment = $dataSalesOrder['type_payment_sales_order'];
+            $saveSalesOrder->id_client = $dataSalesOrder['id_client'];
+            $saveSalesOrder->id_exchange = $dataSalesOrder['id_exchange'];
+            if(isset($dataSalesOrder['id_worker'])){
+                $saveSalesOrder->id_worker = $dataSalesOrder['id_worker'];
+            }
+            
+            $saveSalesOrder->id_user = Auth::id();
+            $saveSalesOrder->total_amount_sales_order = $dataSalesOrder['total_con_tax'];
+            $saveSalesOrder->exempt_amout_sales_order = $dataSalesOrder['exento'];
+            $saveSalesOrder->no_exempt_amout_sales_order = $dataSalesOrder['subFac'];
+            $saveSalesOrder->total_amount_tax_sales_order = $dataSalesOrder['total_taxes'];
+            $saveSalesOrder->date_sales_order = date('Y-m-d');
+            $saveSalesOrder->save();
+
+            $saveDetails = new salesOrderDetails();
+            $saveDetails->id_sales_order = $saveSalesOrder->id;
+            $saveDetails->details_order_detail = json_encode($dataDetails);
+            $saveDetails->save();
+
+
+            
+
+            for($i = 0; $i<count($dataSalesOrder['id_product']); $i++){
+                $restar =  Product::select('qty_product')->whereIdProduct($dataSalesOrder['id_product'][$i])->get();
+                $operacion = $restar[0]->qty_product - $dataSalesOrder['cantidad'][$i];
+                
+                Product::whereIdProduct($dataSalesOrder['id_product'][$i])->update(['qty_product'=>$operacion]);
+            }
+            return redirect()->route('sales-order.index')->with('success', 'Registro con exito');
+
+
+        
+
+
+        // 
+        
+        //return redirect()->route('sales-order.index')->with('success', 'Registro con exito');
 
     }
 
@@ -137,11 +167,13 @@ class SalesOrderController extends Controller
        
 
         //return $id;
+       // $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get()[0]->amount_exchange;
 
-       $data =  \DB::select("SELECT so.*, c.address_client, c.phone_client, c.idcard_client, c.name_client, w.firts_name_worker, w.last_name_worker
+       $data =  \DB::select("SELECT so.*, c.address_client, c.phone_client, c.idcard_client, c.name_client, w.firts_name_worker, w.last_name_worker, e.amount_exchange, e.date_exchange
                                 FROM sales_orders as so
                                 INNER JOIN clients AS c ON c.id_client = so.id_client
-                                INNER JOIN workers AS w ON w.id_worker = so.id_worker
+                                INNER JOIN exchanges AS e ON e.id_exchange = so.id_exchange
+                                LEFT OUTER JOIN workers AS w ON w.id_worker = so.id_worker
                                 WHERE so.id_sales_order = $id
        ")[0];
 
@@ -170,12 +202,38 @@ class SalesOrderController extends Controller
         }
 
             
-        //return $dataProducts;
+        //return $data;
 
 
         return view('sales.sales-order.show', compact('conf', 'data', 'dataProducts', 'obj'));
 
     }
+
+
+    public function anular($id){
+
+        $dataSalesOrderDetails = salesOrderDetails::whereIdSalesOrder($id)->get()[0];
+
+        $obj = json_decode($dataSalesOrderDetails->details_order_detail, true);
+
+        for($i = 0; $i<count($obj['id_product']); $i++){
+            $sumar =  Product::select('qty_product')->whereIdProduct($obj['id_product'][$i])->get()[0];
+            $operacion = $sumar->qty_product + $obj['cantidad'][$i];
+            Product::whereIdProduct($obj['id_product'][$i])->update(['qty_product'=>$operacion]);
+        }
+
+        SalesOrder::whereIdSalesOrder($id)->update(['id_order_state'=>4]);
+
+        return redirect()->route('sales-order.show', $id);
+
+
+
+
+
+       
+    }
+
+
 
 
 
@@ -215,6 +273,7 @@ class SalesOrderController extends Controller
                                                 INNER JOIN presentation_products AS p ON p.id_presentation_product = products.id_presentation_product
                                                 INNER JOIN unit_products AS u ON u.id_unit_product  = products.id_unit_product
                                                 WHERE qty_product > 0 
+                                                AND salable_product = 1
                                                 AND name_product LIKE '%".$request->param."%' 
                                                 OR code_product LIKE '%".$request->param."%'
                                                 ORDER BY products.name_product ASC");
@@ -237,6 +296,7 @@ class SalesOrderController extends Controller
                                                 INNER JOIN presentation_products AS p ON p.id_presentation_product = products.id_presentation_product
                                                 INNER JOIN unit_products AS u ON u.id_unit_product = products.id_unit_product
                                                 WHERE qty_product > 0 
+                                                AND salable_product = 1
                                                 ORDER BY products.name_product ASC");
             
             return response()->json(

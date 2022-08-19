@@ -54,7 +54,7 @@
             <div class="clearfix"></div>
             <div class="col-3 d-flex align-items-start justify-content-start ml-2">
                 <div class="form-check">
-                    {!! Form::checkbox('salable_product', '1', '', ['class' => 'form-check-input'],) !!}
+                    {!! Form::checkbox('salable_product', '1', null, ['class' => 'form-check-input'],) !!}
                     <label class="form-check-label">
                         ¿Producto Vendible?
                     </label>
@@ -62,7 +62,7 @@
             </div>
             <div class="col-3 d-flex align-items-start justify-content-start">
                 <div class="form-check">
-                    {!! Form::checkbox('tax_exempt_product', '1', '', ['class' => 'form-check-input'],) !!}
+                    {!! Form::checkbox('tax_exempt_product', '1', null, ['class' => 'form-check-input'],) !!}
                     <label class="form-check-label">
                         ¿Producto exento de IVA?
                     </label>
@@ -70,7 +70,7 @@
             </div>
             <div class="col-3 d-flex align-items-start justify-content-start">
                 <div class="form-check">
-                    {!! Form::checkbox('product_usd_product', '1', '', ['class' => 'form-check-input'],) !!}
+                    {!! Form::checkbox('product_usd_product', '1', null, ['class' => 'form-check-input'],) !!}
                     <label class="form-check-label">
                         ¿Producto en dolares?
                     </label>

@@ -43,7 +43,7 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Trabajadores', 'workers.index', '7','0','0', 'rrhh-worker')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos de trabajo', 'group-workers.index', '7','1','0', 'rrhh-group-worker')");
 
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Tasa BCV', '/mantenice/bcv', '6','0','1','0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Tasa BCV', 'exchange.index', '6','0','0', 'exchange')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','0')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Bancos', '/mantenice/bank', '6','0','1','0')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos', 'roles.index', '6','0','0', 'roles')");

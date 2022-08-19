@@ -224,7 +224,7 @@ class ProductController extends Controller
         
         $data = $request->except('_token', '_method');
         $dataSave = Product::select('price_product', 'qty_product')->whereIdProduct($id)->get()[0];
-        //return $dataSave;
+       //return $data;
         
 
 
