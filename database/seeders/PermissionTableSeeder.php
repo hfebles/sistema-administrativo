@@ -30,6 +30,7 @@ class PermissionTableSeeder extends Seeder
             'accounting-records-list', 'accounting-records-create', 'accounting-records-edit', 'accounting-records-delete',
 
             'sales-clients-list', 'sales-clients-create', 'sales-clients-edit', 'sales-clients-delete',
+            'sales-order-list', 'sales-order-create', 'sales-order-edit', 'sales-order-delete',
 
             'warehouse-warehouse-list', 'warehouse-warehouse-create', 'warehouse-warehouse-edit', 'warehouse-warehouse-delete',
 

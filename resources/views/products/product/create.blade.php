@@ -107,8 +107,9 @@
     </x-cards>
 
 
-<x-btns-save />
+
 </div>
+<x-btns-save />
 {!! Form::close() !!}
 
 @endsection

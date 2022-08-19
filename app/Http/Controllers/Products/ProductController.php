@@ -261,20 +261,20 @@ class ProductController extends Controller
         Product::whereIdProduct($id)->update($data);  
         
         
-        $save = new ProductHistory();
-        $save->id_product = $id;
-        $save->date_product_history = date('Y-m-d');
-        $save->price_product_history = $dataSave->price_product;
-        $save->qty_product_history = $dataSave->qty_product;
+        // $save = new ProductHistory();
+        // $save->id_product = $id;
+        // $save->date_product_history = date('Y-m-d');
+        // $save->price_product_history = $dataSave->price_product;
+        // $save->qty_product_history = $dataSave->qty_product;
        
 
-        DB::transaction(function() use ($data, $save){
+        // DB::transaction(function() use ($data, $save){
 
-            Product::whereIdProduct($save->id_product)->update($data);  
-            $save->save();
+        //     Product::whereIdProduct($save->id_product)->update($data);  
+        //     $save->save();
 
 
-        });
+        // });
 
 
         return redirect()->route('product.show', $id);
@@ -290,6 +290,16 @@ class ProductController extends Controller
             return response()->json(['res' => true, 'msg' => 'El código es valido']);
         }
         return $data;
+    }
+
+    function search(Request $request){
+        $data = DB::select('SELECT id_product, name_product, code_product, price_product, qty_product, salable_product, product_usd_product, tax_exempt_product, id_unit_product, id_presentation_product 
+                            FROM products 
+                            WHERE name_product LIKE "%'.$request->text.'%" 
+                            OR code_product LIKE "%'.$request->text.'%"
+                            AND enabled_product = 1');
+
+        return response()->json(['lista' => $data]);
     }
 
     public function indexSalable(){

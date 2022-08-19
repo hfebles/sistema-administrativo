@@ -13,9 +13,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-
-
-        
+    <script src="/themes/vendor/jquery/jquery.min.js"></script>
+    <script src="/themes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         
 
     <!-- Scripts -->
@@ -68,7 +67,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <div class="container">
+
     <!-- Sidebar -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" data-bs-backdrop="false" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                 <div class="offcanvas-header">
@@ -86,15 +85,15 @@
                 </div>
             </div>
             <!-- end sidebar -->
-            </div>
+
 
 
     @yield('js')
 
 
 
-    <script src="/themes/vendor/jquery/jquery.min.js"></script>
-    <script src="/themes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    
 
     <!-- Core plugin JavaScript-->
     <script src="/themes/vendor/jquery-easing/jquery.easing.min.js"></script>

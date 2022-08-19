@@ -33,7 +33,7 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`) VALUES (6, 'Mantenimientos', '/manetenice', '0','5','1')");
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Clientes', 'clients.index', '1','0','0', 'sales-clients')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Presupuestos', '/presupuestos', '1','1','1', '0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Pedidos de venta', 'sales-order.index', '1','1','0', 'sales-order')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Facturas', '/facturas', '1','2','1', '0')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `grupo`) VALUES ('Productos', 'product.salable', '1','2', 'product-product')");
 

@@ -24,6 +24,8 @@ use App\Http\Controllers\Warehouse\WarehouseController;
 use App\Http\Controllers\Products\ProductController;
 
 use App\Http\Controllers\Sales\ClientController;
+use App\Http\Controllers\Sales\SalesOrderController;
+
 
 
 
@@ -113,6 +115,16 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('/sales/clients', ClientController::class);
     Route::post('/sales/clients/search', [ClientController::class, 'searchCliente'])->name('clients.search-client');
+    
+
+    //PEDIDOS
+
+    Route::resource('/sales/sales-order', SalesOrderController::class);
+    Route::post('/sales/search', [SalesOrderController::class, 'listar'])->name('sales.search');
+    Route::post('/sales/availability', [SalesOrderController::class, 'disponible'])->name('sales.check-aviavility');
+
+
+
 
 
 
@@ -152,6 +164,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/products/product/salable', [ProductController::class, 'indexSalable'])->name('product.salable');
     Route::resource('/products/product', ProductController::class);
     Route::post('/products/product/search-code', [ProductController::class, 'searchCode'])->name('product.search-code');
+    Route::post('/products/search', [ProductController::class, 'search'])->name('product.search');
+
     
     
     /**

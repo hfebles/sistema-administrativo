@@ -7,15 +7,16 @@ use Illuminate\Http\Request;
 
 use App\Models\Sales\Client;
 use App\Models\Conf\Country\Estados;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
     function __construct()
     {
          $this->middleware('permission:sales-clients-list|adm-list', ['only' => ['index']]);
-         $this->middleware('permission:adm-create|sales-clientscreate', ['only' => ['create','store']]);
-         $this->middleware('permission:adm-edit|sales-clientsedit', ['only' => ['edit','update']]);
-         $this->middleware('permission:adm-delete|sales-clientsdelete', ['only' => ['destroy']]);
+         $this->middleware('permission:adm-create|sales-clients-create', ['only' => ['create','store']]);
+         $this->middleware('permission:adm-edit|sales-clients-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:adm-delete|sales-clients-delete', ['only' => ['destroy']]);
     }
 
     public function index(Request $request){
@@ -169,5 +170,16 @@ class ClientController extends Controller
             return response()->json(['res' => true, 'msg' => 'El DNI ó RIF es valido']);
         }
         return $data;
+    }
+
+
+    public function search(Request $request){
+        $data = DB::select('SELECT id_client, phone_client, name_client, idcard_client, address_client 
+                            FROM clients 
+                            WHERE name_client LIKE "%'.$request->text.'%" 
+                            OR idcard_client LIKE "%'.$request->text.'%"
+                            AND enabled_client = 1');
+        return response()->json(['lista' => $data]);
+
     }
 }

@@ -40,6 +40,10 @@
 |    | sales-clients-create        |
 |    | sales-clients-edit        |
 |    | sales-clients-delete        |
+| Ventas (pedidos)      | sales-order-list       |
+|    | sales-order-create        |
+|    | sales-order-edit        |
+|    | sales-order-delete        |
 | Almacen (ver el dropdown)      | warehouse-list       |
 |    | warehouse-create        |
 |    | warehouse-edit        |
@@ -106,8 +110,9 @@
             'accounting-ledger-list', 'accounting-ledger-create', 'accounting-ledger-edit', 'accounting-ledger-delete',
             'accounting-records-list', 'accounting-records-create', 'accounting-records-edit', 'accounting-records-delete',
 
-            //clients
+            //VENTAS
             'sales-clients-list', 'sales-clients-create', 'sales-clients-edit', 'sales-clients-delete',
+            'sales-order-list', 'sales-order-create', 'sales-order-edit', 'sales-order-delete',
 
             // Warehouse
             'warehouse-warehouse-list', 'warehouse-warehouse-create', 'warehouse-warehouse-edit', 'warehouse-warehouse-delete',
