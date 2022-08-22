@@ -80,11 +80,30 @@ class SalesOrderController extends Controller
             'back' => 'sales-order.index',
         ];
 
-        $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get()[0];
+        $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get();
+
+        //return $dataExchange;
+        if(count($dataExchange) == 0){
+            return redirect()->route('exchange.index')->with('success', 'Debe registrar una tasa cambiaria');
+        }else{
+            $dataExchange = $dataExchange[0];
+        }
+
+        $dataConfiguration = SaleOrderConfiguration::all();
+        if(count($dataConfiguration) == 0){
+            return redirect()->route('order-config.index')->with('success', 'Debe registrat una tasa');
+        }else{
+            $dataConfiguration = $dataConfiguration[0];
+            $config = $dataConfiguration->control_number_sale_order_configuration;
+        }
+
+
+
+        
         
 
-        $dataConfiguration = SaleOrderConfiguration::all()[0];
-        $config = $dataConfiguration->control_number_sale_order_configuration;
+        
+        
 
         $datax = SalesOrder::whereEnabledSalesOrder(1)->orderBy('id_sales_order', 'DESC')->get();
 

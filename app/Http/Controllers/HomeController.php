@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Conf\Exchange;
+
 class HomeController extends Controller
 {
     /**
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $dataExchange = Exchange::whereEnabledExchange(1)->orderBy('id_exchange', 'DESC')->get();
+
+        
+
+        //return $dataExchange;
+
+        return view('home', compact('dataExchange'));
     }
 }

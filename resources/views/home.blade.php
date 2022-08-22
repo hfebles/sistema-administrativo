@@ -1,27 +1,42 @@
 @extends('layouts.app')
-@section('title', 'loco')
+
+@section('title-section', 'Inicio')
 
 @section('cards')
 <!-- Content Row -->
 <div class="row">
 
-<!-- Earnings (Monthly) Card Example -->
-<div class="col-xl-3 col-md-6 mb-4">
-    <div class="card border-left-primary shadow h-100 py-2">
-        <div class="card-body">
-            <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                        Earnings (Monthly)</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                </div>
-                <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+@if (count($dataExchange)>0)
+    @if ($dataExchange[0]->date_exchange != date('Y-m-d'))
+        @if(Gate::check('adm-create') || Gate::check('exchange-create'))
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                <p>Fecha: {{date('d-m-Y', strtotime($dataExchange[0]->date_exchange))}}</p>
+                                <p>Tasa: {{number_format($dataExchange[0]->amount_exchange, '2', ',', '.')}}</p>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <a href="{{route('exchange.index')}}" class="btn btn-sm btn-success btn-icon-split ml-auto">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-money-bill"></i>
+                                </span>
+                                <span class="text">Nueva Tasa</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        @endcan
+    @endif
+    
+@endif
+
 
 <!-- Earnings (Monthly) Card Example -->
 <div class="col-xl-3 col-md-6 mb-4">
@@ -91,9 +106,9 @@
 @endsection
 
 @section('content')
-<div class="container">
+
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -109,5 +124,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

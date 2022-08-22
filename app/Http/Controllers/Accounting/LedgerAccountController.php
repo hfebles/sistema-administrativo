@@ -29,6 +29,7 @@ class LedgerAccountController extends Controller
             'create' => ['route' =>'ledger-account.create', 'name' => 'Nuevo producto', 'btn_type' => 2],
              'group' => 'accounting-ledger',
         ];
+        
 
         $data = DB::table('groups')->paginate(10);
         
@@ -65,9 +66,9 @@ class LedgerAccountController extends Controller
     public function show($id){
 
         $conf = [
-            'atras' => [ 'url' => "ledger-account" ],
-            
+            'title-section' => 'Grupo contable',
             'group' => 'accounting-ledger',
+            'back' => 'sales-order.index',
         ];
 
         $data = DB::select('select g.code_group, g.name_group, sg.code_sub_group, sg.name_sub_group, c.code_ledger_account, c.name_ledger_account from ledger_accounts as c
@@ -76,26 +77,64 @@ class LedgerAccountController extends Controller
                             GROUP BY g.id_group, sg.id_sub_group, c.id_ledger_account, g.code_group, g.name_group, sg.code_sub_group, sg.name_sub_group, c.code_ledger_account, c.name_ledger_account');
             
             $dataG = Group::where('id_group', '=', $id)->get()[0];
-
-
-
             $dataSG = SubGroup::where('id_group', '=', $id)->get();
+            $dataSGPluck = SubGroup::where('id_group', '=', $id)->pluck('name_sub_group', 'id_sub_group');
+            
+            $dataSGa = SubGroup::select('id_sub_group')->where('id_group', '=', $id)->get();
+            $dataLAPluck = LedgerAccount::whereIn('id_sub_group', $dataSGa)->pluck('name_ledger_account', 'id_ledger_account');
+            
+
+            //return $dataLAPluck;
 
             $dataLA = [];
+            $dataSLA = [];
+
             for($i = 0; $i < count($dataSG); $i++){
                 $dataLA[$i] = LedgerAccount::where('id_sub_group', '=', $dataSG[$i]->id_sub_group)->get();
+
+                for($a = 0; $a < count($dataLA[$i]); $a++){
+                    $dataSLA[$i][$a] = SubLedgerAccount::where('id_ledger_account', '=', $dataLA[$i][$a]->id_ledger_account)->get();
+                                                    
+                }
+
             }
 
+            
+
+
+           
+
+            
+
+            $conf = [
+                'title-section' => 'Grupo contable: '.$dataG->name_group,
+                'group' => 'accounting-ledger',
+                'back' => 'ledger-account.index',
+            ];
+            
 
             
             
-           //return $dataG;
-            return view('accounting.ledger-account.show', compact('conf', 'dataG', 'dataSG', 'dataLA'));
+           
+            return view('accounting.ledger-account.show', compact('conf', 'dataG', 'dataSG', 'dataLA', 'dataSGPluck', 'dataLAPluck', 'dataSLA'));
             
-            //'tds2' => ['code_subgroup', 'name_subgroup',],
-            //'tds3' => ['code_ledger_account', 'name_ledger_account',],
     }
 
 
-    public function create(){}
+    public function store(Request $request){
+
+        $data = $request->except('_token');
+
+        $save = new LedgerAccount();
+
+        $save->id_sub_group = $data['id_sub_group'];
+        $save->code_ledger_account = $data['code_ledger_account'];
+        $save->name_ledger_account = strtoupper($data['name_ledger_account']);
+        $save->save();
+
+        return redirect()->route('ledger-account.show',  $data['id_group']);
+    }
+
+
+    
 }
