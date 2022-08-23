@@ -25,7 +25,9 @@
             </tr>
             <tr>
                 <td>Cuenta contable:</td>
-                <td></td>
+                <td>
+                {!! Form::select('id_sub_ledger_account', $dataSubAcc, null, ['required', 'class' => 'form-select form-control-sm', 'placeholder' => 'Seleccione']) !!}
+                </td>
             </tr>
 
         </table>

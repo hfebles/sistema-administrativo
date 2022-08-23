@@ -50,6 +50,7 @@ class WorkersController extends Controller
             'switch' => false,
             'edit' => false, 
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/hhrr/workers",
             'id' => 'id_worker',
             'data' => $data,

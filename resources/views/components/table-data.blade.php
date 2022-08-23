@@ -10,6 +10,9 @@
                     @foreach ($conf['ths'] as $k => $th)
                     <th class="text-uppercase font-weight-bolder {{$conf['c_ths'][$k]}}"  width="{{$conf['w_ts'][$k]}}%">{{$th}}</th>
                     @endforeach
+                    @if ($conf['edit_modal'] == true)
+                        <th width="3%" class="{{$conf['c_ths'][$k]}}" ></th>
+                    @endif
                 </tr>
             </thead>
 
@@ -29,6 +32,9 @@
                     @for ($oa = 0; $oa < count($conf['tds']); $oa++)
                         <td class="{{$conf['c_ths'][$oa+1]}}" >{{$conf['data'][$o][$conf['tds'][$oa]] ?? 'N/A'}}</td>
                     @endfor
+                    @if ($conf['edit_modal'] == true)
+                        <td width="3%" class="{{$conf['c_ths'][0]}}" ><a class="btn btn-warning mb-0" id="editCompany" onclick="editModal('{{$conf['data'][$o][$conf['id']]}}');"><i class="fas fa-pen"></i></a></td>
+                    @endif
                 </tr>
             @endfor
             </tbody>

@@ -44,6 +44,7 @@ class MenuController extends Controller
             'switch' => false,
             'edit' => false,
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/mantenice/menu",
             'id' => 'id',
             'data' => Menu::where('parent', '=', '0')->paginate(10),

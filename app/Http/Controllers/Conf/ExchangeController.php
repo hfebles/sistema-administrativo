@@ -41,6 +41,7 @@ class ExchangeController extends Controller
             'switch' => false,
             'edit' => false,
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/mantenice/exchange",
             'id' => 'id_exchange',
             'data' => Exchange::where('enabled_exchange', '=', '1')->orderBy('date_exchange', 'DESC')->paginate(10),

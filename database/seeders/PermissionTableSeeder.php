@@ -26,6 +26,8 @@ class PermissionTableSeeder extends Seeder
             'accounting-list', 'accounting-create', 'accounting-edit', 'accounting-delete',
             'warehouse-list', 'warehouse-create', 'warehouse-edit', 'warehouse-delete',
             'rrhh-list', 'rrhh-create', 'rrhh-edit', 'rrhh-delete',
+            'taxes-list', 'taxes-create', 'taxes-edit', 'taxes-delete',
+            'banks-list', 'banks-create', 'banks-edit', 'banks-delete',
 
             'accounting-ledger-list', 'accounting-ledger-create', 'accounting-ledger-edit', 'accounting-ledger-delete',
             'accounting-records-list', 'accounting-records-create', 'accounting-records-edit', 'accounting-records-delete',

@@ -43,6 +43,7 @@ class WarehouseController extends Controller
             'switch' => false,
             'edit' => false,
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/warehouse/warehouse",
             'id' => 'id_warehouse',
             'data' => Warehouse::where('enabled_warehouse', '=', '1')->paginate(10),

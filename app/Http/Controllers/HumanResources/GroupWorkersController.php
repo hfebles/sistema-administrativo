@@ -40,6 +40,7 @@ class GroupWorkersController extends Controller
             'switch' => false,
             'edit' => false, 
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/hhrr/group-workers",
             'id' => 'id_group_worker',
             'data' => GroupWorkers::whereEnabledGroupWorker(1)->paginate(10),

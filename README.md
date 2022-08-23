@@ -88,6 +88,14 @@
 |    | rrhh-group-worker-create        |
 |    | rrhh-group-worker-edit        |
 |    | rrhh-group-worker-delete        |
+| Impuestos | taxes-list       |
+|    | taxes-create        |
+|    | taxes-edit        |
+|    | taxes-delete        |
+| Bancos | banks-list       |
+|    | banks-create        |
+|    | banks-edit        |
+|    | banks-delete        |
 
 
 
@@ -113,6 +121,8 @@
             'product-unit-list', 'product-unit-create', 'product-unit-edit', 'product-unit-delete',
             'product-presentation-list', 'product-presentation-create', 'product-presentation-edit', 'product-presentation-delete',
             'product-category-list', 'product-category-create', 'product-category-edit', 'product-category-delete',
+            'taxes-list', 'taxes-create', 'taxes-edit', 'taxes-delete',
+            'banks-list', 'banks-create', 'banks-edit', 'banks-delete',
             
             
 

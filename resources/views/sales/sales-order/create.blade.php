@@ -309,13 +309,13 @@ function seleccionarCliente(x){
 }
 
 function seleccionarProducto(x, y, tasa){
-    console.log(x);
-    console.log(y);
+    // console.log(x);
+    // console.log(y);
     y = y-1
 
     var exchangeRate =  document.getElementById('tasa').value
 
-    console.log(exchangeRate)
+    //console.log(exchangeRate)
 
 
     var input = document.createElement("input");

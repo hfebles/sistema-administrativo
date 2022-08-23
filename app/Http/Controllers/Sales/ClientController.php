@@ -44,6 +44,7 @@ class ClientController extends Controller
             'switch' => false,
             'edit' => false,
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/sales/clients",
             'id' => 'id_client',
             'data' => Client::where('enabled_client', '=', '1')->paginate(10),

@@ -12,6 +12,8 @@ use App\Http\Controllers\Conf\Warehouse\ProductCategoryController;
 use App\Http\Controllers\Conf\Warehouse\PresentationProductController;
 use App\Http\Controllers\Conf\Warehouse\UnitProductController;
 use App\Http\Controllers\Conf\ExchangeController;
+use App\Http\Controllers\Conf\TaxController;
+
 use App\Http\Controllers\Conf\Sales\SaleOrderConfigurationController;
 
 
@@ -37,7 +39,7 @@ use App\Http\Controllers\HumanResources\WorkersController;
 use App\Http\Controllers\HumanResources\GroupWorkersController;
 
 
-
+use App\Http\Controllers\Conf\BankController;
 
 
 
@@ -80,6 +82,13 @@ Route::group(['middleware' => ['auth']], function() {
 
     // TASA BCV
     Route::resource('/mantenice/exchange', ExchangeController::class);
+
+    // Impuestos 
+    Route::resource('/mantenice/taxes', TaxController::class);
+    Route::post('/mantenice/edit-taxes', [TaxController::class, 'editModal'])->name('taxes.edit-tax');
+    // bancos 
+    Route::resource('/mantenice/banks', BankController::class);
+    Route::post('/mantenice/edit-banks', [BankController::class, 'editModal'])->name('banks.edit-banks');
 
     //conf pedidos
 

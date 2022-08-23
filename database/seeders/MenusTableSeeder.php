@@ -45,14 +45,15 @@ class MenusTableSeeder extends Seeder
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Configurar Pedidos de venta', 'order-config.index', '6','0','0', 'sales-order-conf')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Tasa BCV', 'exchange.index', '6','0','0', 'exchange')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','0')");
-        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Bancos', '/mantenice/bank', '6','0','1','0')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`, `grupo`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','1', 'taxes')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`, `grupo`) VALUES ('Bancos', '/mantenice/banks', '6','0','1','1', 'banks')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos', 'roles.index', '6','0','0', 'roles')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Usuarios', 'users.index', '6','0','0', 'user')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Menús', 'menu.index', '6','0','0', 'menu')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Categorias de productos', 'category.index', '6','0','0', 'category')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Unidades de medidas', 'unit.index', '6','0','0', 'product-unit')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Presentaciónes', 'presentation.index', '6','0','0', 'product-presentation')");
+        
 
 
 
@@ -83,26 +84,18 @@ DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`,
 DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
 (3, 'GRAMO', 'G', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
 
-DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
-(4, 'METRO CUBICO', 'M3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
-DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
-(5, 'CENTIMERO CUBICO', 'CM3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
-DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
-(6, 'MILIMETRO CUBICO', 'ML3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES(4, 'METRO CUBICO', 'M3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES(5, 'CENTIMERO CUBICO', 'CM3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES(6, 'MILIMETRO CUBICO', 'ML3', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
 
-DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
-(7, 'LITRO', 'L', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
-DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES
-(8, 'MILILITRO', 'ML', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES(7, 'LITRO', 'L', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
+DB::insert("INSERT INTO `unit_products` (`id_unit_product`, `name_unit_product`, `short_unit_product`, `enabled_unit_product`, `created_at`, `updated_at`) VALUES(8, 'MILILITRO', 'ML', 1, '2022-08-15 20:48:23', '2022-08-15 20:48:23')");
 
 
-DB::insert("INSERT INTO `presentation_products` (`id_presentation_product`, `name_presentation_product`, `enabled_presentation_product`, `created_at`, `updated_at`) VALUES
-(1, 'BOLSON', 1, '2022-08-15 20:48:07', '2022-08-15 20:48:07')");
+DB::insert("INSERT INTO `presentation_products` (`id_presentation_product`, `name_presentation_product`, `enabled_presentation_product`, `created_at`, `updated_at`) VALUES(1, 'BOLSON', 1, '2022-08-15 20:48:07', '2022-08-15 20:48:07')");
 
-DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES
-(1, 'PRODUCTO TERMINADO', 'PT', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
-DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES
-(2, 'MATERIA PRIMA', 'MP', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
+DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES(1, 'PRODUCTO TERMINADO', 'PT', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
+DB::insert("INSERT INTO `warehouses` (`id_warehouse`, `name_warehouse`, `code_warehouse`, `id_company`, `enabled_warehouse`, `created_at`, `updated_at`) VALUES(2, 'MATERIA PRIMA', 'MP', NULL, 1, '2022-08-15 22:06:51', '2022-08-15 22:06:51')");
 
 
 

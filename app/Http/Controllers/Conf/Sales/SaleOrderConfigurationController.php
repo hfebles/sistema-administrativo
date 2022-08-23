@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Conf\Sales\SaleOrderConfiguration;
-use Svg\Tag\Rect;
+use App\Models\Accounting\SubLedgerAccount;
 
 class SaleOrderConfigurationController extends Controller
 {
@@ -41,6 +41,7 @@ class SaleOrderConfigurationController extends Controller
     public function edit($id){
 
         $data = SaleOrderConfiguration::whereIdSaleOrderConfiguration($id)->get();
+        $dataSubAcc = SubLedgerAccount::where('enabled_sub_ledger_account', '=', '1')->pluck('name_sub_ledger_account', 'id_sub_ledger_account');
 
 
         //return $data;
@@ -54,7 +55,7 @@ class SaleOrderConfigurationController extends Controller
 
         //return $data;
 
-        return view('conf.sales.sales-order-conf.edit', compact('conf', 'data'));
+        return view('conf.sales.sales-order-conf.edit', compact('conf', 'data', 'dataSubAcc'));
     }
 
 

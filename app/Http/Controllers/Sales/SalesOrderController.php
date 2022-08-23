@@ -63,6 +63,7 @@ class SalesOrderController extends Controller
             'switch' => false,
             'edit' => false, 
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/sales/sales-order",
             'id' => 'id_sales_order',
             'data' => $data,

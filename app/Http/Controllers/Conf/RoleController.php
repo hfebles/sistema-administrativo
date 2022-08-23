@@ -32,6 +32,7 @@ class RoleController extends Controller
             'tds' => ['name'],
             'edit' => true,
             'show' => false,
+            'edit_modal' => false,
             'url' => "/mantenice/roles",
             'id' => 'id',
             'data' => $roles,
