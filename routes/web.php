@@ -151,6 +151,8 @@ Route::group(['middleware' => ['auth']], function() {
     // Facturacion
     Route::get('/sales/invoicing/validate/{id}', [InvoicingController::class, 'validarPedido'])->name('sales.invoices-validate');
     Route::resource('/sales/invoicing', InvoicingController::class);
+    Route::get('/sales/invoicing/print/{id}', [InvoicingController::class, 'imprimirFactura'])->name('sales.invoices-print');
+    
 
 
 

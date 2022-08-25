@@ -28,6 +28,7 @@ class PermissionTableSeeder extends Seeder
             'rrhh-list', 'rrhh-create', 'rrhh-edit', 'rrhh-delete',
             'taxes-list', 'taxes-create', 'taxes-edit', 'taxes-delete',
             'banks-list', 'banks-create', 'banks-edit', 'banks-delete',
+            'invoices-list', 'invoices-create', 'invoices-edit', 'invoices-delete',
 
             'payment-list', 'payment-create', 'payment-edit', 'payment-delete',
 

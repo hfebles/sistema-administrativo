@@ -17,7 +17,7 @@
             
 
             <div class="col-sm-12 d-flex">
-                <a href="" class="btn btn-sm btn-info btn-icon-split ml-auto">
+                <a target="_blank" href="{{ route('sales.invoices-print', $data->id_invoicing) }}" class="btn btn-sm btn-info btn-icon-split ml-auto">
                     <span class="icon text-white-50">
                         <i class="fas fa-print"></i>
                     </span>
@@ -27,7 +27,7 @@
                     <span class="icon text-white-50">
                     <i class="fas fa-check-circle"></i>
                     </span>
-                    <span class="text">Facturar</span>
+                    <span class="text">Pagar</span>
                 </a>
                 <a href="" class="btn btn-sm btn-danger btn-icon-split ml-3">
                     <span class="icon text-white-50">

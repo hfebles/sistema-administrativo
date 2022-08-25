@@ -21,10 +21,13 @@ class MenusTableSeeder extends Seeder
 
         Menu::truncate();
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (1, 'Ventas', '', '0','0','1', 'sales')");
-        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`,`grupo`) VALUES (2, 'Contabilidad', '', '0','1','1', 'accounting')");
-        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (3, 'Almacen', '/warehouse/warehouse', '0','2','1', 'warehouse')");
-        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (7, 'RRHH', '', '0','3','1', 'rrhh')");
+        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (8, 'Facturacion', '', '0','1','1', 'invoices')");
         
+        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`,`grupo`) VALUES (2, 'Contabilidad', '', '0','2','1', 'accounting')");
+        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (3, 'Almacen', '/warehouse/warehouse', '0','3','1', 'warehouse')");
+        DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES (7, 'RRHH', '', '0','4','1', 'rrhh')");
+        
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Facturas', 'invoicing.index', '8','0','0', 'sales-invoices')");
         
         
         
@@ -108,6 +111,10 @@ DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `e
 (2, 'Facturado', '1')");
 DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
 (3, 'Cancelado', '1')");
+DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
+(4, 'Abierta', '1')");
+DB::insert("INSERT INTO `order_states` (`id_order_state`, `name_order_state`, `enabled_order_state`) VALUES
+(5, 'Pagado', '1')");
 }
 
 }
