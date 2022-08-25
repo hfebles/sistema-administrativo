@@ -15,7 +15,7 @@
         <tr>
             <td class="text-end align-middle">Pedido número:</td>
             <td width="15%" class="text-end">
-                <span class="fs-4">{{$dataConfiguration->correlative_sale_order_configuration}}-{{str_pad($config, 6, "0", STR_PAD_LEFT)}}</span>
+                <span class="fs-4">{{$dataConfiguration->correlative_sale_order_configuration}}{{str_pad($config, 6, "0", STR_PAD_LEFT)}}</span>
                 <input type="hidden" value ="{{$config}}" name="ctrl_num" />
                 <input type="hidden" value ="{{$dataConfiguration->correlative_sale_order_configuration}}-{{$config}}" name="ref_name_sales_order" />
             </td>

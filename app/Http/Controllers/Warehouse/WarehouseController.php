@@ -95,6 +95,7 @@ class WarehouseController extends Controller
             'switch' => false,
             'edit' => false,
             'show' => true,
+            'edit_modal' => false, 
             'url' => "/products/product",
             'id' => 'id_product',
             'data' => Product::whereIdWarehouse($id)->whereEnabledProduct(1)->paginate(15),

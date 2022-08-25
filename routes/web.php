@@ -40,8 +40,9 @@ use App\Http\Controllers\HumanResources\GroupWorkersController;
 
 
 use App\Http\Controllers\Conf\BankController;
-
-
+use App\Http\Controllers\Conf\Sales\InvoicingConfigutarionController;
+use App\Http\Controllers\Payments\PaymentController;
+use App\Http\Controllers\Sales\InvoicingController;
 
 Auth::routes();
 
@@ -50,6 +51,7 @@ Route::get('/', function () {
 });
 
 
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
@@ -93,6 +95,7 @@ Route::group(['middleware' => ['auth']], function() {
     //conf pedidos
 
     Route::resource('/mantenice/sales-order/order-config', SaleOrderConfigurationController::class);
+    Route::resource('/mantenice/invoices/invoices-config', InvoicingConfigutarionController::class);
 
     /**
      * 
@@ -145,6 +148,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/sales/cancel/{id}', [SalesOrderController::class, 'anular'])->name('sales.cancel');
 
 
+    // Facturacion
+    Route::get('/sales/invoicing/validate/{id}', [InvoicingController::class, 'validarPedido'])->name('sales.invoices-validate');
+    Route::resource('/sales/invoicing', InvoicingController::class);
+
 
 
 
@@ -172,6 +179,22 @@ Route::group(['middleware' => ['auth']], function() {
      * FIN ALMACEN
      * 
      */
+
+     /**
+     * 
+     * PAYMENTS
+     * 
+     */
+    
+    // PAYMENTS
+
+    Route::resource('/accounting/payments', PaymentController::class);
+    
+    /**
+    * 
+    * FIN PAYMENTS
+    * 
+    */
 
 
      /**

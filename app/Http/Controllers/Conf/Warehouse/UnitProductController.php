@@ -40,6 +40,7 @@ class UnitProductController extends Controller
             'switch' => false,
             'edit' => true, 
             'show' => false,
+            'edit_modal' => true,
             'url' => "/mantenice/product/unit",
             'id' => 'id_unit_product',
             'data' => UnitProduct::where('enabled_unit_product', '=', '1')->paginate(10),

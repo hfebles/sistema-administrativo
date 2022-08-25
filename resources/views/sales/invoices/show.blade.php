@@ -15,11 +15,7 @@
         
         <div class="row g-3">
             
-            @if ($data->id_order_state == 3)
-           <span class="text-danger text-center fs-3">ORDEN CANCELADA</span>
-           @elseif ($data->id_order_state == 2)
-           <span class="text-info text-center fs-3">FACTURADA</span>
-            @else
+
             <div class="col-sm-12 d-flex">
                 <a href="" class="btn btn-sm btn-info btn-icon-split ml-auto">
                     <span class="icon text-white-50">
@@ -33,15 +29,14 @@
                     </span>
                     <span class="text">Facturar</span>
                 </a>
-                <a href="/sales/cancel/{{$data->id_sales_order}}" class="btn btn-sm btn-danger btn-icon-split ml-3">
+                <a href="" class="btn btn-sm btn-danger btn-icon-split ml-3">
                     <span class="icon text-white-50">
                         <i class="fas fa-times-circle"></i>
                     </span>
                     <span class="text">Canelar</span>
                 </a>
                 </div>
-         @endif
-         
+
 
     <div class="col-sm-12">
 
@@ -49,13 +44,13 @@
     <tr>
             <td width="80%" class="text-end">Fecha:</td>
             <td  width="10%"   class="text-start">
-                <span id="razon_social">{{date('d-m-Y', strtotime($data->date_sales_order))}}</span>
+                <span id="razon_social">{{date('d-m-Y', strtotime($data->date_invoicing))}}</span>
             </td>
         </tr>
         <tr>
             <td class="text-end">Nro control:</td>
             <td class="text-start">
-                <span id="razon_social">{{$data->ref_name_sales_order}}</span>
+                <span id="razon_social">{{$data->ref_name_invoicing}}</span>
             </td>
         </tr>
     </table>
@@ -140,31 +135,31 @@
         </tr>    
         <tr>
             <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
         
             <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">Bs.D. {{number_format($data->no_exempt_amout_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">Bs.D. {{number_format($data->no_exempt_amout_invoicing, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">EXENTO: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->exempt_amout_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->exempt_amout_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">EXENTO: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p>Bs.D. {{number_format($data->exempt_amout_sales_order, 2, ',', '.')}}</th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p>Bs.D. {{number_format($data->exempt_amout_invoicing, 2, ',', '.')}}</th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">IVA: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_tax_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_tax_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
 
             <th scope="col" class="text-end align-middle">IVA:</th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas">Bs.D. {{number_format($data->total_amount_tax_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas">Bs.D. {{number_format($data->total_amount_tax_invoicing, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_sales_order/$data->amount_exchange, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals">Bs.D. {{number_format($data->total_amount_sales_order, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals">Bs.D. {{number_format($data->total_amount_invoicing, 2, ',', '.')}}</p></th>
         </tr>
     </table> 
 
@@ -173,26 +168,5 @@
 
     </x-cards>
 </div>
-    
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="title-modal">Validar pedido</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-12 g-3">
-                <p class="text-center">Desea facturar el pedido: {{$data->ref_name_sales_order}}</p>
-
-                    <div class="text-center"><a href="/sales/invoicing/validate/{{$data->id_sales_order}}" class="btn btn-success">Validar</a></div>
-
-            </div>
-        </div>
-    </div>
-  </div>
-</div>
 @endsection

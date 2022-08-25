@@ -75,6 +75,8 @@ class SalesOrderController extends Controller
 
     public function create(){
 
+        
+
         $conf = [
             'title-section' => 'Nuevo pedido',
             'group' => 'sales-order',
@@ -82,6 +84,12 @@ class SalesOrderController extends Controller
         ];
 
         $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get();
+
+        $dataUsers = Client::whereEnabledClient(1)->get();
+
+        if (count($dataUsers) == 0) {
+            return redirect()->route('clients.index')->with('success', "Debe registrar un cliente");
+        }
 
         //return $dataExchange;
         if(count($dataExchange) == 0){
@@ -96,11 +104,7 @@ class SalesOrderController extends Controller
         }else{
             $dataConfiguration = $dataConfiguration[0];
             $config = $dataConfiguration->control_number_sale_order_configuration;
-        }
-
-
-
-        
+        }    
         
 
         
@@ -108,10 +112,18 @@ class SalesOrderController extends Controller
 
         $datax = SalesOrder::whereEnabledSalesOrder(1)->orderBy('id_sales_order', 'DESC')->get();
 
+        
+
         if(count($datax) > 0){
+            
             if( $config == $datax[0]->ctrl_num){
+                
                 $config = $datax[0]->ctrl_num+1;
+                
+            }else{
+                
             }
+        
         }
 
         
@@ -149,12 +161,7 @@ class SalesOrderController extends Controller
                                         'ref_name_sales_order',
                                         'ctrl_num');
 
-     //return $dataSalesOrder;
-
-        
-     //return count($dataSalesOrder['id_product']);
-
-      
+     
 
             $saveSalesOrder = new SalesOrder();
 
@@ -195,27 +202,18 @@ class SalesOrderController extends Controller
 
         
 
-
-        // 
-        
-        //return redirect()->route('sales-order.index')->with('success', 'Registro con exito');
-
     }
 
     public function show($id){
 
        
 
-        //return $id;
-       // $dataExchange = Exchange::whereEnabledExchange(1)->where('date_exchange', '=', date('Y-m-d'))->orderBy('id_exchange', 'DESC')->get()[0]->amount_exchange;
-
        $data =  \DB::select("SELECT so.*, c.address_client, c.phone_client, c.idcard_client, c.name_client, w.firts_name_worker, w.last_name_worker, e.amount_exchange, e.date_exchange
                                 FROM sales_orders as so
                                 INNER JOIN clients AS c ON c.id_client = so.id_client
                                 INNER JOIN exchanges AS e ON e.id_exchange = so.id_exchange
                                 LEFT OUTER JOIN workers AS w ON w.id_worker = so.id_worker
-                                WHERE so.id_sales_order = $id
-       ")[0];
+                                WHERE so.id_sales_order = $id")[0];
 
         $conf = [
             'title-section' => 'Pedido: ',
@@ -228,11 +226,6 @@ class SalesOrderController extends Controller
 
         $obj = json_decode($dataSalesOrderDetails->details_order_detail, true);
 
-
-       
-
-        
-
         for($i = 0; $i<count($obj['id_product']); $i++){
             $dataProducts[$i] =  \DB::select("SELECT products.*, p.name_presentation_product, u.name_unit_product, u.short_unit_product
                                                 FROM products 
@@ -242,14 +235,11 @@ class SalesOrderController extends Controller
         }
 
             
-        //return $data;
-
-
         return view('sales.sales-order.show', compact('conf', 'data', 'dataProducts', 'obj'));
 
     }
 
-
+    
     public function anular($id){
 
         $dataSalesOrderDetails = salesOrderDetails::whereIdSalesOrder($id)->get()[0];
@@ -273,8 +263,6 @@ class SalesOrderController extends Controller
 
 
     public function listar(Request $request){
-
-        //$dataTasa = TasaBCV::select('valor_tasa')->orderBy('fecha_tasa','DESC')->get()[0];
 
         if($request->texto == 'clientes'){
             if (isset($request->param)) {
@@ -351,7 +339,6 @@ class SalesOrderController extends Controller
 
     public function disponible(Request $request){
         $data = $request;
-
 
         $actual = Product::select('qty_product', 'tax_exempt_product', 'product_usd_product')->whereIdProduct($data['producto'])->get();
 

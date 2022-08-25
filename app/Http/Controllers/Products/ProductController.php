@@ -135,7 +135,7 @@ class ProductController extends Controller
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
         ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
         ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
-        ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category')
+        ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
         ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
         ->whereIdProduct($id)->get()[0];
 
@@ -192,7 +192,7 @@ class ProductController extends Controller
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
         ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
         ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
-        ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category')
+        ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
         ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
         ->whereIdProduct($id)->get()[0];
         

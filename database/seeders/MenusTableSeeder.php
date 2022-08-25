@@ -28,6 +28,7 @@ class MenusTableSeeder extends Seeder
         
         
         
+        
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES (4, 'Nomina', '/', '0','3','3', '0')");
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES (5, 'Empleados', '/', '0','4','4', '0')");
         DB::insert("INSERT INTO `menus`(`id`, `name`, `slug`, `parent`, `order`, `href`) VALUES (6, 'Mantenimientos', '/manetenice', '0','5','1')");
@@ -39,10 +40,12 @@ class MenusTableSeeder extends Seeder
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Plan Contable', '/accounting/ledger-account', '2','0','1', 'accounting-ledger')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Asientos contables', '/accounting/accounting-records', '2','1','1', 'accounting-records')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Pagos Recibidos', '/accounting/payments', '2','2','1', 'payment')");
 
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Trabajadores', 'workers.index', '7','0','0', 'rrhh-worker')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Grupos de trabajo', 'group-workers.index', '7','1','0', 'rrhh-group-worker')");
 
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Configurar Facturacion', 'invoices-config.index', '6','0','0', 'sales-invoices-conf')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Configurar Pedidos de venta', 'order-config.index', '6','0','0', 'sales-order-conf')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Tasa BCV', 'exchange.index', '6','0','0', 'exchange')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`, `grupo`) VALUES ('Impuestos', '/mantenice/taxes', '6','0','1','1', 'taxes')");
@@ -60,7 +63,7 @@ class MenusTableSeeder extends Seeder
 
 
 
-
+    
 
 
 

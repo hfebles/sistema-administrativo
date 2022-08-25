@@ -39,6 +39,8 @@ class PresentationProductController extends Controller
             'switch' => false,
             'edit' => true, 
             'show' => false,
+            'edit_modal' => false,
+            'group' => 'product-presentation',
             'url' => "/mantenice/product/presentation",
             'id' => 'id_presentation_product',
             'data' => PresentationProduct::where('enabled_presentation_product', '=', '1')->paginate(10),
