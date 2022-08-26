@@ -23,12 +23,15 @@
                     </span>
                     <span class="text">Imprimir</span>
                 </a>
+                @if ($data->id_order_state != 5)
                 <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-success btn-icon-split ml-3">
                     <span class="icon text-white-50">
                     <i class="fas fa-check-circle"></i>
                     </span>
                     <span class="text">Pagar</span>
-                </a>
+                </a> 
+                @endif
+                
                 <a href="" class="btn btn-sm btn-danger btn-icon-split ml-3">
                     <span class="icon text-white-50">
                         <i class="fas fa-times-circle"></i>
@@ -118,10 +121,10 @@
         @foreach ($dataProducts[$i] as $k => $products)
         <tr>
             
-            <th scope="col" colspan="2" class="align-middle">{{$products->name_product}} {{$products->name_presentation_product}} {{$products->short_unit_product}} @if ($products->tax_exempt_product == 1) (E) @endif</th>
-            <th scope="col" class="text-center align-middle" width="10%">{{number_format($obj['cantidad'][$i], 2, ',', '.')}}</th>
-            <th scope="col" class="text-center align-middle" width="10%">{{number_format($obj['precio_producto'][$i], 2, ',', '.')}}</th>
-            <th scope="col" class="text-center align-middle " width="10%">{{number_format($obj['precio_producto'][$i]*$obj['cantidad'][$i], 2, ',', '.')}}</th>
+            <td colspan="2" class="align-middle">{{$products->name_product}} {{$products->name_presentation_product}} {{$products->short_unit_product}} @if ($products->tax_exempt_product == 1) (E) @endif</td>
+            <td class="text-center align-middle" width="10%">{{number_format($obj['cantidad'][$i], 2, ',', '.')}}</td>
+            <td class="text-center align-middle" width="10%">Bs. {{number_format($obj['precio_producto'][$i], 2, ',', '.')}}</td>
+            <td class="text-center align-middle " width="10%">Bs. {{number_format($obj['precio_producto'][$i]*$obj['cantidad'][$i], 2, ',', '.')}}</td>
         </tr>
         @endforeach
         @endfor
@@ -138,30 +141,60 @@
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->no_exempt_amout_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
         
             <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">Bs.D. {{number_format($data->no_exempt_amout_invoicing, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">Bs. {{number_format($data->no_exempt_amout_invoicing, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">EXENTO: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->exempt_amout_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">EXENTO: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p>Bs.D. {{number_format($data->exempt_amout_invoicing, 2, ',', '.')}}</th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p>Bs. {{number_format($data->exempt_amout_invoicing, 2, ',', '.')}}</th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">IVA: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_tax_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
 
             <th scope="col" class="text-end align-middle">IVA:</th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas">Bs.D. {{number_format($data->total_amount_tax_invoicing, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas">Bs. {{number_format($data->total_amount_tax_invoicing, 2, ',', '.')}}</p></th>
         </tr>
         <tr>
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
             <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs">$ {{number_format($data->total_amount_invoicing/$data->amount_exchange, 2, ',', '.')}}</p></th>
             
             <th scope="col" class="text-end align-middle">TOTAL A PAGAR: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals">Bs.D. {{number_format($data->total_amount_invoicing, 2, ',', '.')}}</p></th>
+            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals">Bs. {{number_format($data->total_amount_invoicing, 2, ',', '.')}}</p></th>
         </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tfoot class="bg-gray-100">
+        @if ($data->id_order_state != 5)
+                        <tr><td width="43%" class="text-end">Pendiente por cobrar: </td>
+                            <td width="7.5%"class="text-end"><label class="text-danger">$ {{number_format($data->residual_amount_invoicing/$data->amount_exchange, '2', ',', '.')}}</label></td>
+                            <td width="19%" class="text-end">Pendiente por cobrar: </td>
+                            <td width="10%" class="text-end"><label class="text-danger">Bs. {{number_format($data->residual_amount_invoicing, '2', ',', '.')}}</label></td>
+                        </tr>
+                    @endif
+                        <tr>
+                            <td colspan="4" class="text-end">Pagos recibidos</td>
+                            
+                        </tr>
+                    
+                        @foreach ($payments as $pago)
+                        <tr>
+                            <td  colspan="4" class="text-end fst-italic text-muted">{{$pago->name_bank}} - {{date('d-m-Y', strtotime($pago->date_payment))}} - Bs. {{number_format($pago->amount_payment, '2', ',', '.')}}</td>
+                        </tr>
+                        @endforeach
+        </tfoot>
     </table> 
+    
+                    <hr>
+                    <table class="table table-sm table-bordered mb-0">
+                    
+                       
+                    </table>
+                    
+
 
     </div>
     </div>
@@ -169,4 +202,77 @@
     </x-cards>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title-modal">Validar pedido</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+            {!! Form::open(array('route' => 'payments.store','method'=>'POST', 'novalidate', 'placeholder' => 'Fecha del pago', 'class' => 'needs-validation row g-3', 'id' => 'myForm')) !!}
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        {!! Form::date('date_payment', \Carbon\Carbon::now(), ['class' => 'form-control form-control-sm', 'required',]) !!}
+                        <label>Fecha del pago</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        {!! Form::text('ref_payment', null, array('placeholder' => 'Número de referencia', 'autocomplete' => 'off', 'required', 'class' => 'form-control form-control-sm')) !!}
+                        <label>Número de referencia</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        {!! Form::text('residual_amount_invoicing', number_format($data->residual_amount_invoicing, 2, ',', '.'), array('disabled', 'placeholder' => 'Monto residual', 'autocomplete' => 'off', 'required', 'class' => 'form-control form-control-sm')) !!}
+                        <label>Monto residual:</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                    {!! Form::select('id_bank', $dataBanks, null, ['class' => 'form-select form-control-sm', 'required', ]) !!}
+                        <label>Banco:</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-floating">
+                        {!! Form::text('amount_payment', $data->residual_amount_invoicing, array('placeholder' => 'Monto a pagar', 'autocomplete' => 'off', 'required', 'class' => 'form-control form-control-sm')) !!}
+                        <label>Monto a pagar:</label>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <x-btns-save side="false" />
+                {!! Form::hidden('id_invoice', $data->id_invoicing) !!}
+                {!! Form::hidden('id_client', $data->id_client) !!}
+            {!! Form::close() !!}
+
+        <div class="modal-footer mt-3">
+        </div>
+    </div>
+  </div>
+</div>
+@endsection
+@section('js')
+    <script>
+
+(function () {
+  'use strict'
+  var forms = document.querySelectorAll('.needs-validation')
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
 @endsection

@@ -40,7 +40,7 @@ class ExchangeController extends Controller
             'money'=> true,
             'switch' => false,
             'edit' => false,
-            'show' => true,
+            'show' => false,
             'edit_modal' => false, 
             'url' => "/mantenice/exchange",
             'id' => 'id_exchange',

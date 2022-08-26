@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('id_client')->nullable();
             $table->integer('id_invoice')->nullable();
             $table->float('amount_payment', 8, 2);
+            $table->string('ref_payment');
+            $table->date('date_payment');
             $table->integer('id_bank')->nullable();
             $table->timestamps();
         });

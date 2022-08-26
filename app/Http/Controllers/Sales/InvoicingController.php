@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Conf\Bank;
 use App\Models\Conf\Sales\InvoicingConfigutarion;
+use App\Models\Payments\Payments;
 use App\Models\Sales\Invoicing;
 use App\Models\Sales\InvoicingDetails;
 use App\Models\Sales\SalesOrder;
@@ -31,7 +33,7 @@ class InvoicingController extends Controller
             'create' => ['route' =>'invoicing.create', 'name' => 'Nuevo pedido'],
         ];
 
-        $data = Invoicing::select('id_invoicing','ref_name_invoicing', 'date_invoicing', 'name_client', 'total_amount_invoicing', 'os.name_order_state', 'c.name_client')
+        $data = Invoicing::select('id_invoicing', 'residual_amount_invoicing', 'ref_name_invoicing', 'date_invoicing', 'name_client', 'total_amount_invoicing', 'os.name_order_state', 'c.name_client')
         ->join('clients as c', 'c.id_client', '=', 'invoicings.id_client', 'left outer')
         ->join('order_states as os', 'os.id_order_state', '=', 'invoicings.id_order_state', 'left outer')
         ->whereEnabledInvoicing(1)
@@ -44,8 +46,8 @@ class InvoicingController extends Controller
         $table = [
             'c_table' => 'table table-bordered table-hover mb-0 text-uppercase',
             'c_thead' => 'bg-dark text-white',
-            'ths' => ['#', 'Factura', 'Fecha', 'Cliente', 'Estado', 'Total'],
-            'w_ts' => ['3','10','10','53','12','12',],
+            'ths' => ['#', 'Factura', 'Fecha', 'Cliente', 'Estado', 'Total', 'Por cobrar'],
+            'w_ts' => ['3','10','10','41','12','12', '12',],
             'c_ths' => 
                 [
                 'text-center align-middle',
@@ -54,8 +56,9 @@ class InvoicingController extends Controller
                 'text-center align-middle',
                 'text-center align-middle',
                 'text-center align-middle',
+                'text-center align-middle',
                 'text-center align-middle',],
-            'tds' => ['ref_name_invoicing', 'date_invoicing', 'name_client', 'name_order_state', 'total_amount_invoicing'],
+            'tds' => ['ref_name_invoicing', 'date_invoicing', 'name_client', 'name_order_state', 'total_amount_invoicing', 'residual_amount_invoicing'],
             'switch' => false,
             'edit' => false, 
             'show' => true,
@@ -93,11 +96,13 @@ class InvoicingController extends Controller
                 
                 $config = $datax[0]->ctrl_num+1;
                 
-            }else{
-                
             }
-        
+            $config = $datax[0]->ctrl_num+1;
         }
+
+        //return $dataConfig;
+
+        
 
         $inv = new Invoicing();
         $invDetails = new InvoicingDetails();
@@ -106,13 +111,14 @@ class InvoicingController extends Controller
             $inv->id_client = $dataSalesOrder['id_client'];
             $inv->id_exchange = $dataSalesOrder['id_exchange'];
             $inv->ctrl_num = $config;
-            $inv->ref_name_invoicing = $dataConfig->correlative_invoicing_configutarion.$dataConfig->control_number_invoicing_configutarion;
+            $inv->ref_name_invoicing = $dataConfig->correlative_invoicing_configutarion.'-'.str_pad($config, 6, "0", STR_PAD_LEFT);
 
             if(isset($dataSalesOrder['id_worker'])){
                 $inv->id_worker = $dataSalesOrder['id_worker'];
             }
             
             $inv->id_user = $dataSalesOrder['id_user'];
+            $inv->residual_amount_invoicing = $dataSalesOrder['total_amount_sales_order'];
             $inv->total_amount_invoicing = $dataSalesOrder['total_amount_sales_order'];
             $inv->exempt_amout_invoicing = $dataSalesOrder['exempt_amout_sales_order'];
             $inv->id_order_state = 4;
@@ -126,17 +132,8 @@ class InvoicingController extends Controller
             $invDetails->save();
 
 
-            SalesOrder::whereIdSalesOrder($id)->update(['id_order_state' => 2]);
+            SalesOrder::whereIdSalesOrder($id)->update(['id_order_state' => 2, 'id_invoice' => $inv->id]);
 
-
-            
-/*
-            for($i = 0; $i<count($dataSalesOrder['id_product']); $i++){
-                $restar =  Product::select('qty_product')->whereIdProduct($dataSalesOrder['id_product'][$i])->get();
-                $operacion = $restar[0]->qty_product - $dataSalesOrder['cantidad'][$i];
-                
-                Product::whereIdProduct($dataSalesOrder['id_product'][$i])->update(['qty_product'=>$operacion]);
-            }*/
 
         return redirect()->route('invoicing.show', $inv->id);
     }
@@ -153,13 +150,24 @@ class InvoicingController extends Controller
 
         $conf = [
             'title-section' => 'Factura: '.$data->ref_name_invoicing,
-            'group' => 'sales-order',
-            'back' => 'sales-order.index',
+            'group' => 'sales-invoicing',
+            'back' => 'invoicing.index',
         ];
+
+        
 
         $dataDetails = InvoicingDetails::whereIdInvoicing($id)->get()[0];
 
         $obj = json_decode($dataDetails->details_invoicing_detail, true);
+
+        $dataBanks = Bank::where('enabled_bank', '=', 1)->pluck('name_bank', 'id_bank');
+
+        $payments = Payments::select('payments.*', 'name_bank')
+        ->join('banks', 'banks.id_bank', '=', 'payments.id_bank')
+        ->whereIdInvoice($id)
+        ->get();
+
+        //return $payments;
 
         for($i = 0; $i<count($obj['id_product']); $i++){
             $dataProducts[$i] =  \DB::select("SELECT products.*, p.name_presentation_product, u.name_unit_product, u.short_unit_product
@@ -170,7 +178,7 @@ class InvoicingController extends Controller
         }
 
             
-        return view('sales.invoices.show', compact('conf', 'data', 'dataProducts', 'obj'));
+        return view('sales.invoices.show', compact('conf', 'data', 'dataProducts', 'obj', 'dataBanks', 'payments'));
 
                
 
@@ -183,7 +191,7 @@ class InvoicingController extends Controller
     public function imprimirFactura($id){
         
         
-        $data =  \DB::select("SELECT i.*, c.address_client, c.phone_client, c.idcard_client, c.name_client, w.firts_name_worker, w.last_name_worker, e.amount_exchange, e.date_exchange
+        $data =  \DB::select("SELECT i.*, c.id_client, c.address_client, c.phone_client, c.idcard_client, c.name_client, w.firts_name_worker, w.last_name_worker, e.amount_exchange, e.date_exchange
         FROM invoicings as i
         INNER JOIN clients AS c ON c.id_client = i.id_client
         INNER JOIN exchanges AS e ON e.id_exchange = i.id_exchange
@@ -197,6 +205,10 @@ class InvoicingController extends Controller
         foreach($obj['cantidad'] as $kk){
             $cantita = $cantita+$kk;
        }
+
+       
+
+       
 
         for($i = 0; $i<count($obj['id_product']); $i++){
             $dataProducts[$i] =  \DB::select("SELECT products.*, p.name_presentation_product, u.name_unit_product, u.short_unit_product

@@ -36,12 +36,18 @@ class SalesOrderController extends Controller
             'create' => ['route' =>'sales-order.create', 'name' => 'Nuevo pedido'],
         ];
 
-        $data = SalesOrder::select('id_sales_order','ref_name_sales_order', 'name_client', 'total_amount_sales_order', 'os.name_order_state', 'c.name_client')
+        $data = SalesOrder::select('id_sales_order', 'date_sales_order', 'ref_name_sales_order', 'name_client', 'total_amount_sales_order', 'os.name_order_state', 'c.name_client')
         ->join('clients as c', 'c.id_client', '=', 'sales_orders.id_client', 'left outer')
         ->join('order_states as os', 'os.id_order_state', '=', 'sales_orders.id_order_state', 'left outer')
         ->whereEnabledSalesOrder(1)
-        ->orderBy('id_sales_order', 'ASC')
-        ->paginate(10);
+        
+        ->orderBy('date_sales_order', 'DESC')
+        ->orderBy('sales_orders.id_order_state', 'ASC')
+        ->orderBy('id_sales_order', 'DESC')
+        
+        
+        
+        ->paginate(15);
 
        // return $data;
 
@@ -49,8 +55,8 @@ class SalesOrderController extends Controller
         $table = [
             'c_table' => 'table table-bordered table-hover mb-0 text-uppercase',
             'c_thead' => 'bg-dark text-white',
-            'ths' => ['#', 'Pedido', 'Cliente', 'Estado', 'Total'],
-            'w_ts' => ['3','10','63','12','12',],
+            'ths' => ['#', 'Fecha', 'Pedido', 'Cliente', 'Estado', 'Total'],
+            'w_ts' => ['3','10','10','43','12','12',],
             'c_ths' => 
                 [
                 'text-center align-middle',
@@ -58,9 +64,9 @@ class SalesOrderController extends Controller
                 'text-center align-middle',
                 'text-center align-middle',
                 'text-center align-middle',
+                'text-center align-middle',
                 'text-center align-middle',],
-            'tds' => ['ref_name_sales_order', 'name_client', 'name_order_state', 'total_amount_sales_order'],
-            'switch' => false,
+            'tds' => ['date_sales_order', 'ref_name_sales_order', 'name_client', 'name_order_state', 'total_amount_sales_order'],
             'edit' => false, 
             'show' => true,
             'edit_modal' => false, 
@@ -105,6 +111,8 @@ class SalesOrderController extends Controller
             $dataConfiguration = $dataConfiguration[0];
             $config = $dataConfiguration->control_number_sale_order_configuration;
         }    
+
+        
         
 
         
@@ -120,11 +128,12 @@ class SalesOrderController extends Controller
                 
                 $config = $datax[0]->ctrl_num+1;
                 
-            }else{
-                
             }
-        
+            $config = $datax[0]->ctrl_num+1;
+            // return $config;
         }
+
+        
 
         
 
@@ -143,7 +152,7 @@ class SalesOrderController extends Controller
 
     public function store(Request $request){
 
-
+        $dataConfiguration = SaleOrderConfiguration::all()[0];
         $dataSalesOrder = $request->except('_token');
         $dataDetails = $request->except('_token',
                                         'id_client',
@@ -169,7 +178,8 @@ class SalesOrderController extends Controller
             $saveSalesOrder->id_client = $dataSalesOrder['id_client'];
             $saveSalesOrder->id_exchange = $dataSalesOrder['id_exchange'];
             $saveSalesOrder->ctrl_num = $dataSalesOrder['ctrl_num'];
-            $saveSalesOrder->ref_name_sales_order = $dataSalesOrder['ref_name_sales_order'];
+            
+            $saveSalesOrder->ref_name_sales_order = $dataConfiguration->correlative_sale_order_configuration.'-'.str_pad($dataSalesOrder['ctrl_num'], 6, "0", STR_PAD_LEFT);
 
             if(isset($dataSalesOrder['id_worker'])){
                 $saveSalesOrder->id_worker = $dataSalesOrder['id_worker'];
