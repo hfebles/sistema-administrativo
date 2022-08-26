@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Conf\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Accounting\LedgerAccount;
 use App\Models\Accounting\SubLedgerAccount;
 use App\Models\Conf\Sales\InvoicingConfigutarion;
 use Illuminate\Http\Request;
@@ -41,6 +42,9 @@ class InvoicingConfigutarionController extends Controller
 
         $data = InvoicingConfigutarion::whereIdInvoicingConfigutarion($id)->get();
         $dataSubAcc = SubLedgerAccount::where('enabled_sub_ledger_account', '=', '1')->pluck('name_sub_ledger_account', 'id_sub_ledger_account');
+
+
+
 
 
         //return $data;

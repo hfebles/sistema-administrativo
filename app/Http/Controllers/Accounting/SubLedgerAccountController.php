@@ -13,13 +13,17 @@ class SubLedgerAccountController extends Controller
 
         $data = $request->except('_token');
 
+        //return $data;
+
         $save = new SubLedgerAccount();
         $save->code_sub_ledger_account = $data['code_sub_ledger_account'];
         $save->name_sub_ledger_account = strtoupper($data['name_sub_ledger_account']);
         $save->id_ledger_account = $data['id_ledger_account'];
+        $save->id_type_ledger_account = $data['id_type_ledger_account'];
         $save->save();
 
-        return redirect()->route('ledger-account.show',  $data['id_group']);
+        //return redirect()->route('ledger-account.show',  $data['id_group']);
+        return back();
 
     }
 }

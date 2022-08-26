@@ -41,6 +41,9 @@ class MenusTableSeeder extends Seeder
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `enabled`) VALUES ('Facturas', '/facturas', '1','2','1', '0')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `grupo`) VALUES ('Productos', 'product.salable', '1','2', 'product-product')");
 
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `grupo`) VALUES ('Almacenes', 'warehouse.index', '3','1', 'warehouse')");
+        DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `grupo`) VALUES ('Productos', 'product.index', '3','2', 'product-product')");
+
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Plan Contable', '/accounting/ledger-account', '2','0','1', 'accounting-ledger')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Asientos contables', '/accounting/accounting-records', '2','1','1', 'accounting-records')");
         DB::insert("INSERT INTO `menus`(`name`, `slug`, `parent`, `order`, `href`, `grupo`) VALUES ('Pagos Recibidos', '/accounting/payments', '2','2','1', 'payment')");

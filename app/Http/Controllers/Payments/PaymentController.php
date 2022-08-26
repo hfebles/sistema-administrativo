@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Payments;
 
+use App\Http\Controllers\Accounting\AccountingEntriesController;
+use App\Http\Controllers\Accounting\MovesAccountsController;
 use App\Http\Controllers\Controller;
+use App\Models\Accounting\AccountingEntries;
+use App\Models\Accounting\TypeLedgerAccounts;
+use App\Models\Conf\Bank;
 use App\Models\Payments\Payments;
 use App\Models\Sales\Invoicing;
 use Illuminate\Http\Request;
@@ -85,13 +90,33 @@ class PaymentController extends Controller
             $resto = $invoce->residual_amount_invoicing-$payment->amount_payment;
             Invoicing::whereIdInvoicing($payment->id_invoice)->update(['residual_amount_invoicing' => $resto]);
         }
+
+        $dataBank = Bank::where('id_bank', '=', $payment->id_bank)->get()[0];
+
+
+        $dataType = TypeLedgerAccounts::select('name_type_ledger_account')
+                            ->join('sub_ledger_accounts', 'sub_ledger_accounts.id_type_ledger_account', '=', 'type_ledger_accounts.id_type_ledger_account')
+                            ->where('sub_ledger_accounts.id_sub_ledger_account', '=', $dataBank->id_sub_ledger_account)
+                            ->get();
+
+
+            // return $dataType;
+            
+
+            $move = (new MovesAccountsController)->createMoves($payment->id_invoice, 3);                       
+            $result = (new AccountingEntriesController)->saveEntries($move['id_move'], $move['type_move'], $payment->id_invoice);
+            
+           
+            
         
         
         
 
 
         
-
-        return redirect()->route('invoicing.show', $data['id_invoice']);
+            if($result  == true){
+                return redirect()->route('invoicing.show', $data['id_invoice']);
+            }
+        
     }
 }

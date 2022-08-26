@@ -178,6 +178,10 @@
                                 <label class="form-label">Nombre del subgrupo: </label>
                                 {!! Form::text('name_sub_group', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el nombre deñ nuevo subgrupo','class' => 'form-control form-control-sm')) !!}
                             </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Tipo: </label>
+                                {!! Form::select('id_type_ledger_account', $dataType, null, ['class' => 'form-select form-control-sm', 'required', ]) !!}
+                            </div>
                         </div>
                         <div class="row text-center mt-4">
                             <div>
@@ -208,7 +212,7 @@
                     {!! Form::open(array('route' => 'ledger-account.store','method'=>'POST', 'novalidate', 'class' => 'needs-validation', 'id' => 'myForm')) !!}
                         <div class="row g-4">
                             <div class="col-md-12">
-                                <label class="form-label">Sub Grupo: </label>
+                                <label class="form-label">subGrupo: </label>
                                 {!! Form::select('id_sub_group', $dataSGPluck, null, ['required', 'class' => 'form-select form-control-sm', 'placeholder' => 'Seleccione']) !!}
                             </div>
                             <div class="col-md-12">
@@ -216,8 +220,12 @@
                                 {!! Form::text('code_ledger_account', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el código del nuevo subgrupo','class' => 'form-control form-control-sm')) !!}
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Nombre del subgrupo: </label>
+                                <label class="form-label">Nombre de la cuenta: </label>
                                 {!! Form::text('name_ledger_account', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el nombre deñ nuevo subgrupo','class' => 'form-control form-control-sm')) !!}
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Tipo: </label>
+                                {!! Form::select('id_type_ledger_account', $dataType, null, ['class' => 'form-select form-control-sm', 'required', ]) !!}
                             </div>
                         </div>
                         <div class="row text-center mt-4">
@@ -226,7 +234,6 @@
                                 <input class="btn btn-danger" type="reset" value="Deshacer">
                             </div>
                         </div>
-                    {!! Form::hidden('id_group', $dataG->id_group) !!}
                     {!! Form::close() !!}
                 </div>
                 </div>
@@ -248,7 +255,7 @@
                 {!! Form::open(array('route' => 'sub-ledger-account.store','method'=>'POST', 'novalidate', 'class' => 'needs-validation', 'id' => 'myForm')) !!}
                         <div class="row g-4">
                             <div class="col-md-12">
-                                <label class="form-label">Sub Grupo: </label>
+                                <label class="form-label">Cuenta: </label>
                                 {!! Form::select('id_ledger_account', $dataLAPluck, null, ['required', 'class' => 'form-select form-control-sm', 'placeholder' => 'Seleccione']) !!}
                             </div>
                             <div class="col-md-12">
@@ -256,8 +263,12 @@
                                 {!! Form::text('code_sub_ledger_account', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el código del nuevo subgrupo','class' => 'form-control form-control-sm')) !!}
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">Nombre del subgrupo: </label>
+                                <label class="form-label">Nombre de la subcuenta: </label>
                                 {!! Form::text('name_sub_ledger_account', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el nombre deñ nuevo subgrupo','class' => 'form-control form-control-sm')) !!}
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Tipo: </label>
+                                {!! Form::select('id_type_ledger_account', $dataType, null, ['class' => 'form-select form-control-sm', 'required', ]) !!}
                             </div>
                         </div>
                         <div class="row text-center mt-4">
@@ -266,7 +277,6 @@
                                 <input class="btn btn-danger" type="reset" value="Deshacer">
                             </div>
                         </div>
-                    {!! Form::hidden('id_group', $dataG->id_group) !!}
                     {!! Form::close() !!}
 
                 </div>

@@ -11,8 +11,7 @@ use App\Models\Accounting\LedgerAccount;
 use App\Models\Accounting\Group;
 use App\Models\Accounting\SubGroup;
 use App\Models\Accounting\SubLedgerAccount;
-
-
+use App\Models\Accounting\TypeLedgerAccounts;
 
 class LedgerAccountController extends Controller
 {
@@ -84,8 +83,7 @@ class LedgerAccountController extends Controller
             $dataLAPluck = LedgerAccount::whereIn('id_sub_group', $dataSGa)->pluck('name_ledger_account', 'id_ledger_account');
             
 
-            //return $dataLAPluck;
-
+            $dataType = TypeLedgerAccounts::where('enabled_type_ledger_account', '=', 1)->pluck('name_type_ledger_account', 'id_type_ledger_account');
             $dataLA = [];
             $dataSLA = [];
 
@@ -116,7 +114,7 @@ class LedgerAccountController extends Controller
             
             
            
-            return view('accounting.ledger-account.show', compact('conf', 'dataG', 'dataSG', 'dataLA', 'dataSGPluck', 'dataLAPluck', 'dataSLA'));
+            return view('accounting.ledger-account.show', compact('conf', 'dataG', 'dataSG', 'dataLA', 'dataSGPluck', 'dataLAPluck', 'dataSLA', 'dataType'));
             
     }
 
@@ -132,7 +130,7 @@ class LedgerAccountController extends Controller
         $save->name_ledger_account = strtoupper($data['name_ledger_account']);
         $save->save();
 
-        return redirect()->route('ledger-account.show',  $data['id_group']);
+        return back();
     }
 
 

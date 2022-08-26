@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers\Sales;
 
+use App\Http\Controllers\Accounting\AccountingEntriesController;
+use App\Http\Controllers\Accounting\MovesAccountsController;
 use App\Http\Controllers\Controller;
+use App\Models\Accounting\AccountingEntries;
+use App\Models\Accounting\MovesAccounts;
+use App\Models\Accounting\SubLedgerAccount;
+use App\Models\Accounting\TypeLedgerAccounts;
 use App\Models\Conf\Bank;
 use App\Models\Conf\Sales\InvoicingConfigutarion;
 use App\Models\Payments\Payments;
@@ -76,13 +82,15 @@ class InvoicingController extends Controller
     public function validarPedido($id)
     {
 
+
+
         $dataSalesOrder = SalesOrder::whereIdSalesOrder($id)->get()[0];
         $dataDetails = SalesOrderDetails::whereIdSalesOrder($id)->get()[0];
 
         $dataConfig = InvoicingConfigutarion::all();
 
         if(count($dataConfig) == 0){
-            return redirect()->route('order-config.index')->with('success', 'Debe registrat una tasa');
+            return redirect()->route('order-config.index')->with('success', 'Debe registrar una tasa');
         }else{
             $dataConfig = $dataConfig[0];
             $config = $dataConfig->control_number_invoicing_configutarion;
@@ -134,8 +142,19 @@ class InvoicingController extends Controller
 
             SalesOrder::whereIdSalesOrder($id)->update(['id_order_state' => 2, 'id_invoice' => $inv->id]);
 
+            
 
-        return redirect()->route('invoicing.show', $inv->id);
+
+            $move = (new MovesAccountsController)->createMoves($inv->id, 1);
+
+            $accountEntry = (new AccountingEntriesController)->saveEntries($move['id_move'], $move['type_move'], $inv->id);
+
+            
+
+        if($accountEntry == true){
+            return redirect()->route('invoicing.show', $inv->id);
+        }
+        
     }
 
 
@@ -162,12 +181,12 @@ class InvoicingController extends Controller
 
         $dataBanks = Bank::where('enabled_bank', '=', 1)->pluck('name_bank', 'id_bank');
 
-        $payments = Payments::select('payments.*', 'name_bank')
+        $payments = Payments::select('payments.*', 'name_bank', 'id_moves_account')
         ->join('banks', 'banks.id_bank', '=', 'payments.id_bank')
+        ->join('moves_accounts', 'payments.created_at', '=', 'moves_accounts.created_at')
         ->whereIdInvoice($id)
         ->get();
 
-        //return $payments;
 
         for($i = 0; $i<count($obj['id_product']); $i++){
             $dataProducts[$i] =  \DB::select("SELECT products.*, p.name_presentation_product, u.name_unit_product, u.short_unit_product

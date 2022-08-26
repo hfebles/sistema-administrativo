@@ -203,6 +203,7 @@ class SalesOrderController extends Controller
 
             for($i = 0; $i<count($dataSalesOrder['id_product']); $i++){
                 $restar =  Product::select('qty_product')->whereIdProduct($dataSalesOrder['id_product'][$i])->get();
+                //return $dataSalesOrder['cantidad'][$i];
                 $operacion = $restar[0]->qty_product - $dataSalesOrder['cantidad'][$i];
                 
                 Product::whereIdProduct($dataSalesOrder['id_product'][$i])->update(['qty_product'=>$operacion]);

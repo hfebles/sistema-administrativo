@@ -180,9 +180,9 @@
                             
                         </tr>
                     
-                        @foreach ($payments as $pago)
+                        @foreach ($payments as $k => $pago)
                         <tr>
-                            <td  colspan="4" class="text-end fst-italic text-muted">{{$pago->name_bank}} - {{date('d-m-Y', strtotime($pago->date_payment))}} - Bs. {{number_format($pago->amount_payment, '2', ',', '.')}}</td>
+                            <td  colspan="4" class="text-end fst-italic text-muted"><a href="{{ route('moves.moves-show', $pago->id_moves_account)}}">{{$pago->name_bank}} - {{date('d-m-Y', strtotime($pago->date_payment))}} - Bs. {{number_format($pago->amount_payment, '2', ',', '.')}}</a></td>
                         </tr>
                         @endforeach
         </tfoot>

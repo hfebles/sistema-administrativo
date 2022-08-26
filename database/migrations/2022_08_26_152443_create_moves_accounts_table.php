@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sub_groups', function (Blueprint $table) {
-            $table->id('id_sub_group');
-            $table->integer('id_group');
-            $table->string('code_sub_group');
-            $table->string('name_sub_group');
-            $table->integer('id_type_ledger_account')->nullable();
-            $table->boolean('enabled_sub_group')->default(1);
-            
+        Schema::create('moves_accounts', function (Blueprint $table) {
+            $table->id('id_moves_account');
+            $table->integer('ref_moves_account');
+            $table->boolean('type_moves_account')->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_groups');
+        Schema::dropIfExists('moves_accounts');
     }
 };

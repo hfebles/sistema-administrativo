@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('id_sub_group');
             $table->string('code_ledger_account');
             $table->string('name_ledger_account');
+            $table->integer('id_type_ledger_account')->nullable();
             $table->boolean('enabled_ledger_account')->default(1);
             $table->timestamps();
         });

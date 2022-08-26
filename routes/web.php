@@ -23,6 +23,7 @@ use App\Http\Controllers\Accounting\SubLedgerAccountController;
 use App\Http\Controllers\Accounting\SubGroupController;
 use App\Http\Controllers\Accounting\GroupController;
 use App\Http\Controllers\Accounting\AccountingEntriesController;
+use App\Http\Controllers\Accounting\MovesAccountsController;
 use App\Http\Controllers\Accounting\RecordAccoutingController;
 
 use App\Http\Controllers\Warehouse\WarehouseController;
@@ -120,6 +121,11 @@ Route::group(['middleware' => ['auth']], function() {
     // ASIENTOS CONTABLES
     Route::resource('/accounting/accounting-entries', AccountingEntriesController::class);
     Route::resource('/accounting/accounting-records', RecordAccoutingController::class);
+
+    // MOVIMIENTOS 
+
+    Route::resource('/accounting/moves/', MovesAccountsController::class);
+    Route::get('/accounting/moves/moves-show/{id}', [MovesAccountsController::class, 'verMovimientos'])->name('moves.moves-show');
 
     /**
      * 
