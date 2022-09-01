@@ -39,13 +39,22 @@ class AccountingEntriesController extends Controller
 
             //return $id_move;
 
+            //CXC
+            AccountingEntries::create([
+                'id_moves_account' => $id_move,
+                'id_ledger_account' => $dataLedgersAccount->id_sub_ledger_account,
+                'description_accounting_entries' => $dataLedgersAccount->name_sub_ledger_account.'/'.$invoice[0]->ref_name_invoicing,
+                'date_accounting_entries' => date('Y-m-d'),
+                'amount_debe_accounting_entries' => floatval($invoice[0]->total_amount_invoicing),
+            ]);
+
             //VENTA
             AccountingEntries::create([
                 'id_moves_account' => $id_move,
-                'id_ledger_account' => $dataConfig->id_sub_ledger_account,
+                'id_ledger_account' => $dataTaxes->id_sub_ledger_account,
                 'description_accounting_entries' => $invoice[0]->ref_name_invoicing,
                 'date_accounting_entries' => date('Y-m-d'),
-                'amount_haber_accounting_entries' => floatval($invoice[0]->total_amount_invoicing),
+                'amount_haber_accounting_entries' => floatval($invoice[0]->total_amount_invoicing)-floatval($invoice[0]->total_amount_tax_invoicing),
             ]);
 
             //IVA
@@ -57,14 +66,7 @@ class AccountingEntriesController extends Controller
                 'amount_haber_accounting_entries' => floatval($invoice[0]->total_amount_tax_invoicing),
             ]);
 
-            //CXC
-            AccountingEntries::create([
-                'id_moves_account' => $id_move,
-                'id_ledger_account' => $dataLedgersAccount->id_sub_ledger_account,
-                'description_accounting_entries' => $dataLedgersAccount->name_sub_ledger_account.'/'.$invoice[0]->ref_name_invoicing,
-                'date_accounting_entries' => date('Y-m-d'),
-                'amount_debe_accounting_entries' => floatval($invoice[0]->total_amount_invoicing)-floatval($invoice[0]->total_amount_tax_invoicing),
-            ]);
+            
 
             
             
@@ -73,6 +75,15 @@ class AccountingEntriesController extends Controller
             $dataBank = Bank::select('id_sub_ledger_account', 'name_bank')->get()[0];
             $invoice = Invoicing::select('ref_name_invoicing')->whereIdInvoicing($id_invoice)->get();
             $payments = Payments::select('amount_payment')->whereIdInvoice($id_invoice)->orderBy('id_payment', 'DESC')->get()[0];
+
+            //BANCO
+            AccountingEntries::create([
+                'id_moves_account' => $id_move,
+                'id_ledger_account' => $dataBank->id_sub_ledger_account,
+                'description_accounting_entries' => $dataBank->name_bank.'/'.$invoice[0]->ref_name_invoicing,
+                'date_accounting_entries' => date('Y-m-d'),
+                'amount_debe_accounting_entries' => floatval($payments->amount_payment),
+            ]);
 
             //CXC
             AccountingEntries::create([
@@ -83,14 +94,7 @@ class AccountingEntriesController extends Controller
                 'amount_haber_accounting_entries' => floatval($payments->amount_payment),
             ]);
 
-            //BANCO
-            AccountingEntries::create([
-                'id_moves_account' => $id_move,
-                'id_ledger_account' => $dataBank->id_sub_ledger_account,
-                'description_accounting_entries' => $dataBank->name_bank.'/'.$invoice[0]->ref_name_invoicing,
-                'date_accounting_entries' => date('Y-m-d'),
-                'amount_debe_accounting_entries' => floatval($payments->amount_payment),
-            ]);
+            
         }
         
         return true;

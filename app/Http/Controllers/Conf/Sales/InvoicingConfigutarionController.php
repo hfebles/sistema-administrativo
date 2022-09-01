@@ -44,10 +44,7 @@ class InvoicingConfigutarionController extends Controller
         $dataSubAcc = SubLedgerAccount::where('enabled_sub_ledger_account', '=', '1')->pluck('name_sub_ledger_account', 'id_sub_ledger_account');
 
 
-
-
-
-        //return $data;
+        
 
         $conf = [
             'title-section' => 'Configuración de los pedidos de venta',

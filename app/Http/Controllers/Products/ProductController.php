@@ -33,7 +33,7 @@ class ProductController extends Controller
         if($request->param == 1){
             $data = Product::select('products.*', 'warehouses.name_warehouse')->whereSalableProduct(1)->whereEnabledProduct(1)->join('warehouses', 'warehouses.id_warehouse', '=', 'products.id_warehouse')->paginate(15);
         }else{
-            $data = Product::select('products.*', 'warehouses.name_warehouse')->whereEnabledProduct(1)->join('warehouses', 'warehouses.id_warehouse', '=', 'products.id_warehouse')->paginate(15);
+            $data = Product::select('products.*', 'warehouses.name_warehouse')->whereEnabledProduct(1)->join('warehouses', 'warehouses.id_warehouse', '=', 'products.id_warehouse', 'left')->paginate(15);
         }
 
        // return Product::select('products.*', 'warehouses.name_warehouse')->where('enabled_product', '=', '1')->join('warehouses', 'warehouses.id_warehouse', '=', 'products.id_warehouse')->paginate(15);
@@ -79,9 +79,11 @@ class ProductController extends Controller
         $conf = [
             'title-section' => 'Cargar un nuevo producto',
             'group' => 'product-product',
-            'back' => 'product.index',
+            'back' => ['url' => $_SERVER['HTTP_REFERER'], ],
             'url' => '/products/product'
         ];
+
+        
         
         $getCategories = ProductCategory::whereEnabledProductCategory(1)->pluck('name_product_category', 'id_product_category');
         $getUnits = UnitProduct::select(
@@ -124,6 +126,8 @@ class ProductController extends Controller
         $save->id_presentation_product = $data["id_presentation_product"];
         $save->save();
 
+        
+
         return redirect()->route('product.index')->with('success', 'Se registro el producto: '.$save->name_product.' con exito');
 
         //return $data;
@@ -133,7 +137,7 @@ class ProductController extends Controller
     public function show(Request $request, $id){
 
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
-        ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
+        ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse', 'left')
         ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
         ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
         ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
@@ -178,7 +182,8 @@ class ProductController extends Controller
             'group' => 'product-product',
             'back' => 'product.salable',
             'edit' => ['route' => 'product.edit', 'id' => $id,],
-            'url' => '/products/product/salable'
+            'url' => '/products/product/salable',
+            'delete' => ['name' => 'Eliminar producto']
         ];
 
 
@@ -199,8 +204,9 @@ class ProductController extends Controller
         $conf = [
             'title-section' => 'Producto: '.$data->code_product.' - '.$data->name_product,
             'group' => 'product-product',
-            'back' => 'product.salable',
-            'url' => '/products/product/salable'
+            'back' => ['route' => "./", 'show' => true],
+            'url' => '/products/product/salable',
+            
         ];
 
         $getCategories = ProductCategory::whereEnabledProductCategory(1)->pluck('name_product_category', 'id_product_category');
@@ -279,7 +285,16 @@ class ProductController extends Controller
         
 
 
-        return redirect()->route('product.show', $id);
+        return redirect()->route('product.show', $id)->with('success', 'Producto editado con exito');
+    }
+
+    function destroy($id){
+        Product::whereIdProduct($id)->update([
+            'enabled_product' => 0,
+        ]);  
+
+        return redirect()->route('product.index')->with('success', 'Producto eliminado con exito');
+
     }
 
     /*========================================*/

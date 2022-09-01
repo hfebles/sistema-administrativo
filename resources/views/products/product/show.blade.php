@@ -3,7 +3,7 @@
 @section('title-section', $conf['title-section'])
 
 @section('btn')
-<x-btns :back="$conf['back']" :edit="$conf['edit']" :group="$conf['group']" />
+<x-btns :back="$conf['back']" :edit="$conf['edit']" :group="$conf['group']" :delete="$conf['delete']" />
 @endsection
 
 @section('content')
@@ -100,7 +100,7 @@
                 </tr>
                 <tr class="align-middle">
                     <td>Inventario:</td>
-                    <td>{{$data->code_warehouse}} - {{$data->name_warehouse}}</td>
+                    <td>{{$data->code_warehouse ?? 'N/A' }} - {{$data->name_warehouse ?? 'N/A'}} </td>
                     <td>Cateoría del producto:</td>
                     <td>{{$data->name_product_category}}</td>
                 </tr>
@@ -120,5 +120,39 @@
 <div class="row mt-3">
     <x-cards :table="$table" />
 </div>
+
+
+
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Seguro que desea eliminar?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>A seleccionado eliminar el producto: </p>
+                    <p>{{$data->name_product}}</p>
+                    <p>Una vez eliminado no podra ser recuperado de nuevo</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    {!! Form::open(['method' => 'DELETE','route' => ['product.destroy', $data->id_product],'style'=>'display:inline']) !!}
+                        <button class="btn btn-danger btn-icon-split" type="submit">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                            <span class="text">Eliminar producto</span>
+                        </button>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

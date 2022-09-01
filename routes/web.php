@@ -25,7 +25,9 @@ use App\Http\Controllers\Accounting\GroupController;
 use App\Http\Controllers\Accounting\AccountingEntriesController;
 use App\Http\Controllers\Accounting\MovesAccountsController;
 use App\Http\Controllers\Accounting\RecordAccoutingController;
-
+use App\Http\Controllers\Accounting\SubLedgerAccounts2Controller;
+use App\Http\Controllers\Accounting\SubLedgerAccounts3Controller;
+use App\Http\Controllers\Accounting\SubLedgerAccounts4Controller;
 use App\Http\Controllers\Warehouse\WarehouseController;
 
 use App\Http\Controllers\Products\ProductController;
@@ -116,6 +118,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('/accounting/sub-ledger-account', SubLedgerAccountController::class);
     Route::resource('/accounting/sub-group-accounting', SubGroupController::class);
     Route::resource('/accounting/group-accounting', GroupController::class);
+
+    Route::resource('/accounting/sub-ledger-account2', SubLedgerAccounts2Controller::class);
+    Route::resource('/accounting/sub-ledger-account3', SubLedgerAccounts3Controller::class);
+    Route::resource('/accounting/sub-ledger-account4', SubLedgerAccounts4Controller::class);
 
 
     // ASIENTOS CONTABLES

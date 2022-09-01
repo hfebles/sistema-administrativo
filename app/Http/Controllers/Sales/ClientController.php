@@ -104,7 +104,8 @@ class ClientController extends Controller
             'group' => 'sales-clients',
             'back' => 'clients.index',
             'edit' => ['route' => 'clients.edit', 'id' => $getClient->id_client],
-            'url' => '/sales/clients'
+            'url' => '/sales/clients',
+            'delete' => ['name' => 'Eliminar cliente']
         ];
 
         return view('sales.clients.show', compact('conf', 'getClient', 'getState'));
@@ -120,8 +121,9 @@ class ClientController extends Controller
         $conf = [
             'title-section' => 'Editar cliente: '.$client->name_client,
             'group' => 'sales-clients',
-            'back' => 'clients.index',
-            'url' => '/sales/clients'
+            'back' => ['route' => "./", 'show' => true],
+            'url' => '/sales/clients',
+            
         ];
 
         return view('sales.clients.edit', compact('conf', 'letra', 'client', 'estados'));
@@ -156,7 +158,14 @@ class ClientController extends Controller
         return redirect()->route('clients.index')->with('success','Usuario editado con exito');
     }
     
-    public function destroy($id){}
+    public function destroy($id){
+
+        $data = Client::whereIdClient($id)->update(
+            ['enabled_client' => 0]
+        );
+
+        return redirect()->route('clients.index')->with('success','Usuario eliminado con exito');
+    }
 
 
 

@@ -75,7 +75,9 @@ class WarehouseController extends Controller
             'group' => 'warehouse-warehouse',
             'back' => 'warehouse.index',
             'edit' => ['route' => 'warehouse.edit', 'id' => $getDataWarehouse->id_warehouse],
-            'url' => '/warehouse/warehouse/create'
+            'create' => '/products/product/create',
+            'url' => '/warehouse/warehouse/create',
+            'delete' => ['name' => 'Eliminar Almacen']
         ];
 
         $table = [
@@ -100,6 +102,7 @@ class WarehouseController extends Controller
             'id' => 'id_product',
             'data' => Product::whereIdWarehouse($id)->whereEnabledProduct(1)->paginate(15),
             'i' => (($request->input('page', 1) - 1) * 5),
+            'group' => 'product-product',
         ];
 
 
@@ -111,6 +114,42 @@ class WarehouseController extends Controller
 
     public function edit($id){
         
+        $warehouse = Warehouse::whereIdWarehouse($id)->get()[0];
+
+
+        $conf = [
+            'title-section' => 'Editar almacen: '.$warehouse->name_warehouse,
+            'group' => 'sales-clients',
+            'back' => ['route' => "./", 'show' => true],
+            'url' => '/sales/clients',
+            
+        ];
+
+
+        return view('warehouse.warehouse.edit', compact('conf', 'warehouse'));
+    }
+
+    public function update(Request $request, $id){
+
+        $data = $request->except('_token', '_method');
+        Warehouse::whereIdWarehouse($id)->update($data);
+        return redirect()->route('warehouse.show', $id)->with('success', 'Almacen editado con exito');
+    }
+
+    public function destroy($id){
+        $verifyProducts = Product::select('id_product')->whereIdWarehouse($id)->get();
+
+        if(count($verifyProducts) > 0){
+            Product::whereIn('id_product', $verifyProducts)->update(['id_warehouse' => 0]);
+            Warehouse::whereIdWarehouse($id)->update(['enabled_warehouse' => 0]);
+        }else{
+            Warehouse::whereIdWarehouse($id)->update(['enabled_warehouse' => 0]);
+
+
+        }
+
+        
+        return redirect()->route('warehouse.index')->with('success', 'Almacen eliminado con exito');
     }
 
 

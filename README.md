@@ -225,4 +225,7 @@ INSERT INTO `clients`( `name_client`, `idcard_client`, `address_client`, `id_sta
 ('INVERSIONES LUNA SOL', 'J405047968', 'CALLE INDEPENDENCIA NRO 104-23-10', 4);
 
 INSERT INTO `sale_order_configurations` (`id_sale_order_configuration`, `print_name_sale_order_configuration`, `correlative_sale_order_configuration`, `control_number_sale_order_configuration`, `id_sub_ledger_account`, `enabled_sale_order_configuration`, `created_at`, `updated_at`) VALUES (NULL, 'pb', 'PV', '1', NULL, '1', NULL, NULL);
+
+INSERT INTO `type_ledger_accounts` (`id_type_ledger_account`, `name_type_ledger_account`, `enabled_type_ledger_account`, `created_at`, `updated_at`) VALUES (NULL, 'ACTIVO', '1', NULL, NULL), (NULL, 'PASIVO', '1', NULL, NULL);
+
 ```

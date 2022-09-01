@@ -7,7 +7,7 @@
 <div class="row">
 
 @if (count($dataExchange)>0)
-    @if ($dataExchange[0]->date_exchange != date('Y-m-d'))
+    @if ($dataExchange[0]->date_exchange <= date('Y-m-d'))
         @if(Gate::check('adm-create') || Gate::check('exchange-create'))
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
