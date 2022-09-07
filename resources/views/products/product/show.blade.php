@@ -13,19 +13,19 @@
         <div class="table-responsive-lg">
             <table class="table table-bordered table-hover table-sm mb-0">
                 <tr class="align-middle">
-                    <td width="15%">Código:</td>
+                    <th scope="col" width="15%">Código:</th>
                     <td width="25%">{{$data->code_product}}</td>
-                    <td width="20%">Nombre del producto:</td>
+                    <th scope="col" width="20%">Nombre del producto:</th>
                     <td width="40%">{{$data->name_product}}</td>
                 </tr>
                 <tr class="align-middle">
-                    <td>Numero de parte:</td>
+                    <th scope="col">Numero de parte:</th>
                     <td>{{$data->part_number_product ?? ''}}</td>
-                    <td>Descripción del producto:</td>
+                    <th scope="col">Descripción del producto:</th>
                     <td>{{$data->description_product}}</td>
                 </tr>
                 <tr class="align-middle">
-                    <td>Precio del producto:</td>
+                    <th scope="col">Precio del producto:</th>
                     <td>
                         @switch($data->product_usd_product)
                             @case(1)
@@ -36,7 +36,7 @@
                                 {{number_format($data->price_product, '2', ',', '.')}} Bs
                         @endswitch
                     </td>
-                    <td>Disponible:</td>
+                    <th scope="col">Disponible:</th>
                     <td>{{number_format($data->qty_product, '2', ',', '.')}} {{$data->short_unit_product}}</td>
                 </tr>
                 <tr class="align-middle">
@@ -99,16 +99,16 @@
                     </td>
                 </tr>
                 <tr class="align-middle">
-                    <td>Inventario:</td>
-                    <td>{{$data->code_warehouse ?? 'N/A' }} - {{$data->name_warehouse ?? 'N/A'}} </td>
-                    <td>Cateoría del producto:</td>
-                    <td>{{$data->name_product_category}}</td>
+                    <th scope="col">Inventario:</th>
+                    <td>{{$data->code_warehouse ?? 'N/A' }} - {{$data->name_warehouse ?? 'N/A' }} </td>
+                    <th scope="col">Cateoría del producto:</th>
+                    <td>{{$data->name_product_category ?? 'N/A'}}</td>
                 </tr>
                 <tr class="align-middle">
-                    <td>Unidad de medida:</td>
-                    <td>{{$data->short_unit_product}} - {{$data->name_unit_product}}</td>
-                    <td>Presentacion del productoo:</td>
-                    <td>{{$data->name_presentation_product}}</td>
+                    <th scope="col">Unidad de medida:</th>
+                    <td>{{$data->short_unit_product ?? 'N/A' }} - {{$data->name_unit_product ?? 'N/A' }}</td>
+                    <th scope="col">Presentacion del productoo:</th>
+                    <td>{{$data->name_presentation_product ?? 'N/A' }}</td>
                 </tr>
             </table>
         </div>

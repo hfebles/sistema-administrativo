@@ -195,7 +195,7 @@ class ProductController extends Controller
     public function edit($id){
 
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
-        ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse')
+        ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse', 'left')
         ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
         ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
         ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
@@ -232,7 +232,8 @@ class ProductController extends Controller
         
         $data = $request->except('_token', '_method');
         $dataSave = Product::select('price_product', 'qty_product')->whereIdProduct($id)->get()[0];
-       //return $data;
+        
+        //return $dataSave;
         
 
 
@@ -269,17 +270,25 @@ class ProductController extends Controller
         Product::whereIdProduct($id)->update($data);  
         
         
-        $save = new ProductHistory();
-        $save->id_product = $id;
-        $save->date_product_history = date('Y-m-d');
-        $save->price_product_history = $dataSave->price_product;
-        $save->qty_product_history = $dataSave->qty_product;
+        
        
+        //return $data['qty_product'];
 
-       
+        
 
-            Product::whereIdProduct($save->id_product)->update($data);  
+        if($data['qty_product'] != $dataSave->qty_product|| $data['price_product'] != $dataSave->price_product){
+            
+            $save = new ProductHistory();
+            $save->id_product = $id;
+            $save->date_product_history = date('Y-m-d');
+            $save->price_product_history = $dataSave->price_product;
+            $save->qty_product_history = $dataSave->qty_product;
             $save->save();
+        }
+        
+
+        Product::whereIdProduct($id)->update($data);  
+        
 
 
         

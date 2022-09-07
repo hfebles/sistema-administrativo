@@ -11,7 +11,7 @@
 {!! Form::model($getData, ['method' => 'PATCH','route' => ['unit.update', $getData->id_unit_product]]) !!}
 <div class="row g-3">
     <x-cards size="12">
-
+    <div class="row g-3">
     <div class="col-md-12">
         <label class="form-label">Nombre de la unidad</label>
         {!! Form::text('name_unit_product', null, array( 'autocomplete' => 'off','required', 'placeholder' => 'Ingrese el nombre de la unidad','class' => 'form-control form-control-sm')) !!}
@@ -28,16 +28,10 @@
         </div>
 
     </div>
-    
+    </div>
     </x-cards>
-    <x-cards size="12">
-        <div class="text-center">
-        <button type="submit" id="btnGuardar" class="btn btn-success">Guardar</button>
-        <input class="btn btn-danger" type="reset" value="Deshacer">
-        </div>
-    </x-cards> 
 </div>
-
+<x-btns-save/>
 {!! Form::close() !!}
 
 @endsection

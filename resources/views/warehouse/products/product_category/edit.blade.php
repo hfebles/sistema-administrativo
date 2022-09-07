@@ -22,11 +22,12 @@
     </div>
     
     </x-cards>
-    <x-cards size="12">
-        <button type="submit" id="btnGuardar" class="btn btn-success">Guardar</button>
-        <input class="btn btn-danger" type="reset" value="Deshacer">
-    </x-cards> 
+
+      
+
 </div>
+
+<x-btns-save/>
 
 {!! Form::close() !!}
 

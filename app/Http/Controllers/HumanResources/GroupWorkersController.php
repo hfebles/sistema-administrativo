@@ -39,8 +39,8 @@ class GroupWorkersController extends Controller
             'tds' => ['name_group_worker',],
             'switch' => false,
             'edit' => false, 
-            'show' => true,
-            'edit_modal' => false, 
+            'show' => false,
+            'edit_modal' => true, 
             'url' => "/hhrr/group-workers",
             'id' => 'id_group_worker',
             'data' => GroupWorkers::whereEnabledGroupWorker(1)->paginate(10),
@@ -64,5 +64,22 @@ class GroupWorkersController extends Controller
         
         return redirect()->route('group-workers.index')->with('success', 'Se registro el grupo: '.$save->name_group_worker.' con exito');
 
+    }
+
+    public function editModal(Request $request){
+        
+        $response =[
+            'data' => GroupWorkers::whereIdGroupWorker($request->id)->get()[0],
+        ];
+        return $response;
+    }
+
+    public function update(Request $request, $id){
+
+        $data = $request->except('_method', '_token');
+
+        GroupWorkers::whereIdGroupWorker($id)->update($data);
+
+        return back()->with('success', 'Grupo editado con exito: '.$data['name_group_worker']);
     }
 }

@@ -246,6 +246,7 @@ Route::group(['middleware' => ['auth']], function() {
     
     // GRUPOS DE TRABAJO
     Route::resource('/hhrr/group-workers', GroupWorkersController::class);
+    Route::post('/hhrr/edit-group', [GroupWorkersController::class, 'editModal'])->name('workers.edit-group');
 
     
     

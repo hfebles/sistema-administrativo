@@ -17,6 +17,7 @@ use App\Models\HumanResources\Workers;
 use App\Models\Conf\Exchange;
 
 use App\Models\Conf\Sales\SaleOrderConfiguration;
+use App\Models\Conf\Tax;
 
 class SalesOrderController extends Controller
 {
@@ -112,15 +113,7 @@ class SalesOrderController extends Controller
             $config = $dataConfiguration->control_number_sale_order_configuration;
         }    
 
-        
-        
-
-        
-        
-
         $datax = SalesOrder::whereEnabledSalesOrder(1)->orderBy('id_sales_order', 'DESC')->get();
-
-        
 
         if(count($datax) > 0){
             
@@ -133,20 +126,14 @@ class SalesOrderController extends Controller
             // return $config;
         }
 
-        
-
-        
-
-       //return $config;
+        $taxes = Tax::where('billable_tax', '=', 1)->get();
 
         $dataWorkers = \DB::select("SELECT workers.id_worker, workers.firts_name_worker, workers.last_name_worker, group_workers.name_group_worker
                                     FROM workers
                                     INNER JOIN group_workers ON group_workers.id_group_worker = workers.id_group_worker
                                     WHERE name_group_worker = 'VENDEDOR'");
 
-
-
-        return view('sales.sales-order.create', compact('conf', 'dataWorkers', 'dataExchange', 'dataConfiguration', 'config'));
+        return view('sales.sales-order.create', compact('conf', 'dataWorkers', 'dataExchange', 'dataConfiguration', 'config', 'taxes'));
     }
 
 
@@ -305,7 +292,8 @@ class SalesOrderController extends Controller
                 $dataProductos =  \DB::select("SELECT products.*, p.name_presentation_product, u.name_unit_product, u.short_unit_product
                                                 FROM products 
                                                 INNER JOIN presentation_products AS p ON p.id_presentation_product = products.id_presentation_product
-                                                INNER JOIN unit_products AS u ON u.id_unit_product  = products.id_unit_product
+                                                INNER JOIN unit_products AS u ON u.id_unit_product = products.id_unit_product
+                                                INNER JOIN warehouses AS w ON w.id_warehouse = products.id_warehouse
                                                 WHERE qty_product > 0 
                                                 AND salable_product = 1
                                                 AND name_product LIKE '%".$request->param."%' 
@@ -329,6 +317,7 @@ class SalesOrderController extends Controller
                                                 FROM products 
                                                 INNER JOIN presentation_products AS p ON p.id_presentation_product = products.id_presentation_product
                                                 INNER JOIN unit_products AS u ON u.id_unit_product = products.id_unit_product
+                                                INNER JOIN warehouses AS w ON w.id_warehouse = products.id_warehouse
                                                 WHERE qty_product > 0 
                                                 AND salable_product = 1
                                                 ORDER BY products.name_product ASC");

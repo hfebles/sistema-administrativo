@@ -40,7 +40,7 @@ class ProductCategoryController extends Controller
             'switch' => false,
             'edit' => true, 
             'show' => false,
-            'edit_modal' => true,
+            'edit_modal' => false,
             'url' => "/mantenice/product/category",
             'id' => 'id_product_category',
             'data' => ProductCategory::where('enabled_product_category', '=', '1')->paginate(10),

@@ -63,7 +63,7 @@ function editModal(id){
     }).then( data => {
         console.log(data)
         
-        linea2 += `<form method="POST" action="http://127.0.0.1:8000/mantenice/banks/${id}" accept-charset="UTF-8" novalidate="" class="needs-validation" id="myForm">`
+        linea2 += `<form method="POST" action="/mantenice/banks/${id}" accept-charset="UTF-8" novalidate="" class="needs-validation" id="myForm">`
             linea2 +=`<input name="_method" type="hidden" value="PATCH">`
             linea2 +=`<input name="_token" type="hidden" value="${csrfToken}">`
             linea2 +=`<div class="row g-3">`

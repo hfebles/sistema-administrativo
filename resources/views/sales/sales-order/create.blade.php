@@ -92,25 +92,31 @@
             <th scope="col" class="text-center align-middle" width="10%">CANTIDAD</th>
             <th scope="col" class="text-center align-middle" width="10%">P/U</th>
             <th scope="col" class="text-center align-middle " width="10%">SUB-TOTAL</th>
-            <th scope="col" class="text-center align-middle bg-success" width="10%"><a onclick="addRow()" class="btn btn-success btn-sm mb-0 btn-block"><i class="fas fa-plus-circle fa-lg"></i></a></th> 
+            <th scope="col" class="text-center align-middle bg-success" width="4%"><a onclick="addRow()" class="btn btn-success btn-sm mb-0 btn-block"><i class="fas fa-plus-circle fa-lg"></i></a></th> 
         </tr>   
     </table> 
     <table class="table table-sm table-bordered">
         <tr>
-            <th scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="subFacs"></p><input type="hidden" id="subFac" name="subFac"></th>
+            <th width="85%" scope="col" class="text-end align-middle">BASE IMPONIBLE: </th>
+            <td class="text-end align-middle"><p class='align-middle mb-0' id="subFacs"></p><input type="hidden" id="subFac" name="subFac"></td>
         </tr>
         <tr>
-            <th scope="col" class="text-end align-middle">EXENTO: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p><input type="hidden" id="exento" name="exento"></th>
+            <th width="85%" scope="col" class="text-end align-middle">EXENTO: </th>
+            <td class="text-end align-middle"><p class='align-middle mb-0' id="exentos"></p><input type="hidden" id="exento" name="exento"></td>
         </tr>
         <tr>
-            <th scope="col" class="text-end align-middle">IVA:</th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas"></p><input type="hidden" id="totalIVa" name="total_taxes"></th>
+            <th width="85%" scope="col" class="text-end align-middle">IMPUESTO: 
+                <select id="taxt" class="form-select" onchange="calculate();">
+                @foreach ($taxes as $tax)
+                    <option value="{{$tax->amount_tax}}">{{ $tax->name_tax }} {{$tax->amount_tax}}%</option>
+                @endforeach
+                </select>
+            </th>
+            <td class="text-end align-middle"><p class='align-middle mb-0' id="totalIVaas"></p><input type="hidden" id="totalIVa" name="total_taxes"></td>
         </tr>
         <tr>
-            <th scope="col" class="text-end align-middle">TOTAL: </th>
-            <th scope="col" class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals"></p><input type="hidden" id="totalTotal" name="total_con_tax"></th>
+            <th width="85%" scope="col" class="text-end align-middle">TOTAL: </th>
+            <td class="text-end align-middle"><p class='align-middle mb-0' id="totalTotals"></p><input type="hidden" id="totalTotal" name="total_con_tax"></td>
         </tr>
     </table> 
 
@@ -213,9 +219,10 @@ function addRow(){
 
 
 
-function calculate(x, y, xx=""){
+function calculate(x="", y="", xx=""){
    var id_product = document.getElementById('id_product_'+x).value
    var cc = document.getElementById('cant_'+x)
+   
    if (y > 0){
         const csrfToken = "{{ csrf_token() }}";
         fetch('/sales/availability', {
@@ -235,7 +242,7 @@ function calculate(x, y, xx=""){
                 let subtotal = (precio_unitario*cantidad).toFixed(2)
 
                 
-                document.getElementById('subtotals_'+x).innerHTML = subtotal
+                document.getElementById('subtotals_'+x).innerHTML = 'Bs. '+subtotal
                 document.getElementById('subtotal_'+x).value = subtotal
 
                 var suma = 0
@@ -254,12 +261,14 @@ function calculate(x, y, xx=""){
                     sumaNo += parseFloat(valor)
                 }
                // sumado = Math.round(sumaNo * 100) / 100
+
+               var taxt = document.getElementById('taxt').value
                 
-                IvaCalculado = (16/100)*sumaNo
-                document.getElementById('subFacs').innerHTML = sumaNo.toFixed(2)
-                document.getElementById('exentos').innerHTML = suma.toFixed(2)
-                document.getElementById('totalIVaas').innerHTML =  IvaCalculado.toFixed(2); 
-                document.getElementById('totalTotals').innerHTML = ((sumaNo+IvaCalculado)+suma).toFixed(2); 
+                IvaCalculado = (taxt/100)*sumaNo
+                document.getElementById('subFacs').innerHTML = 'Bs. '+sumaNo.toFixed(2)
+                document.getElementById('exentos').innerHTML = 'Bs. '+suma.toFixed(2)
+                document.getElementById('totalIVaas').innerHTML =  'Bs. '+IvaCalculado.toFixed(2); 
+                document.getElementById('totalTotals').innerHTML = 'Bs. '+((sumaNo+IvaCalculado)+suma).toFixed(2); 
                 document.getElementById('subFac').value = sumaNo.toFixed(2)
                 document.getElementById('exento').value = suma.toFixed(2)
                 document.getElementById('totalIVa').value = IvaCalculado.toFixed(2); 
@@ -341,11 +350,11 @@ function seleccionarProducto(x, y, tasa){
         document.getElementById("td_"+y).appendChild(input);
         document.getElementById('name_product'+y).innerHTML = x.code_product+" "+x.name_product+" "+x.short_unit_product+" "+x.name_presentation_product+" (E)"
         if(x.product_usd_product == 0){
-            document.getElementById('precio_productos_'+y).innerHTML = x.price_product+' Bs'
+            document.getElementById('precio_productos_'+y).innerHTML = 'Bs. '+x.price_product
             document.getElementById('price_product_'+y).value = x.price_product
             
         }else{
-            document.getElementById('precio_productos_'+y).innerHTML = (x.price_product*exchangeRate).toFixed(2)+' Bs'
+            document.getElementById('precio_productos_'+y).innerHTML = 'Bs. '+(x.price_product*exchangeRate).toFixed(2)
             document.getElementById('price_product_'+y).value = (x.price_product*exchangeRate).toFixed(2)
         }
     }else{
@@ -355,11 +364,11 @@ function seleccionarProducto(x, y, tasa){
         document.getElementById("tds_"+y).appendChild(input2);
         document.getElementById('name_product'+y).innerHTML = x.code_product+" "+x.name_product+" "+x.short_unit_product+" "+x.name_presentation_product
         if(x.product_usd_product == 0){
-            document.getElementById('precio_productos_'+y).innerHTML = x.price_product+' Bs'
+            document.getElementById('precio_productos_'+y).innerHTML = 'Bs. '+x.price_product
             document.getElementById('price_product_'+y).value = x.price_product
             input3.setAttribute("value", x.price_product);
         }else{
-            document.getElementById('precio_productos_'+y).innerHTML = (x.price_product*exchangeRate).toFixed(2)+' Bs'
+            document.getElementById('precio_productos_'+y).innerHTML = 'Bs. '+(x.price_product*exchangeRate).toFixed(2)
             document.getElementById('price_product_'+y).value = (x.price_product*exchangeRate).toFixed(2)
             input3.setAttribute("value", (x.price_product*exchangeRate).toFixed(2));
             
@@ -444,13 +453,13 @@ function seleccionar(x, y=""){
                 
                 linea2 += '<td class="text-center">'+c.name_unit_product+'</td>'
                 linea2 += '<td class="text-center">'+c.name_presentation_product+'</td>'
-                linea2 += '<td class="text-center">'+c.qty_product+'</td>'
+                linea2 += '<td class="text-center">'+c.qty_product.toFixed(2)+'</td>'
                 if(c.product_usd_product == 0){
-                    linea2 += '<td class="text-center">'+c.price_product+'</td>'
+                    linea2 += '<td class="text-center">Bs. '+c.price_product.toFixed(2)+'</td>'
                     linea2 += '<td class="text-center">N/A</td>'  
                 }else{
-                    linea2 += '<td class="text-center">'+(c.price_product*exchangeRate).toFixed(2)+'</td>'
-                    linea2 += '<td class="text-center">$ '+c.price_product+'</td>'
+                    linea2 += '<td class="text-center">Bs. '+(c.price_product*exchangeRate).toFixed(2)+'</td>'
+                    linea2 += '<td class="text-center">$ '+c.price_product.toFixed(2)+'</td>'
                 }           
             linea2 += '</tr>' 
             } else{
