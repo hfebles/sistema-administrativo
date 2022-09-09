@@ -21,7 +21,7 @@ class MenuController extends Controller
 
     public function index(Request $request){
         $conf = [
-            'title-section' => 'Gestion de clientes',
+            'title-section' => 'Gestion de menus',
             'group' => 'menu',
             'create' => ['route' =>'menu.create', 'name' => 'Nuevo menú'],
             'url' => '/mantenice/menu',

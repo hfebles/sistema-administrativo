@@ -11,14 +11,27 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+
     <script src="/themes/vendor/jquery/jquery.min.js"></script>
     <script src="/themes/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
         
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/themes/scss/sb-admin-2.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 
+    'resources/themes/scss/sb-admin-2.scss', 
+    'resources/js/app.js', 
+    'resources/fontawesome/scss/fontawesome.scss',
+    'resources/fontawesome/scss/solid.scss',
+    'resources/fontawesome/scss/regular.scss',
+    'resources/fontawesome/scss/brands.scss',
+    
+    
+    ])
+
+
 </head>
 <body>
 <body id="page-top">

@@ -138,9 +138,9 @@ class ProductController extends Controller
 
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
         ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse', 'left')
-        ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
+        ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product', 'left outer')
         ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
-        ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
+        ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product', 'left outer')
         ->whereIdProduct($id)->get()[0];
 
         $tableData = ProductHistory::select('p.code_product', 'p.name_product', 'product_histories.date_product_history', 'product_histories.price_product_history', 'product_histories.qty_product_history')
@@ -196,9 +196,9 @@ class ProductController extends Controller
 
         $data = Product::select('products.*', 'w.name_warehouse', 'w.code_warehouse', 'c.name_product_category', 'u.name_unit_product', 'u.short_unit_product', 'pp.name_presentation_product')
         ->join('warehouses as w', 'w.id_warehouse', '=', 'products.id_warehouse', 'left')
-        ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product')
+        ->join('unit_products as u', 'u.id_unit_product', '=', 'products.id_unit_product', 'left outer')
         ->join('product_categories as c', 'c.id_product_category', '=', 'products.id_product_category', 'left outer')
-        ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product')
+        ->join('presentation_products as pp', 'pp.id_presentation_product', '=', 'products.id_presentation_product', 'left outer')
         ->whereIdProduct($id)->get()[0];
         
         $conf = [

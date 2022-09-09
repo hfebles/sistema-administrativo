@@ -9,6 +9,19 @@ class Menu extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'name',
+        'slug',
+        'grupo',
+        'icono',
+        'parent',
+        'order',
+        'href',
+        'enabled',
+
+    ];
+
     public function getChildren($data, $line)
     {
         $children = [];
@@ -24,7 +37,6 @@ class Menu extends Model
         return $this->where('enabled', 1)
             ->orderby('parent')
             ->orderby('order')
-            ->orderby('name')
             ->get()
             ->toArray();
     }

@@ -12,6 +12,10 @@
 |    | role-create        |
 |    | role-edit        |
 |    | role-delete        |
+| Mantenimientos      | mantenice-list       |
+|    | mantenice-create        |
+|    | mantenice-edit        |
+|    | mantenice-delete        |
 | Usuarios      | user-list       |
 |    | user-create        |
 |    | user-edit        |
@@ -116,6 +120,7 @@
 
             //menu
             'role-list', 'role-create', 'role-edit', 'role-delete',
+            'mantenice-list', 'mantenice-create', 'mantenice-edit', 'mantenice-delete',
             'user-list', 'user-create', 'user-edit', 'user-delete',
             'menu-list', 'menu-create', 'menu-edit', 'menu-delete',
             'exchange-list', 'exchange-create', 'exchange-edit', 'exchange-delete',
