@@ -45,6 +45,8 @@ use App\Http\Controllers\HumanResources\GroupWorkersController;
 use App\Http\Controllers\Conf\BankController;
 use App\Http\Controllers\Conf\Sales\InvoicingConfigutarionController;
 use App\Http\Controllers\Payments\PaymentController;
+use App\Http\Controllers\Production\MaterialsListController;
+use App\Http\Controllers\Production\ProductionOrderController;
 use App\Http\Controllers\Sales\InvoicingController;
 
 Auth::routes();
@@ -252,7 +254,35 @@ Route::group(['middleware' => ['auth']], function() {
     
     /**
     * 
-    * FIN PRODUCTOS
+    * FIN RECURSOS HUMANOS
+    * 
+    */
+
+
+         /**
+     * 
+     * PRODUCCION
+     * 
+     */
+    
+    // ordenes de produccion
+    Route::resource('/production/production-order', ProductionOrderController::class);
+    Route::post('/production/material-list-search', [ProductionOrderController::class, 'traerLista'])->name('production-order.material-list-search');
+    Route::get('/production/aprove/{id}', [ProductionOrderController::class, 'aprove'])->name('production-order.aprove');
+    Route::get('/production/finalice/{id}', [ProductionOrderController::class, 'finalice'])->name('production-order.finalice');
+    
+
+    
+    // lista de materiales
+    Route::resource('/production/material-list', MaterialsListController::class);
+    
+
+
+    
+    
+    /**
+    * 
+    * FIN PRODUCCION
     * 
     */
      

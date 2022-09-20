@@ -124,6 +124,7 @@ class ClientController extends Controller
             'back' => ['route' => "./", 'show' => true],
             'url' => '/sales/clients',
             
+            
         ];
 
         return view('sales.clients.edit', compact('conf', 'letra', 'client', 'estados'));

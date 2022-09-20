@@ -20,13 +20,15 @@
         
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 
-    'resources/themes/scss/sb-admin-2.scss', 
-    'resources/js/app.js', 
-    'resources/fontawesome/scss/fontawesome.scss',
-    'resources/fontawesome/scss/solid.scss',
-    'resources/fontawesome/scss/regular.scss',
-    'resources/fontawesome/scss/brands.scss',
+    @vite([
+        'resources/themes/scss/sb-admin-2.scss', 
+        'resources/sass/app.scss', 
+    
+        'resources/js/app.js', 
+        'resources/fontawesome/scss/fontawesome.scss',
+        'resources/fontawesome/scss/solid.scss',
+        'resources/fontawesome/scss/regular.scss',
+        'resources/fontawesome/scss/brands.scss',
     
     
     ])

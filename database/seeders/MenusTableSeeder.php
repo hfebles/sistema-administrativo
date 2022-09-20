@@ -25,6 +25,8 @@ class MenusTableSeeder extends Seeder
         Menu::create(['id' => 5, 'name' => 'Nomina', 'slug' => '/', 'grupo' => '', 'icono' => '', 'parent' => '0', 'order' => '4', 'href' => '0', 'enabled' => 0]);
         Menu::create(['id' => 6, 'name' => 'RRHH', 'slug' => '/', 'grupo' => 'rrhh', 'icono' => 'fa-sharp fa-solid fa-address-card', 'parent' => '0', 'order' => '5', 'href' => '1', ]);
         Menu::create(['id' => 7, 'name' => 'Configuraciones','slug' => '/','grupo' => 'mantenice','icono' => 'fa-solid fa-screwdriver-wrench','parent' => '0','order' => '9','href' => '0',]);
+        Menu::create(['id' => 8, 'name' => 'Producción','slug' => '/','grupo' => 'production','icono' => 'fa-solid fa-screwdriver-wrench','parent' => '0','order' => '6','href' => '0',]);
+
 
         //VENTAS
         Menu::create(['name' => 'Clientes', 'slug' => 'clients.index', 'grupo' => 'sales-clients', 'icono' => 'fa-solid fa-users', 'parent' => '1', 'order' => '0', 'href' => '0', ]);
@@ -63,6 +65,11 @@ class MenusTableSeeder extends Seeder
         Menu::create(['name' => 'Permisologia','slug' => 'roles.index','grupo' => 'roles','icono' => 'fa-solid fa-users-rectangle','parent' => '7','order' => '5','href' => '0',]);
         Menu::create(['name' => 'Tasa de cambio','slug' => 'exchange.index','grupo' => 'exchange','icono' => 'fa-solid fa-building-columns','parent' => '7','order' => '6','href' => '0',]);
         Menu::create(['name' => 'Usuarios','slug' => 'users.index','grupo' => 'user','icono' => 'fa fa-address-card','parent' => '7','order' => '7','href' => '0',]);
+
+        //PRODUCCION:
+        Menu::create(['name' => 'Ordenes de produccion', 'slug' => 'production-order.index', 'grupo' => 'production-order', 'icono' => 'fa-solid fa-user-tie', 'parent' => '8', 'order' => '0', 'href' => '0', ]);
+        Menu::create(['name' => 'Lista de materiales', 'slug' => 'material-list.index', 'grupo' => 'production-material-list', 'icono' => 'fa-solid fa-clipboard-user', 'parent' => '8', 'order' => '1', 'href' => '0', ]);
+
     }
 
 }

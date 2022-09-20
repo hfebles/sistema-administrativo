@@ -35,7 +35,7 @@ class UserController extends Controller
         $roles = Role::where('name', '<>', 'Super-Admin')->pluck('name','name')->all();
 
 
-        return view('conf.users.create',compact('roles'));
+        return view('conf.users.create', compact('roles'));
     }
 
     public function store(Request $request)

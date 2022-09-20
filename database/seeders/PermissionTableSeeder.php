@@ -17,6 +17,7 @@ class PermissionTableSeeder extends Seeder
         
         $permissions = [ 
             'adm-list', 'adm-create', 'adm-edit', 'adm-delete',
+            'production-order-state-list', 'production-order-state-create', 'production-order-state-edit', 'production-order-state-delete',
 
             'role-list', 'role-create', 'role-edit', 'role-delete',
             'mantenice-list', 'mantenice-create', 'mantenice-edit', 'mantenice-delete',
@@ -30,6 +31,7 @@ class PermissionTableSeeder extends Seeder
             'taxes-list', 'taxes-create', 'taxes-edit', 'taxes-delete',
             'banks-list', 'banks-create', 'banks-edit', 'banks-delete',
             'invoices-list', 'invoices-create', 'invoices-edit', 'invoices-delete',
+            'production-list', 'production-create', 'production-edit', 'production-delete',
 
             'payment-list', 'payment-create', 'payment-edit', 'payment-delete',
 
@@ -51,6 +53,9 @@ class PermissionTableSeeder extends Seeder
 
             'rrhh-worker-list', 'rrhh-worker-create', 'rrhh-worker-edit', 'rrhh-worker-delete',
             'rrhh-group-worker-list', 'rrhh-group-worker-create', 'rrhh-group-worker-edit', 'rrhh-group-worker-delete',
+          
+            'production-material-list-list', 'production-material-list-create', 'production-material-list-edit', 'production-material-list-delete',
+            'production-order-list', 'production-order-create', 'production-order-edit', 'production-order-delete',
         ];
      
         foreach ($permissions as $permission) {
